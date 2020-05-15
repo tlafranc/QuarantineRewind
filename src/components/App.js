@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
+import TopTracksBox from './TopTracksBox.js'
 
 function App() {
   return (
     <div className="App">
-      Hello World
+      Quarantine Rewind
+      <TopTracksBox />
     </div>
   );
 }
