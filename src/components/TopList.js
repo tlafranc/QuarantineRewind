@@ -1,3 +1,4 @@
+// Import libraries
 import React from 'react';
 import _ from 'lodash';
 
@@ -12,16 +13,13 @@ class TopList extends React.Component {
     render() {
         const { list } = this.props;
         const listItems = _(list).map((key, i) => {
-            return <text key={key} x="0" y={`${i * 20}px`}>{key}</text>
+            return <div key={key}>{key}</div>
         }).value();
 
         return (
-            <g style={this.props.style}>
-                <text>Top 5 Artists</text>
-                <g style={{transform: `translate(0px, 20px)`}}>
-                    {listItems}
-                </g>
-            </g>
+            <div>
+                <ul>{listItems}</ul>
+            </div>
         );
     }
 }

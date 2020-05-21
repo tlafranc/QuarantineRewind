@@ -1,7 +1,12 @@
+// Import libraries
 import React from 'react';
-import TimeRangeSelect from './TimeRangeSelect.js';
+
+// Import React Components
 import TopTracksInfo from './TopTracksInfo.js';
+
+// Import CSS and photos
 import './TopTracksBox.css';
+import SpotifyLogo from '../images/SpotifyLogo.png';
 
 class TopTracksBox extends React.Component {
     constructor(props) {
@@ -12,9 +17,12 @@ class TopTracksBox extends React.Component {
     }
 
     render() {
+        const { dim } = this.props;
+        const logoSize = dim * 0.1;
+
         return (
             <div>
-                <TimeRangeSelect />
+                <img src={SpotifyLogo} width={`${logoSize}px`} />
                 <TopTracksInfo className="TopTracksInfo" />
             </div>
         );
