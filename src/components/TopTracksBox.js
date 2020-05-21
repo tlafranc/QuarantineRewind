@@ -15,7 +15,6 @@ class TopTracksBox extends React.Component {
         return (
             <div>
                 <TimeRangeSelect />
-                <h1>Hello, {this.props.name}</h1>
                 <TopTracksInfo className="TopTracksInfo" />
             </div>
         );

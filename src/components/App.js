@@ -5,7 +5,7 @@ import TopTracksBox from './TopTracksBox.js'
 function App() {
   return (
     <div className="App">
-      Quarantine Rewind
+      <h1>Quarantine Rewind</h1>
       <TopTracksBox />
     </div>
   );
