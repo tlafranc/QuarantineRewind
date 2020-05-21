@@ -17,11 +17,11 @@ class TopTracksBox extends React.Component {
     }
 
     render() {
-        const { dim } = this.props;
+        const { dim, id } = this.props;
         const logoSize = dim * 0.1;
 
         return (
-            <div>
+            <div id={id}>
                 <img src={SpotifyLogo} width={`${logoSize}px`} />
                 <TopTracksInfo className="TopTracksInfo" />
             </div>
