@@ -38,6 +38,7 @@ class App extends React.Component {
 			const img = canvas.toDataURL()
 			let imageElement = document.createElement("img");  
 			imageElement.src = img;
+			imageElement.alt = "Your Quarantine Rewind";
 			imageElement.width = canvas.width / 2;
 			imageElement.height = canvas.height / 2;
 			document.body.appendChild(imageElement)

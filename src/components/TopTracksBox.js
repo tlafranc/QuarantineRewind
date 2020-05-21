@@ -22,7 +22,7 @@ class TopTracksBox extends React.Component {
 
         return (
             <div id={id}>
-                <img src={SpotifyLogo} width={`${logoSize}px`} />
+                <img src={SpotifyLogo} alt="Spotify Logo" width={`${logoSize}px`} />
                 <TopTracksInfo className="TopTracksInfo" />
             </div>
         );
