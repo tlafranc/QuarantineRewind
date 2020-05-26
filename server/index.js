@@ -20,6 +20,7 @@ const cookieParser = require('cookie-parser');
 const client_id = process.env.CLIENT_ID; // Your client id
 const client_secret = process.env.CLIENT_SECRET; // Your secret
 const redirect_uri = process.env.REDIRECT_URI; // Your redirect uri
+const client_uri = process.env.CLIENT_URI; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -73,22 +74,22 @@ app.get('/callback', function(req, res) {
     if (state === null || state !== storedState) {
         res.redirect('/#' +
             querystring.stringify({
-            error: 'state_mismatch'
+                error: 'state_mismatch'
             }));
     } else {
         res.clearCookie(stateKey);
         var authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             form: {
-            code: code,
-            redirect_uri: redirect_uri,
-            grant_type: 'authorization_code'
-            },
-            headers: {
-            'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-            },
-            json: true
-        };
+                code: code,
+                redirect_uri: redirect_uri,
+                    grant_type: 'authorization_code'
+                },
+                headers: {
+                    'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
+                },
+                json: true
+            };
 
         request.post(authOptions, function(error, response, body) {
             if (!error && response.statusCode === 200) {
@@ -108,16 +109,16 @@ app.get('/callback', function(req, res) {
             });
 
             // we can also pass the token to the browser to make requests from there
-            res.redirect('/#' +
+            res.redirect(client_uri + '/#' +
                 querystring.stringify({
-                access_token: access_token,
-                refresh_token: refresh_token
+                    access_token: access_token,
+                    refresh_token: refresh_token
                 }));
             } else {
-            res.redirect('/#' +
-                querystring.stringify({
-                error: 'invalid_token'
-                }));
+                res.redirect('/#' +
+                    querystring.stringify({
+                        error: 'invalid_token'
+                    }));
             }
         });
     }
@@ -141,7 +142,7 @@ app.get('/refresh_token', function(req, res) {
         if (!error && response.statusCode === 200) {
             var access_token = body.access_token;
             res.send({
-            'access_token': access_token
+                'access_token': access_token
             });
         }
     });
