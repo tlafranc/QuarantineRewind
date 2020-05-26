@@ -9,17 +9,38 @@ import UserScreen from './UserScreen.js';
 // Import CSS
 import './App.css';
 
+// Function that parses the hash params of a URL
+// Taken from https://github.com/spotify/web-api-auth-examples/blob/master/implicit_grant/public/index.html
+// On 2020-05-26
+function getHashParams() {
+	var hashParams = {};
+	var e, r = /([^&;=]+)=?([^&;]*)/g,
+		q = window.location.hash.substring(1);
+	while ( e = r.exec(q)) {
+	   hashParams[e[1]] = decodeURIComponent(e[2]);
+	}
+	return hashParams;
+}
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
+
+		const hashParams = getHashParams();
+		let accessToken = null;
+		if ('access_token' in hashParams) {
+			accessToken = hashParams.access_token;
+			// const refreshToken = hashParams.refresh_token;
+		}
+
 		this.state = {
 			dim: Math.min(Math.min(window.innerWidth, window.innerHeight) * 0.8, 1000),
-			loggedIn: false
+			accessToken
 		};
 	}
 
 	componentDidMount() {
-        window.addEventListener('resize', this.updateDimensions);
+		window.addEventListener('resize', this.updateDimensions);
     }
 
     componentWillUnmount() {
@@ -33,13 +54,13 @@ class App extends React.Component {
 	}, 100)
 
 	render() {
-		const { dim, loggedIn } = this.state;
+		const { dim, accessToken } = this.state;
 
 		return (
 			<div>
 				<h1 className="header">Quarantine Rewind</h1>
-				{loggedIn 
-					? <UserScreen dim={dim}/>
+				{accessToken 
+					? <UserScreen dim={dim} accessToken={accessToken} />
 					: <LoginScreen />
 				}
 			</div>
