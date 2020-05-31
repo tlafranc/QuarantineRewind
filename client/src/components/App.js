@@ -7,7 +7,10 @@ import LoginScreen from './LoginScreen.js';
 import UserScreen from './UserScreen.js';
 
 // Import CSS
-import './App.css';
+import './App.scss';
+
+// Material UI
+import FastRewindOutlinedIcon from '@material-ui/icons/FastRewindOutlined';
 
 // Function that parses the hash params of a URL
 // Taken from https://github.com/spotify/web-api-auth-examples/blob/master/implicit_grant/public/index.html
@@ -34,7 +37,7 @@ class App extends React.Component {
 		}
 
 		this.state = {
-			dim: Math.min(Math.min(window.innerWidth, window.innerHeight) * 0.8, 1000),
+			dim: Math.min(window.innerWidth, 600),
 			accessToken
 		};
 	}
@@ -49,7 +52,7 @@ class App extends React.Component {
 
     updateDimensions = _.throttle(() => {
         this.setState({
-            dim: Math.min(window.innerWidth * 0.8, 1000)
+            dim: Math.min(window.innerWidth, 600)
         });
 	}, 100)
 
@@ -57,8 +60,12 @@ class App extends React.Component {
 		const { dim, accessToken } = this.state;
 
 		return (
-			<div>
-				<h1 className="header">Quarantine Rewind</h1>
+			<div className="App" style={{ width: `${dim}px` }}>
+				<div className="HeaderBar">
+					<FastRewindOutlinedIcon />
+					<h1 className="Title">Quarantine Rewind</h1>
+					<FastRewindOutlinedIcon />
+				</div>
 				{accessToken 
 					? <UserScreen dim={dim} accessToken={accessToken} />
 					: <LoginScreen />

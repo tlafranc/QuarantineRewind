@@ -9,10 +9,13 @@ import TopTracksBox from './TopTracksBox.js'
 // Material UI
 import Button from '@material-ui/core/Button';
 import ShareIcon from '@material-ui/icons/Share';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+// import Select from '@material-ui/core/Select';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import FormControl from '@material-ui/core/FormControl';
+
+// Import CSS
+import './UserScreen.scss';
 
 const userScreenId = "ShareBox";
 
@@ -83,8 +86,8 @@ class UserScreen extends React.Component {
         const { timeRange, topArtists, topSongs } = this.state;
 
         return (
-            <div>
-                <FormControl>
+            <div className="UserScreen">
+                {/* <FormControl>
                     <InputLabel>Time Range</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -96,7 +99,7 @@ class UserScreen extends React.Component {
                         <MenuItem value={"medium_term"}>6 Months</MenuItem>
                         <MenuItem value={"long_term"}>Lifetime</MenuItem>
                     </Select>
-                </FormControl>
+                </FormControl> */}
 
                 {topArtists 
 					? <TopTracksBox id={userScreenId} dim={dim} topArtists={topArtists} topSongs={topSongs} />
