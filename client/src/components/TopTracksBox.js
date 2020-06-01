@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 // Import React Components
 import TopList from './TopList.js';
+import TopArtists from './TopArtists.js';
 
 // Import CSS and photos
 import './TopTracksBox.scss';
@@ -19,11 +20,8 @@ class TopTracksBox extends React.Component {
 
     render() {
         let { dim, id, topArtists, topSongs } = this.props;
-        const logoSize = 20;
+        const logoSize = 28;
 
-        topArtists = _.map(topArtists, (artist) => {
-            return artist.name;
-        });
         topSongs = _.map(topSongs, (song) => {
             return song.name;
         });
@@ -32,12 +30,12 @@ class TopTracksBox extends React.Component {
             <div id={id}>
                 <div className="ShareBoxHeader">
                     <img className="SpotifyLogo" src={SpotifyLogo} alt="Spotify Logo" width={`${logoSize}px`} />
-                    <h3>My Quarantine Rewind</h3>
+                    <h2>My Quarantine Rewind</h2>
                 </div>
                 <div className="TopTracksInfo">
                     <div>Top Artists</div>
-                    <TopList 
-                        list={topArtists}
+                    <TopArtists 
+                        artists={topArtists}
                     />
                     <div>Top Songs</div>
                     <TopList
