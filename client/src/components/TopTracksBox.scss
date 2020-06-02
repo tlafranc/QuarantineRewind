@@ -1,6 +1,6 @@
 #ShareBox {
     margin: 0 10%;
-    text-align: left;
+    border: 1px solid;
 
     .ShareBoxHeader {
         text-align: center;
@@ -11,5 +11,9 @@
         .SpotifyLogo {
             vertical-align: sub;
         }
+    }
+
+    h3 {
+        margin-top: 0;
     }
 }

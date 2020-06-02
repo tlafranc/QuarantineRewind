@@ -23,7 +23,7 @@ class UserScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeRange: 'short_term',
+            timeRange: 'medium_term',
             topArtists: null,
             topSongs: null
         };
@@ -102,7 +102,7 @@ class UserScreen extends React.Component {
                 </FormControl> */}
 
                 {topArtists 
-					? <TopTracksBox id={userScreenId} dim={dim} topArtists={topArtists} topSongs={topSongs} />
+					? <TopTracksBox id={userScreenId} dim={dim * 0.8} topArtists={topArtists} topSongs={topSongs} />
 					: null
 				}
 

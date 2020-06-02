@@ -1,10 +1,9 @@
 // Import libraries
 import React from 'react';
-import _ from 'lodash';
 
 // Import React Components
-import TopList from './TopList.js';
 import TopArtists from './TopArtists.js';
+import TopSongs from './TopSongs.js';
 
 // Import CSS and photos
 import './TopTracksBox.scss';
@@ -19,12 +18,8 @@ class TopTracksBox extends React.Component {
     }
 
     render() {
-        let { dim, id, topArtists, topSongs } = this.props;
+        const { dim, id, topArtists, topSongs } = this.props;
         const logoSize = 28;
-
-        topSongs = _.map(topSongs, (song) => {
-            return song.name;
-        });
 
         return (
             <div id={id}>
@@ -33,13 +28,14 @@ class TopTracksBox extends React.Component {
                     <h2>My Quarantine Rewind</h2>
                 </div>
                 <div className="TopTracksInfo">
-                    <div>Top Artists</div>
+                    <h3>Top Artists</h3>
                     <TopArtists 
                         artists={topArtists}
+                        dim={dim}
                     />
-                    <div>Top Songs</div>
-                    <TopList
-                        list={topSongs}
+                    <h3>Top Songs</h3>
+                    <TopSongs
+                        songs={topSongs}
                     />
                 </div>
             </div>

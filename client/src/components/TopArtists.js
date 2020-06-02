@@ -26,9 +26,9 @@ class TopArtists extends React.Component {
             });
 
             return (
-                <div className="Artist" key={artist.name}>
-                    <img className="ArtistImage" src={artist.images[2].url} alt={`${artist.name} image`} width={`${50}px`}/>
-                    <div>{artist.name}</div>
+                <div className="Artist" key={artist.name} style={{width: `${this.props.dim / 3 - 1}px`}}>
+                    <img className="ArtistImage" src={artist.images[2].url} alt={`${artist.name}`} width={`${50}px`}/>
+                    <div className="ArtistName">{artist.name}</div>
                     {stars}
                 </div>
             );
