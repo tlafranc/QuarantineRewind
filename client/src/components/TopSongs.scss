@@ -1,0 +1,15 @@
+.Song {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+
+    .SongInfo {
+        display: flex;
+        flex-direction: column;
+
+        .SongArtist {
+            color: grey;
+            font-size: 0.9em;
+        }
+    }
+}
