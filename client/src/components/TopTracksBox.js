@@ -22,21 +22,23 @@ class TopTracksBox extends React.Component {
         const logoSize = 28;
 
         return (
-            <div id={id}>
-                <div className="ShareBoxHeader">
-                    <img className="SpotifyLogo" src={SpotifyLogo} alt="Spotify Logo" width={`${logoSize}px`} />
-                    <h2>My Quarantine Rewind</h2>
-                </div>
-                <div className="TopTracksInfo">
-                    <h3>Top Artists</h3>
-                    <TopArtists 
-                        artists={topArtists}
-                        dim={dim}
-                    />
-                    <h3>Top Songs</h3>
-                    <TopSongs
-                        songs={topSongs}
-                    />
+            <div className="ShareBoxWrapper">
+                <div id={id}>
+                    <div className="ShareBoxHeader">
+                        <img className="SpotifyLogo" src={SpotifyLogo} alt="Spotify Logo" width={`${logoSize}px`} />
+                        <h2>My Quarantine Rewind</h2>
+                    </div>
+                    <div className="TopTracksInfo">
+                        <h3>Top Artists</h3>
+                        <TopArtists
+                            artists={topArtists}
+                            dim={dim}
+                        />
+                        <h3>Top Songs</h3>
+                        <TopSongs
+                            songs={topSongs}
+                        />
+                    </div>
                 </div>
             </div>
         );

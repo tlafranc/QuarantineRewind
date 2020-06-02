@@ -1,7 +1,7 @@
 // Import libraries
 import React from 'react';
 import axios from 'axios';
-import html2canvas from 'html2canvas';
+import domtoimage from 'dom-to-image';
 
 // Import React Components
 import TopTracksBox from './TopTracksBox.js'
@@ -59,16 +59,25 @@ class UserScreen extends React.Component {
     }
 
     share = () => {
-		html2canvas(document.getElementById(userScreenId)).then(canvas => {
-			console.log(canvas);
-			const img = canvas.toDataURL()
-			let imageElement = document.createElement("img");  
-			imageElement.src = img;
-			imageElement.alt = "Your Quarantine Rewind";
-			imageElement.width = canvas.width / 2;
-			imageElement.height = canvas.height / 2;
-			document.body.appendChild(imageElement)
-		});
+        const node = document.getElementById(userScreenId);
+        const scale = 2;
+        domtoimage.toPng(node, {
+            height: node.offsetHeight * scale,
+            style: {
+              transform: `scale(${scale}) translate(${node.offsetWidth / 2 / scale}px, ${node.offsetHeight / 2 / scale}px)`
+            },
+            width: node.offsetWidth * scale
+        }).then((dataUrl) => {
+                let imageElement = document.createElement("img");  
+                imageElement.src = dataUrl;
+                imageElement.alt = "Your Quarantine Rewind";
+                imageElement.width = node.offsetWidth;
+                imageElement.height = node.offsetHeight;
+                document.body.appendChild(imageElement);
+            })
+            .catch(function (error) {
+                console.error('Dom To Image Error: ', error);
+            });
     }
     
     timeRangeChange = async (event) => {
@@ -102,9 +111,9 @@ class UserScreen extends React.Component {
                 </FormControl> */}
 
                 {topArtists 
-					? <TopTracksBox id={userScreenId} dim={dim * 0.8} topArtists={topArtists} topSongs={topSongs} />
-					: null
-				}
+                    ? <TopTracksBox id={userScreenId} dim={dim * 0.8} topArtists={topArtists} topSongs={topSongs} />
+                    : null
+                }
 
                 <Button
                     variant="contained"

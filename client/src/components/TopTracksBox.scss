@@ -1,19 +1,21 @@
-#ShareBox {
+.ShareBoxWrapper {
     margin: 0 10%;
     border: 1px solid;
-
-    .ShareBoxHeader {
-        text-align: center;
     
-        h2 {
-            display: inline-block;
+    #ShareBox {
+        .ShareBoxHeader {
+            text-align: center;
+        
+            h2 {
+                display: inline-block;
+            }
+            .SpotifyLogo {
+                vertical-align: sub;
+            }
         }
-        .SpotifyLogo {
-            vertical-align: sub;
+    
+        h3 {
+            margin-top: 0;
         }
-    }
-
-    h3 {
-        margin-top: 0;
     }
 }
