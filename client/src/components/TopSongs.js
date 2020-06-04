@@ -18,7 +18,7 @@ class TopSongs extends React.Component {
         const songItems = _(songs).map((song, i) => {
             return (
                 <div className="Song" key={song.name}>
-                    <img className="SongImage" src={song.album.images[2].url} alt={`${song.name}`} width={`${50}px`}/>
+                    <img className="SongImage" src={song.album.images[2].url} alt={`${song.name}`} width={`${45}px`}/>
                     <div className="SongInfo">
                         <div className="SongName">{song.name}</div>
                         <div className="SongArtist">{song.artists[0].name}</div>

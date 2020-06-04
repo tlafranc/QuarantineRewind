@@ -24,10 +24,10 @@ class TopTracksBox extends React.Component {
         return (
             <div className="ShareBoxWrapper">
                 <div id={id}>
-                    <div className="ShareBoxHeader">
+                    {/* <div className="ShareBoxHeader">
                         <img className="SpotifyLogo" src={SpotifyLogo} alt="Spotify Logo" width={`${logoSize}px`} />
                         <h2>My Quarantine Rewind</h2>
-                    </div>
+                    </div> */}
                     <div className="TopTracksInfo">
                         <h3>Top Artists</h3>
                         <TopArtists

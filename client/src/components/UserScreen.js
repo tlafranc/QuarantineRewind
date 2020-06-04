@@ -116,8 +116,8 @@ class UserScreen extends React.Component {
                 }
 
                 <Button
+                    className="ShareButton"
                     variant="contained"
-                    color="primary"
                     startIcon={<ShareIcon />}
                     onClick={this.share}
                 >

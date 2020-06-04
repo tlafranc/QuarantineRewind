@@ -60,16 +60,19 @@ class App extends React.Component {
 		const { dim, accessToken } = this.state;
 
 		return (
-			<div className="App" style={{ width: `${dim}px` }}>
-				<div className="HeaderBar">
-					<FastRewindOutlinedIcon />
-					<h1 className="Title">Quarantine Rewind</h1>
-					<FastRewindOutlinedIcon />
+			<div className="App">
+				<div className="Header">
+					<FastRewindOutlinedIcon className="RewindIcon" />
+					<h2 className="Title">Quarantine Rewind</h2>
+					<FastRewindOutlinedIcon className="RewindIcon" />
 				</div>
-				{accessToken 
-					? <UserScreen dim={dim} accessToken={accessToken} />
-					: <LoginScreen />
-				}
+				
+				<div className="Content" style={{ width: `${dim}px` }}>
+					{accessToken 
+						? <UserScreen dim={dim} accessToken={accessToken} />
+						: <LoginScreen />
+					}
+				</div>
 			</div>
 		);
 	}

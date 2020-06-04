@@ -2,10 +2,13 @@
     display: flex;
     flex-direction: row;
     text-align: left;
+    align-items: center;
+    padding-bottom: 5px;
 
     .SongInfo {
         display: flex;
         flex-direction: column;
+        padding-left: 10px;
 
         .SongArtist {
             color: grey;
