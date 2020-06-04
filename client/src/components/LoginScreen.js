@@ -1,7 +1,7 @@
 // Import libraries
 import React from 'react';
 
-const login_uri = process.env.NODE_ENV == "PRODUCTION" 
+const loginUri = process.env.NODE_ENV == "production" 
     ? 'https://quarantine-rewind.herokuapp.com/login'
     : 'http://localhost:8888/login';
 
@@ -14,7 +14,7 @@ class LoginScreen extends React.Component {
     }
 
     login = () => {
-        window.location.href = login_uri;
+        window.location.href = loginUri;
     }
 
     render() {
