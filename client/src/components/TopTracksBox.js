@@ -1,7 +1,9 @@
 // Import libraries
 import React from 'react';
+import _ from 'lodash';
 
 // Import React Components
+import MoodGraph from './MoodGraph.js';
 import TopArtists from './TopArtists.js';
 import TopSongs from './TopSongs.js';
 
@@ -18,7 +20,7 @@ class TopTracksBox extends React.Component {
     }
 
     render() {
-        const { dim, id, topArtists, topSongs } = this.props;
+        const { accessToken, dim, id, topArtists, topSongs } = this.props;
         const logoSize = 28;
 
         return (
@@ -36,6 +38,11 @@ class TopTracksBox extends React.Component {
                         />
                         <h3>Top Songs</h3>
                         <TopSongs
+                            songs={_.slice(topSongs, 0, 5)}
+                        />
+                        <h3>Quarantine Mood</h3>
+                        <MoodGraph
+                            accessToken={accessToken}
                             songs={topSongs}
                         />
                     </div>

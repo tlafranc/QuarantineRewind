@@ -53,7 +53,7 @@ class UserScreen extends React.Component {
     }
 
     getTopSongs = async (timeRange=this.state.timeRange) => {
-        return (await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=5&time_range=${timeRange}`, {
+        return (await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`, {
             headers: { 'Authorization': `Bearer ${this.props.accessToken}` }
         })).data.items;
     }
@@ -91,7 +91,7 @@ class UserScreen extends React.Component {
     };
 
     render() {
-        const { dim } = this.props;
+        const { accessToken, dim } = this.props;
         const { timeRange, topArtists, topSongs } = this.state;
 
         return (
@@ -111,7 +111,12 @@ class UserScreen extends React.Component {
                 </FormControl> */}
 
                 {topArtists 
-                    ? <TopTracksBox id={userScreenId} dim={dim * 0.8} topArtists={topArtists} topSongs={topSongs} />
+                    ? <TopTracksBox 
+                        accessToken={accessToken}
+                        id={userScreenId} 
+                        dim={dim * 0.8} 
+                        topArtists={topArtists} 
+                        topSongs={topSongs} />
                     : null
                 }
 
