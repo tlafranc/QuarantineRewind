@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import domtoimage from 'dom-to-image';
+import _ from 'lodash';
 
 // Import React Components
 import TopTracksBox from './TopTracksBox.js'
@@ -24,6 +25,7 @@ class UserScreen extends React.Component {
         super(props);
         this.state = {
             timeRange: 'medium_term',
+            songValencesFreq: null,
             topArtists: null,
             topSongs: null
         };
@@ -36,7 +38,9 @@ class UserScreen extends React.Component {
             try {
                 const topArtists = await this.getTopArtists();
                 const topSongs = await this.getTopSongs();
+                const songValencesFreq = await this.getSongValencesFreq(topSongs);
                 this.setState({
+                    songValencesFreq,
                     topArtists,
                     topSongs
                 })
@@ -56,6 +60,31 @@ class UserScreen extends React.Component {
         return (await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`, {
             headers: { 'Authorization': `Bearer ${this.props.accessToken}` }
         })).data.items;
+    }
+
+    getSongValencesFreq = async (songs) => {
+        const songIds = _(songs).map((song) => {
+            return song.id;
+        }).value();
+        const songFeatures = (await axios.get(`https://api.spotify.com/v1/audio-features/?ids=${songIds.join()}`, {
+                headers: { 'Authorization': `Bearer ${this.props.accessToken}`}
+            })).data.audio_features;
+        const songValences = _(songFeatures).map((song) => {
+            return song.valence;
+        }).value();
+
+        // Arbitrary bin size of 0.05
+        const binSize = 0.05;
+        const freqArray = _.fill(Array(1 / binSize), 0);
+        _(songValences).forEach((valence) => {
+            if (valence == 1) {
+                freqArray[freqArray.length - 1] += 1;
+            } else {
+                freqArray[Math.floor(valence * (1 / binSize))] += 1;
+            }
+        });
+
+        return freqArray;
     }
 
     share = () => {
@@ -83,6 +112,7 @@ class UserScreen extends React.Component {
     timeRangeChange = async (event) => {
         const topArtists = await this.getTopArtists(event.target.value);
         const topSongs = await this.getTopSongs(event.target.value);
+        const songValencesFreq = await this.getSongValencesFreq(topSongs);
         this.setState({
             timeRange: event.target.value,
             topArtists,
@@ -92,7 +122,7 @@ class UserScreen extends React.Component {
 
     render() {
         const { accessToken, dim } = this.props;
-        const { timeRange, topArtists, topSongs } = this.state;
+        const { songValencesFreq, timeRange, topArtists, topSongs } = this.state;
 
         return (
             <div className="UserScreen">
@@ -110,11 +140,11 @@ class UserScreen extends React.Component {
                     </Select>
                 </FormControl> */}
 
-                {topArtists 
-                    ? <TopTracksBox 
-                        accessToken={accessToken}
+                {songValencesFreq 
+                    ? <TopTracksBox
                         id={userScreenId} 
                         dim={dim * 0.8} 
+                        songValencesFreq={songValencesFreq}
                         topArtists={topArtists} 
                         topSongs={topSongs} />
                     : null

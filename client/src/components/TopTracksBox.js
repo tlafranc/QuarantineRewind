@@ -20,7 +20,7 @@ class TopTracksBox extends React.Component {
     }
 
     render() {
-        const { accessToken, dim, id, topArtists, topSongs } = this.props;
+        const { dim, id, songValencesFreq, topArtists, topSongs } = this.props;
         const logoSize = 28;
 
         return (
@@ -42,8 +42,7 @@ class TopTracksBox extends React.Component {
                         />
                         <h3>Quarantine Mood</h3>
                         <MoodGraph
-                            accessToken={accessToken}
-                            songs={topSongs}
+                            songValencesFreq={songValencesFreq}
                         />
                     </div>
                 </div>

@@ -14,9 +14,7 @@ class MoodGraph extends React.Component {
 
     async componentDidMount() {
         try {
-            const songValencesFreq = await this.getSongValencesFreq();
-
-            const splineInterpolator = d3.interpolateBasis(songValencesFreq)
+            const splineInterpolator = d3.interpolateBasis(this.props.songValencesFreq)
             const interpolatedFreq = d3.quantize(splineInterpolator, 80).map(d => +d.toFixed(3))
 
             // Code for creating bar graph using d3.js
@@ -58,26 +56,6 @@ class MoodGraph extends React.Component {
         } catch(e) {
             console.error(e);
         }
-    }
-
-    getSongValencesFreq = async () => {
-        const { songs, accessToken } = this.props;
-        const songValences = await Promise.all(_(songs).map(async (song) => {
-            return (await axios.get(`https://api.spotify.com/v1/audio-features/${song.id}`, {
-                headers: { 'Authorization': `Bearer ${accessToken}` }
-            })).data.valence;
-        }).value());
-
-        const freqArray = _.fill(Array(20), 0);
-        _(songValences).forEach((valence) => {
-            if (valence == 1) {
-                freqArray[freqArray.length - 1] += 1;
-            } else {
-                freqArray[Math.floor(valence * 20)] += 1;
-            }
-        });
-
-        return freqArray;
     }
 
     render() {
