@@ -1,9 +1,9 @@
 .TopArtists {
-    .Artist {
+    .ArtistNames {
         display: inline-block;
     }
-
-    .ArtistName {
-        font-size: 0.8em;
+    .ArtistImages {
+        display: inline-block;
+        text-align: center;
     }
 }

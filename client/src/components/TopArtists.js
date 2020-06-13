@@ -2,8 +2,8 @@
 import React from 'react';
 import _ from 'lodash';
 
-// Material UI
-import StarIcon from '@material-ui/icons/Star';
+// Import React Components
+import ThreeImageLayout from './ImageLayouts/ThreeImageLayout.js';
 
 // CSS
 import './TopArtists.scss';
@@ -19,24 +19,29 @@ class TopArtists extends React.Component {
     render() {
         const { artists } = this.props;
 
-        const artistItems = _(artists).map((artist, i) => {
-            const stars = [];
-            _.times(i + 1, (j) => {
-                stars.push(<StarIcon key={`Star_${j}_for_${artist.name}`}/>);
-            });
-
+        const artistItems = _(artists).map((artist) => {
             return (
-                <div className="Artist" key={artist.name} style={{width: `${this.props.dim / 3 - 1}px`}}>
-                    <img className="ArtistImage" src={artist.images[2].url} alt={`${artist.name}`} width={`${50}px`}/>
-                    <div className="ArtistName">{artist.name}</div>
-                    {stars}
+                <div className="ArtistName" key={artist.name}>
+                    {artist.name}
                 </div>
             );
         }).value();
 
+        const images = _(artists).map((artist) => {
+            return {
+                url: artist.images[0].url,
+                alt: artist.name
+            }
+        }).value();
+
         return (
             <div className="TopArtists">
-                {artistItems}
+                <div className="ArtistNames" style={{width: `${this.props.dim / 2 - 1}px`}}>
+                    {artistItems}
+                </div>
+                <div className="ArtistImages" style={{width: `${this.props.dim / 2 - 1}px`}}>
+                    <ThreeImageLayout images={images} width={this.props.dim / 2 - 1} />
+                </div>
             </div>
         );
     }
