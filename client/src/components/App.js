@@ -6,12 +6,6 @@ import _ from 'lodash';
 import LoginScreen from './LoginScreen.js';
 import UserScreen from './UserScreen.js';
 
-// Import CSS
-import './App.scss';
-
-// Material UI
-import FastRewindOutlinedIcon from '@material-ui/icons/FastRewindOutlined';
-
 // Function that parses the hash params of a URL
 // Taken from https://github.com/spotify/web-api-auth-examples/blob/master/implicit_grant/public/index.html
 // On 2020-05-26
@@ -61,12 +55,6 @@ class App extends React.Component {
 
 		return (
 			<div className="App">
-				<div className="Header">
-					<FastRewindOutlinedIcon className="RewindIcon" />
-					<h2 className="Title">Quarantine Rewind</h2>
-					<FastRewindOutlinedIcon className="RewindIcon" />
-				</div>
-				
 				<div className="Content" style={{ width: `${dim}px` }}>
 					{accessToken 
 						? <UserScreen dim={dim} accessToken={accessToken} />

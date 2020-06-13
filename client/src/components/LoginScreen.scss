@@ -1,18 +1,59 @@
-.ButtonContainer {
-    height: 100%;
-    position: relative;
+.LoginScreen {
+    display: flex;
+    color: white;
+    height: 100vh;
+    flex-direction: column;
+    text-align: center;
+    background-image: linear-gradient(#DA4453, #89216B);
 
-    button.LoginButton {
-        font-size: 1.2em;
-        width: 175px;
-        border-radius: 25px;
-        background-color: rgb(27, 168, 76);
-        color: white;
-        font-weight: 700;
+    .Header {
+        text-align: left;
+        margin-left: 20px;
+        h2 {
+            display: inline-block;
+            padding-right: 5px;
+        }
 
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        .RewindIcon {
+            vertical-align: sub;
+            margin-right: -10px;
+        }
+    }
+
+    .Content {
+        padding: 100px 15px 0px 15px;
+        flex: 0 1 auto;
+
+        h1, h3 {
+            margin-top: 0;
+        }
+
+        .ContentInfo {
+            padding-top: 100px;
+            small {
+                display: block;
+            }
+        }
+    }
+
+    .ButtonContainer {
+        flex: 1 1 auto;
+        margin: 0 auto;
+        height: 100%;
+        position: relative;
+    
+        button.LoginButton {
+            font-size: 1.2em;
+            width: 175px;
+            border-radius: 25px;
+            background-color: rgb(27, 168, 76);
+            color: white;
+            font-weight: 700;
+    
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 }
