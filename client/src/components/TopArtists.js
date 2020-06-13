@@ -3,7 +3,7 @@ import React from 'react';
 import _ from 'lodash';
 
 // Import React Components
-import ThreeImageLayout from './ImageLayouts/ThreeImageLayout.js';
+import ThreeImageLayout from './ThreeImageLayout.js';
 
 // CSS
 import './TopArtists.scss';

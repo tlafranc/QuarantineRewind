@@ -2,9 +2,6 @@
 import React from 'react';
 import _ from 'lodash';
 
-// CSS
-import './ThreeImageLayout.scss';
-
 class ThreeImageLayout extends React.Component {
     constructor(props) {
         super(props);
