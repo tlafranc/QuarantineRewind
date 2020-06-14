@@ -1,9 +1,12 @@
 .TopArtists {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     .ArtistNames {
         display: inline-block;
     }
     .ArtistImages {
         display: inline-block;
-        text-align: center;
+        text-align: right;
     }
 }

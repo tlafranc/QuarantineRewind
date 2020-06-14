@@ -31,7 +31,7 @@ class App extends React.Component {
 		}
 
 		this.state = {
-			dim: Math.min(window.innerWidth, 600),
+			width: Math.min(window.innerWidth, 600),
 			accessToken
 		};
 	}
@@ -46,18 +46,18 @@ class App extends React.Component {
 
     updateDimensions = _.throttle(() => {
         this.setState({
-            dim: Math.min(window.innerWidth, 600)
+            width: Math.min(window.innerWidth, 600)
         });
 	}, 100)
 
 	render() {
-		const { dim, accessToken } = this.state;
+		const { width, accessToken } = this.state;
 
 		return (
 			<div className="App">
-				<div className="Content" style={{ width: `${dim}px` }}>
+				<div className="Content" style={{ width: `${width}px`, margin: '0 auto' }}>
 					{accessToken 
-						? <UserScreen dim={dim} accessToken={accessToken} />
+						? <UserScreen width={width} accessToken={accessToken} />
 						: <LoginScreen />
 					}
 				</div>

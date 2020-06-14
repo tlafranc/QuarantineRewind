@@ -38,7 +38,7 @@ class UserScreen extends React.Component {
             try {
                 const topArtists = await this.getTopArtists();
                 const topSongs = await this.getTopSongs();
-                const songValencesFreq = await this.getSongValencesFreq(topSongs);
+                const songValencesFreq = await this.getSongValencesFreq(topSongs); 
                 this.setState({
                     songValencesFreq,
                     topArtists,
@@ -114,6 +114,7 @@ class UserScreen extends React.Component {
         const topSongs = await this.getTopSongs(event.target.value);
         const songValencesFreq = await this.getSongValencesFreq(topSongs);
         this.setState({
+            songValencesFreq,
             timeRange: event.target.value,
             topArtists,
             topSongs
@@ -121,8 +122,9 @@ class UserScreen extends React.Component {
     };
 
     render() {
-        const { accessToken, dim } = this.props;
+        const { width } = this.props;
         const { songValencesFreq, timeRange, topArtists, topSongs } = this.state;
+        const sideMargin = 16;
 
         return (
             <div className="UserScreen">
@@ -143,10 +145,11 @@ class UserScreen extends React.Component {
                 {songValencesFreq 
                     ? <TopTracksBox
                         id={userScreenId} 
-                        dim={dim * 0.8} 
+                        sideMargin={sideMargin}
                         songValencesFreq={songValencesFreq}
                         topArtists={topArtists} 
-                        topSongs={topSongs} />
+                        topSongs={topSongs}
+                        width={width - 2 * sideMargin}  />
                     : null
                 }
 

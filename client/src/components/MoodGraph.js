@@ -59,9 +59,11 @@ class MoodGraph extends React.Component {
     }
 
     render() {
+        const { width } = this.props;
+
         return (
             <div className="MoodGraphContainer">
-                <svg id="MoodGraph" width="250" height="125"></svg>
+                <svg id="MoodGraph" width={width} height="125"></svg>
             </div>
         );
     }

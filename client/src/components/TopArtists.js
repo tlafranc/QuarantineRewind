@@ -36,11 +36,11 @@ class TopArtists extends React.Component {
 
         return (
             <div className="TopArtists">
-                <div className="ArtistNames" style={{width: `${this.props.dim / 2 - 1}px`}}>
+                <div className="ArtistNames" style={{width: `${this.props.width / 2 - 1}px`}}>
                     {artistItems}
                 </div>
-                <div className="ArtistImages" style={{width: `${this.props.dim / 2 - 1}px`}}>
-                    <ThreeImageLayout images={images} width={this.props.dim / 2 - 1} />
+                <div className="ArtistImages" style={{width: `${this.props.width / 2 - 1}px`}}>
+                    <ThreeImageLayout images={images} width={this.props.width / 2 - 1} />
                 </div>
             </div>
         );

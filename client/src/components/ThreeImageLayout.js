@@ -18,17 +18,17 @@ class ThreeImageLayout extends React.Component {
             <div className="ThreeImageLayout">
                 <img className="image" src={images[2].url} alt={`${images[2].alt}`} width={`${imageWidth}px`}
                     style={{
-                        transform: `translate(${imageWidth * 9 / 5}px, ${imageWidth / 5}px)`
+                        transform: `translate(${imageWidth * 2}px, ${imageWidth / 5}px)`
                     }}
                 />
                 <img className="image" src={images[1].url} alt={`${images[1].alt}`} width={`${imageWidth}px`}
                     style={{
-                        transform: `translate(0, 0)`
+                        transform: `translate(${imageWidth / 5}px, 0)`
                     }}
                 />
                 <img className="image" src={images[0].url} alt={`${images[0].alt}`} width={`${imageWidth}px`}
                     style={{
-                        transform: `translate(${-imageWidth * 9 / 5}px, ${-imageWidth / 5}px)`
+                        transform: `translate(${-imageWidth * 8 / 5}px, ${-imageWidth / 5}px)`
                     }}
                 />
             </div>

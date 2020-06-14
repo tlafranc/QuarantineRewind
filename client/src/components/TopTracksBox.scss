@@ -1,22 +1,24 @@
-.ShareBoxWrapper {
-    margin: 32px 10% 16px 10%;
-    border: 1px solid;
-    
-    #ShareBox {
-        text-align: left;
-        .ShareBoxHeader {
-            text-align: center;
-        
-            h2 {
-                display: inline-block;
-            }
-            .SpotifyLogo {
-                vertical-align: sub;
-            }
-        }
+#ShareBox {
+    text-align: left;
+    .Title {
+        display: inline-block;
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 10px;
+    }
 
-        h3 {
-            text-transform: uppercase;
-        }
+    // .ShareBoxHeader {
+    //     text-align: center;
+    
+    //     h2 {
+    //         display: inline-block;
+    //     }
+    //     .SpotifyLogo {
+    //         vertical-align: sub;
+    //     }
+    // }
+
+    h3 {
+        text-transform: uppercase;
     }
 }
