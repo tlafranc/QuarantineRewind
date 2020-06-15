@@ -4,7 +4,24 @@
     align-items: center;
     .ArtistNames {
         display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
     }
+    // Making end of word blurry
+    // URL: https://stackoverflow.com/questions/10297137/css-how-to-make-the-end-of-the-word-blurry
+    // Accessed on: 2020-06-14
+    .ArtistName {
+        position: relative;
+    }
+    .ArtistName::after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 3em;
+        content: '';
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C */
+    }​
     .ArtistImages {
         display: inline-block;
         text-align: right;

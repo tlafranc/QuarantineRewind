@@ -31,7 +31,7 @@ class App extends React.Component {
 		}
 
 		this.state = {
-			width: Math.min(window.innerWidth, 600),
+			width: Math.min(window.innerWidth, 465),
 			accessToken
 		};
 	}
@@ -46,7 +46,7 @@ class App extends React.Component {
 
     updateDimensions = _.throttle(() => {
         this.setState({
-            width: Math.min(window.innerWidth, 600)
+            width: Math.min(window.innerWidth, 465)
         });
 	}, 100)
 
