@@ -7,9 +7,8 @@ import MoodGraph from './MoodGraph.js';
 import TopArtists from './TopArtists.js';
 import TopSongs from './TopSongs.js';
 
-// Import CSS and photos
+// Import CSS
 import './TopTracksBox.scss';
-import SpotifyLogo from '../images/SpotifyLogo.png';
 
 class TopTracksBox extends React.Component {
     constructor(props) {
@@ -21,17 +20,12 @@ class TopTracksBox extends React.Component {
 
     render() {
         const { id, sideMargin, songValencesFreq, topArtists, topSongs, width } = this.props;
-        const logoSize = 28;
 
         return (
             <div id={id}>
                 <h2 className="Title" style={{marginLeft: `${2 * sideMargin}px`}}>
                     My Quarantine Rewind
                 </h2>
-                {/* <div className="ShareBoxHeader">
-                    <img className="SpotifyLogo" src={SpotifyLogo} alt="Spotify Logo" width={`${logoSize}px`} />
-                    <h2>My Quarantine Rewind</h2>
-                </div> */}
                 <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px 0 ${sideMargin}px`}}>
                     <h3>Top Artists</h3>
                     <TopArtists

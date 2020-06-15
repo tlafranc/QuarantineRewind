@@ -7,8 +7,8 @@
     background-image: linear-gradient(#DA4453, #89216B);
 
     .Header {
-        text-align: left;
-        margin-left: 20px;
+        text-align: right;
+        margin-right: 20px;
         h2 {
             display: inline-block;
             padding-right: 5px;
@@ -16,7 +16,6 @@
 
         .RewindIcon {
             vertical-align: sub;
-            margin-right: -10px;
         }
     }
 

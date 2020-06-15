@@ -5,8 +5,9 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 
-// CSS
+// Import CSS and photos
 import './LoginScreen.scss';
+// import SpotifyLogo from '../images/SpotifyLogo2.png';
 
 const loginUri = process.env.NODE_ENV == "production" 
     ? 'https://quarantine-rewind.herokuapp.com/login'
@@ -29,7 +30,7 @@ class LoginScreen extends React.Component {
             <div className="LoginScreen">
                 <div className="Header">
                     <h2>REW</h2>
-                    <ArrowBackIosOutlinedIcon className="RewindIcon" />
+                    <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: '-10px' }}/>
                     <ArrowBackIosOutlinedIcon className="RewindIcon" />
                 </div>
                 <div className="Content">
