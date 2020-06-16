@@ -105,7 +105,7 @@ class MoodGraph extends React.Component {
 
         return (
             <div className="MoodGraphContainer">
-                <svg id={`MoodGraph-${timeRange}`} width={width} height="125"></svg>
+                <svg id={`MoodGraph-${timeRange}`} className="MoodGraph" width={width} height="125"></svg>
             </div>
         );
     }
