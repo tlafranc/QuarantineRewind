@@ -16,9 +16,10 @@ class MoodGraph extends React.Component {
 
     async componentDidMount() {
         try {
-            const freqArray = this.props.songValencesData.freqArray;
-            const medianValence = this.props.songValencesData.medianValence;
-            const numBins = this.props.songValencesData.numBins;
+            const { songValencesData, timeRange } = this.props;
+            const freqArray = songValencesData.freqArray;
+            const medianValence = songValencesData.medianValence;
+            const numBins = songValencesData.numBins;
 
             const splineInterpolator = d3.interpolateBasis(freqArray)
             const interpolatedFreq = d3.quantize(splineInterpolator, numBins).map(d => +d.toFixed(3))
@@ -26,7 +27,7 @@ class MoodGraph extends React.Component {
             // Code for creating bar graph using d3.js
             // URL: https://www.tutorialsteacher.com/d3js/create-bar-chart-using-d3js
             // Accessed on: 2020-06-10
-            const svg = d3.select("#MoodGraph"),
+            const svg = d3.select(`#MoodGraph-${timeRange}`),
                 margin = 50,
                 width = svg.attr("width") - margin,
                 height = svg.attr("height") - margin / 4 - 20;
@@ -100,11 +101,11 @@ class MoodGraph extends React.Component {
     }
 
     render() {
-        const { width } = this.props;
+        const { timeRange, width } = this.props;
 
         return (
             <div className="MoodGraphContainer">
-                <svg id="MoodGraph" width={width} height="125"></svg>
+                <svg id={`MoodGraph-${timeRange}`} width={width} height="125"></svg>
             </div>
         );
     }

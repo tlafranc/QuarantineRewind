@@ -3,4 +3,10 @@
     .axisText, .meanValenceText {
         font-size: 0.9em;
     }
+    .meanValenceText {
+        text-shadow: -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;  
+    }
 }

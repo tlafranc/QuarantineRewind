@@ -1,5 +1,40 @@
 .UserScreen {
     text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    .IconLabel {
+        display: block;
+    }
+
+    .IconButton {
+        margin-top: -5px;
+    }
+
+    .RewindTimeRangeIcon, .ForwardTimeRangeIcon {
+        display: inline-block;
+        position: absolute;
+        top: 25px;
+        z-index: 2;
+
+        &.disabled {
+            z-index: -1;
+            color: grey;
+        }
+    }
+
+    .ForwardTimeRangeIcon {
+        transform: translateX(-50%) translateX(165px);
+    }
+
+    .RewindTimeRangeIcon {
+        transform: translateX(-50%) translateX(-165px);
+    }
+
+    .TopTrackBoxesContainer {
+        display: flex;
+        transition: transform 1s;
+    }
 
     .ShareButton {
         background-color: rgb(27, 168, 76) !important;

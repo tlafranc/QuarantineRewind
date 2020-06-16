@@ -19,12 +19,12 @@ class TopTracksBox extends React.Component {
     }
 
     render() {
-        const { id, sideMargin, songValencesData, topArtists, topSongs, width } = this.props;
+        const { id, sideMargin, songValencesData, timeRange, title, topArtists, topSongs, width } = this.props;
 
         return (
-            <div id={id}>
-                <h2 className="Title" style={{marginLeft: `${2 * sideMargin}px`}}>
-                    My Quarantine Rewind
+            <div id={id} className="ShareBox">
+                <h2 className="Title">
+                    { title }
                 </h2>
                 <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px 0 ${sideMargin}px`}}>
                     <h3>Top Artists</h3>
@@ -36,9 +36,12 @@ class TopTracksBox extends React.Component {
                     <TopSongs
                         songs={_.slice(topSongs, 0, 5)}
                     />
-                    <h3>Quarantine Mood</h3>
+                    <h3 className="MoodGraphHeader">Quarantine Mood</h3>
+                    <small className="MoodGraphTitle">Musical Positiveness Distribution of Your Top 50 Songs</small>
+                    
                     <MoodGraph
                         songValencesData={songValencesData}
+                        timeRange={timeRange}
                         width={width}
                     />
                 </div>

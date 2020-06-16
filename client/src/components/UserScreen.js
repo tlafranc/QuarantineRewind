@@ -10,21 +10,30 @@ import TopTracksBox from './TopTracksBox.js'
 // Material UI
 import Button from '@material-ui/core/Button';
 import ShareIcon from '@material-ui/icons/Share';
-// import Select from '@material-ui/core/Select';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import FormControl from '@material-ui/core/FormControl';
+import FastRewindIcon from '@material-ui/icons/FastRewind';
+import FastForwardIcon from '@material-ui/icons/FastForward';
 
 // Import CSS
 import './UserScreen.scss';
 
 const userScreenId = "ShareBox";
+const timeRanges = ["short_term", "medium_term", "long_term"];
+const timeRangeToShift = {
+    "short_term": 0,
+    "medium_term": -1,
+    "long_term": -2
+}
+const timeRangeToTitle = {
+    "short_term": "My Monthly Rewind",
+    "medium_term": "My Quarantine Rewind",
+    "long_term": "My Lifetime Rewind"
+}
 
 class UserScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeRange: 'medium_term',
+            timeRangeIndex: 1,
             songValencesData: null,
             topArtists: null,
             topSongs: null
@@ -38,7 +47,10 @@ class UserScreen extends React.Component {
             try {
                 const topArtists = await this.getTopArtists();
                 const topSongs = await this.getTopSongs();
-                const songValencesData = await this.getSongValencesData(topSongs); 
+                const songValencesData = await Promise.all(_.map(topSongs, async (topSongsList) => {
+                    return await this.getSongValencesData(topSongsList); 
+                }));
+
                 this.setState({
                     songValencesData,
                     topArtists,
@@ -50,16 +62,20 @@ class UserScreen extends React.Component {
         }
     }
 
-    getTopArtists = async (timeRange=this.state.timeRange) => {
-        return (await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=3&time_range=${timeRange}`, {
-            headers: { 'Authorization': `Bearer ${this.props.accessToken}` }
-        })).data.items;
+    getTopArtists = async () => {
+        return await Promise.all(_.map(timeRanges, async (timeRange) => {
+            return (await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=3&time_range=${timeRange}`, {
+                headers: { 'Authorization': `Bearer ${this.props.accessToken}` }
+            })).data.items;
+        }));
     }
 
-    getTopSongs = async (timeRange=this.state.timeRange) => {
-        return (await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`, {
-            headers: { 'Authorization': `Bearer ${this.props.accessToken}` }
-        })).data.items;
+    getTopSongs = async () => {
+        return await Promise.all(_.map(timeRanges, async (timeRange) => {
+            return (await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`, {
+                headers: { 'Authorization': `Bearer ${this.props.accessToken}` }
+            })).data.items;
+        }));
     }
 
     getSongValencesData = async (songs) => {
@@ -96,7 +112,8 @@ class UserScreen extends React.Component {
     }
 
     share = () => {
-        const node = document.getElementById(userScreenId);
+        const { timeRangeIndex } = this.state;
+        const node = document.getElementById(`${userScreenId}-${timeRanges[timeRangeIndex]}`);
         const scale = 2;
         domtoimage.toPng(node, {
             height: node.offsetHeight * scale,
@@ -116,50 +133,63 @@ class UserScreen extends React.Component {
                 console.error('Dom To Image Error: ', error);
             });
     }
-    
-    timeRangeChange = async (event) => {
-        const topArtists = await this.getTopArtists(event.target.value);
-        const topSongs = await this.getTopSongs(event.target.value);
-        const songValencesData = await this.getSongValencesData(topSongs);
+
+    rewind = () => {
+        const { timeRangeIndex } = this.state;
+
         this.setState({
-            songValencesData,
-            timeRange: event.target.value,
-            topArtists,
-            topSongs
+            timeRangeIndex: timeRangeIndex - 1
         });
-    };
+    }
+
+    forward = () => {
+        const { timeRangeIndex } = this.state;
+
+        this.setState({
+            timeRangeIndex: timeRangeIndex + 1
+        });
+    } 
 
     render() {
         const { width } = this.props;
-        const { songValencesData, timeRange, topArtists, topSongs } = this.state;
+        const { songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         const sideMargin = 16;
+        const timeRange = timeRanges[timeRangeIndex];
+        const topTracksBoxesShift = timeRangeToShift[timeRange];
+
+        const topTracksBoxes = songValencesData 
+            ? _.map(timeRanges, (timeRange, i) => {
+                return (
+                    <TopTracksBox
+                        key={timeRange}
+                        id={`${userScreenId}-${timeRange}`} 
+                        sideMargin={sideMargin}
+                        songValencesData={songValencesData[i]}
+                        timeRange={timeRange}
+                        title={timeRangeToTitle[timeRange]}
+                        topArtists={topArtists[i]} 
+                        topSongs={topSongs[i]}
+                        width={width - 2 * sideMargin} />
+                );
+            })
+            : null;
 
         return (
             <div className="UserScreen">
-                {/* <FormControl>
-                    <InputLabel>Time Range</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={timeRange}
-                        onChange={this.timeRangeChange}
-                    >
-                        <MenuItem value={"short_term"}>4 Weeks</MenuItem>
-                        <MenuItem value={"medium_term"}>6 Months</MenuItem>
-                        <MenuItem value={"long_term"}>Lifetime</MenuItem>
-                    </Select>
-                </FormControl> */}
+                <div className={`RewindTimeRangeIcon ${timeRangeIndex == 0 ? 'disabled' : ''}`}
+                    onClick={this.rewind}>
+                    <small className="IconLabel">Prev</small>
+                    <FastRewindIcon className="IconButton" fontSize="large" />
+                </div>
+                <div className={`ForwardTimeRangeIcon ${timeRangeIndex == timeRanges.length - 1 ? 'disabled' : ''}`}
+                    onClick={this.forward}>
+                    <small className="IconLabel">Next</small>
+                    <FastForwardIcon className="IconButton" fontSize="large" />
+                </div>
 
-                {songValencesData 
-                    ? <TopTracksBox
-                        id={userScreenId} 
-                        sideMargin={sideMargin}
-                        songValencesData={songValencesData}
-                        topArtists={topArtists} 
-                        topSongs={topSongs}
-                        width={width - 2 * sideMargin}  />
-                    : null
-                }
+                <div className="TopTrackBoxesContainer" style={{transform: `translate(${topTracksBoxesShift * width}px, 0)`}}>
+                    { topTracksBoxes }
+                </div>
 
                 <Button
                     className="ShareButton"
