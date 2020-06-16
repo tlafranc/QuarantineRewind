@@ -25,7 +25,7 @@ class UserScreen extends React.Component {
         super(props);
         this.state = {
             timeRange: 'medium_term',
-            songValencesFreq: null,
+            songValencesData: null,
             topArtists: null,
             topSongs: null
         };
@@ -38,9 +38,9 @@ class UserScreen extends React.Component {
             try {
                 const topArtists = await this.getTopArtists();
                 const topSongs = await this.getTopSongs();
-                const songValencesFreq = await this.getSongValencesFreq(topSongs); 
+                const songValencesData = await this.getSongValencesData(topSongs); 
                 this.setState({
-                    songValencesFreq,
+                    songValencesData,
                     topArtists,
                     topSongs
                 })
@@ -62,7 +62,7 @@ class UserScreen extends React.Component {
         })).data.items;
     }
 
-    getSongValencesFreq = async (songs) => {
+    getSongValencesData = async (songs) => {
         const songIds = _(songs).map((song) => {
             return song.id;
         }).value();
@@ -80,11 +80,19 @@ class UserScreen extends React.Component {
             if (valence == 1) {
                 freqArray[freqArray.length - 1] += 1;
             } else {
-                freqArray[Math.floor(valence * (1 / binSize))] += 1;
+                freqArray[Math.floor(valence / binSize)] += 1;
             }
         });
+        
+        const numBins = 60;
+        let medianValence = _.sum(songValences) / songValences.length;
+        medianValence = Math.floor(medianValence * (numBins * binSize) / binSize);
 
-        return freqArray;
+        return {
+            freqArray,
+            medianValence,
+            numBins
+        };
     }
 
     share = () => {
@@ -112,9 +120,9 @@ class UserScreen extends React.Component {
     timeRangeChange = async (event) => {
         const topArtists = await this.getTopArtists(event.target.value);
         const topSongs = await this.getTopSongs(event.target.value);
-        const songValencesFreq = await this.getSongValencesFreq(topSongs);
+        const songValencesData = await this.getSongValencesData(topSongs);
         this.setState({
-            songValencesFreq,
+            songValencesData,
             timeRange: event.target.value,
             topArtists,
             topSongs
@@ -123,7 +131,7 @@ class UserScreen extends React.Component {
 
     render() {
         const { width } = this.props;
-        const { songValencesFreq, timeRange, topArtists, topSongs } = this.state;
+        const { songValencesData, timeRange, topArtists, topSongs } = this.state;
         const sideMargin = 16;
 
         return (
@@ -142,11 +150,11 @@ class UserScreen extends React.Component {
                     </Select>
                 </FormControl> */}
 
-                {songValencesFreq 
+                {songValencesData 
                     ? <TopTracksBox
                         id={userScreenId} 
                         sideMargin={sideMargin}
-                        songValencesFreq={songValencesFreq}
+                        songValencesData={songValencesData}
                         topArtists={topArtists} 
                         topSongs={topSongs}
                         width={width - 2 * sideMargin}  />

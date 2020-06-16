@@ -19,7 +19,7 @@ class TopTracksBox extends React.Component {
     }
 
     render() {
-        const { id, sideMargin, songValencesFreq, topArtists, topSongs, width } = this.props;
+        const { id, sideMargin, songValencesData, topArtists, topSongs, width } = this.props;
 
         return (
             <div id={id}>
@@ -38,7 +38,7 @@ class TopTracksBox extends React.Component {
                     />
                     <h3>Quarantine Mood</h3>
                     <MoodGraph
-                        songValencesFreq={songValencesFreq}
+                        songValencesData={songValencesData}
                         width={width}
                     />
                 </div>
