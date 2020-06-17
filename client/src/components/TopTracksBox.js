@@ -24,7 +24,7 @@ class TopTracksBox extends React.Component {
         return (
             <div id={id} className="ShareBox">
                 <h2 className="Title">
-                    { title }
+                    { `My ${title} Rewind` }
                 </h2>
                 <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px 0 ${sideMargin}px`}}>
                     <h3>Top Artists</h3>
@@ -36,8 +36,8 @@ class TopTracksBox extends React.Component {
                     <TopSongs
                         songs={_.slice(topSongs, 0, 5)}
                     />
-                    <h3 className="MoodGraphHeader">Quarantine Mood</h3>
-                    <small className="MoodGraphTitle">Musical Positiveness Distribution of Your Top 50 Songs</small>
+                    <h3 className="MoodGraphHeader">{`${title} Mood`}</h3>
+                    <small className="MoodGraphTitle">Mood of My Most Played Songs</small>
                     
                     <MoodGraph
                         songValencesData={songValencesData}

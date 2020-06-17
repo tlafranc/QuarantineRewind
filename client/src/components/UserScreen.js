@@ -8,7 +8,6 @@ import _ from 'lodash';
 import TopTracksBox from './TopTracksBox.js'
 
 // Material UI
-import Button from '@material-ui/core/Button';
 import ShareIcon from '@material-ui/icons/Share';
 import FastRewindIcon from '@material-ui/icons/FastRewind';
 import FastForwardIcon from '@material-ui/icons/FastForward';
@@ -17,16 +16,16 @@ import FastForwardIcon from '@material-ui/icons/FastForward';
 import './UserScreen.scss';
 
 const userScreenId = "ShareBox";
-const timeRanges = ["short_term", "medium_term", "long_term"];
+const timeRanges = ["long_term", "medium_term", "short_term"];
 const timeRangeToShift = {
-    "short_term": 0,
+    "short_term": -2,
     "medium_term": -1,
-    "long_term": -2
+    "long_term": 0
 }
 const timeRangeToTitle = {
-    "short_term": "My Monthly Rewind",
-    "medium_term": "My Quarantine Rewind",
-    "long_term": "My Lifetime Rewind"
+    "short_term": "Monthly",
+    "medium_term": "Quarantine",
+    "long_term": "Lifetime"
 }
 
 class UserScreen extends React.Component {
@@ -93,7 +92,7 @@ class UserScreen extends React.Component {
         const binSize = 0.05;
         const freqArray = _.fill(Array(1 / binSize), 0);
         _(songValences).forEach((valence) => {
-            if (valence == 1) {
+            if (valence === 1) {
                 freqArray[freqArray.length - 1] += 1;
             } else {
                 freqArray[Math.floor(valence / binSize)] += 1;
@@ -136,6 +135,9 @@ class UserScreen extends React.Component {
 
     rewind = () => {
         const { timeRangeIndex } = this.state;
+        if (timeRangeIndex === 0) {
+            return;
+        }
 
         this.setState({
             timeRangeIndex: timeRangeIndex - 1
@@ -144,6 +146,9 @@ class UserScreen extends React.Component {
 
     forward = () => {
         const { timeRangeIndex } = this.state;
+        if (timeRangeIndex === timeRanges.length - 1) {
+            return;
+        }
 
         this.setState({
             timeRangeIndex: timeRangeIndex + 1
@@ -176,29 +181,36 @@ class UserScreen extends React.Component {
 
         return (
             <div className="UserScreen">
-                <div className={`RewindTimeRangeIcon ${timeRangeIndex == 0 ? 'disabled' : ''}`}
-                    onClick={this.rewind}>
-                    <small className="IconLabel">Prev</small>
-                    <FastRewindIcon className="IconButton" fontSize="large" />
-                </div>
-                <div className={`ForwardTimeRangeIcon ${timeRangeIndex == timeRanges.length - 1 ? 'disabled' : ''}`}
-                    onClick={this.forward}>
-                    <small className="IconLabel">Next</small>
-                    <FastForwardIcon className="IconButton" fontSize="large" />
-                </div>
-
                 <div className="TopTrackBoxesContainer" style={{transform: `translate(${topTracksBoxesShift * width}px, 0)`}}>
                     { topTracksBoxes }
                 </div>
 
-                <Button
-                    className="ShareButton"
-                    variant="contained"
-                    startIcon={<ShareIcon />}
-                    onClick={this.share}
-                >
-                    Share
-                </Button>
+                <div className="UserScreenButtons">
+                    <div className={`RewindTimeRangeIcon ${timeRangeIndex === 0 ? 'disabled' : ''}`}
+                        onClick={this.rewind}>
+                        <small className="IconLabel">
+                            {timeRangeIndex === 0
+                                ? ''
+                                : timeRangeToTitle[timeRanges[timeRangeIndex - 1]]
+                            }
+                        </small>
+                        <FastRewindIcon className="IconButton" fontSize="large" />
+                    </div>
+                    <div className="ShareIcon" onClick={this.share}>
+                        <small className="IconLabel">Share</small>
+                        <ShareIcon className="IconButton" fontSize="large" />
+                    </div>
+                    <div className={`ForwardTimeRangeIcon ${timeRangeIndex === timeRanges.length - 1 ? 'disabled' : ''}`}
+                        onClick={this.forward}>
+                        <small className="IconLabel">
+                            {timeRangeIndex === timeRanges.length - 1
+                                ? ''
+                                : timeRangeToTitle[timeRanges[timeRangeIndex + 1]]
+                            }
+                        </small>
+                        <FastForwardIcon className="IconButton" fontSize="large" />
+                    </div>
+                </div>
             </div>
         );
     }

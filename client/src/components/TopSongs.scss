@@ -6,33 +6,23 @@
     padding-bottom: 5px;
 
     .SongInfo {
-        flex-grow: 1;
-        white-space: nowrap;
-        overflow: hidden;
+        width: 75vw;
         
         display: flex;
         flex-direction: column;
         padding-left: 10px;
 
-        // Making end of word blurry
-        // URL: https://stackoverflow.com/questions/10297137/css-how-to-make-the-end-of-the-word-blurry
-        // Accessed on: 2020-06-14
         .SongName {
-            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .SongArtist {
-            position: relative;
             color: grey;
             font-size: 0.9em;
-        }
-        .SongName::after, .SongArtist::after {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            width: 3em;
-            content: '';
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }
