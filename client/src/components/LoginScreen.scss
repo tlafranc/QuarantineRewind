@@ -1,4 +1,5 @@
 .LoginScreen {
+    position: relative;
     display: flex;
     color: white;
     height: 100vh;
@@ -7,9 +8,12 @@
     background-image: linear-gradient(#DA4453, #89216B);
 
     .Header {
+        position: absolute;
+        right: 0;
         text-align: right;
         margin-right: 20px;
-        h2 {
+        
+        .RewindText {
             display: inline-block;
             padding-right: 5px;
         }
@@ -19,16 +23,34 @@
         }
     }
 
+    .Header1 {
+        clip-path: inset(0px 0px 33px 0px);
+    }
+
+    .Header2 {
+        transform: translate(-2px);
+        clip-path: inset(35px 0px 28px 0px);
+    }
+
+    .Header3 {
+        transform: translate(-3px);
+        clip-path: inset(39px 0px 0px 0px);
+    }
+
     .Content {
-        padding: 100px 15px 0px 15px;
+        padding: 20vh 15px 0px 15px;
         flex: 0 1 auto;
 
         h1, h3 {
             margin-top: 0;
         }
 
+        h1 {
+            margin-bottom: 15px;
+        }
+
         .ContentInfo {
-            padding-top: 100px;
+            padding-top: 10vh;
             small {
                 display: block;
             }
@@ -39,7 +61,6 @@
         flex: 1 1 auto;
         margin: 0 auto;
         height: 100%;
-        position: relative;
     
         button.LoginButton {
             font-size: 1.2em;
@@ -48,11 +69,8 @@
             background-color: rgb(27, 168, 76);
             color: white;
             font-weight: 700;
-    
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            
+            margin-top: 20vh;
         }
     }
 }

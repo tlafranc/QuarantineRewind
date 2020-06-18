@@ -14,12 +14,12 @@ class TopSongs extends React.Component {
     }
 
     render() {
-        const { songs } = this.props;
+        const { songs, width } = this.props;
         const songItems = _(songs).map((song, i) => {
             return (
                 <div className="Song" key={song.name}>
                     <img className="SongImage" src={song.album.images[0].url} alt={`${song.name}`} width={`${40}px`}/>
-                    <div className="SongInfo">
+                    <div className="SongInfo" style={{ width: 0.8 * width}}>
                         <div className="SongName">{song.name}</div>
                         <div className="SongArtist">{song.artists[0].name}</div>
                     </div>

@@ -28,8 +28,18 @@ class LoginScreen extends React.Component {
     render() {
         return (
             <div className="LoginScreen">
-                <div className="Header">
-                    <h2>REW</h2>
+                <div className="Header Header1">
+                    <h2 className="RewindText">REW</h2>
+                    <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: '-10px' }}/>
+                    <ArrowBackIosOutlinedIcon className="RewindIcon" />
+                </div>
+                <div className="Header Header2">
+                    <h2 className="RewindText">REW</h2>
+                    <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: '-10px' }}/>
+                    <ArrowBackIosOutlinedIcon className="RewindIcon" />
+                </div>
+                <div className="Header Header3">
+                    <h2 className="RewindText">REW</h2>
                     <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: '-10px' }}/>
                     <ArrowBackIosOutlinedIcon className="RewindIcon" />
                 </div>
