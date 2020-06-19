@@ -42,23 +42,17 @@ class UserScreen extends React.Component {
     async componentDidMount() {
         const { accessToken } = this.props;
 
-        if (accessToken) {
-            try {
-                const topArtists = await this.getTopArtists();
-                const topSongs = await this.getTopSongs();
-                const songValencesData = await Promise.all(_.map(topSongs, async (topSongsList) => {
-                    return await this.getSongValencesData(topSongsList); 
-                }));
+        const topArtists = await this.getTopArtists();
+        const topSongs = await this.getTopSongs();
+        const songValencesData = await Promise.all(_.map(topSongs, async (topSongsList) => {
+            return await this.getSongValencesData(topSongsList); 
+        }));
 
-                this.setState({
-                    songValencesData,
-                    topArtists,
-                    topSongs
-                })
-            } catch(e) {
-                console.error(e);
-            }
-        }
+        this.setState({
+            songValencesData,
+            topArtists,
+            topSongs
+        });
     }
 
     getTopArtists = async () => {

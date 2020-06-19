@@ -1,6 +1,7 @@
 // Import libraries
 import React from 'react';
 import _ from 'lodash';
+import axios from 'axios';
 
 // Import React Components
 import LoginScreen from './LoginScreen.js';
@@ -19,25 +20,51 @@ function getHashParams() {
 	return hashParams;
 }
 
+const expireTime = 5; // 30 minutes
+const refreshUri = process.env.NODE_ENV == "production" 
+    ? 'https://quarantine-rewind.herokuapp.com/refresh_token'
+    : 'http://localhost:8888/refresh_token';
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const hashParams = getHashParams();
-		let accessToken = null;
-		if ('access_token' in hashParams) {
-			accessToken = hashParams.access_token;
-			// const refreshToken = hashParams.refresh_token;
-		}
-
 		this.state = {
 			width: Math.min(window.innerWidth, 465),
-			accessToken
+			accessToken: null
 		};
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		window.addEventListener('resize', this.updateDimensions);
+
+		const hashParams = getHashParams();
+		let accessToken = null;
+
+		const savedAccessToken = window.localStorage.getItem('accessToken');
+		const savedRefreshToken = window.localStorage.getItem('refreshToken');
+		const accessTokenTime = window.localStorage.getItem('accessTokenTime');
+
+		if (!savedAccessToken && 'access_token' in hashParams) {
+			accessToken = hashParams.access_token;
+
+			window.localStorage.setItem('accessToken', accessToken);
+			window.localStorage.setItem('refreshToken', hashParams.refresh_token);
+			window.localStorage.setItem('accessTokenTime', Date.now());
+
+		} else if (savedAccessToken && Date.now() - accessTokenTime > expireTime) {
+			accessToken = (await axios.get(`${refreshUri}?refresh_token=${savedRefreshToken}`)).data.access_token;
+			console.log('accessToken', accessToken);
+			
+			window.localStorage.setItem('accessToken', accessToken);
+			window.localStorage.setItem('accessTokenTime', Date.now());
+		} else {
+			accessToken = savedAccessToken;
+		}
+
+		this.setState({
+			accessToken
+		});
     }
 
     componentWillUnmount() {
