@@ -110,10 +110,13 @@ class UserScreen extends React.Component {
         const scale = 2;
         domtoimage.toPng(node, {
             height: node.offsetHeight * scale,
+            width: node.offsetWidth * scale,
             style: {
-              transform: `scale(${scale}) translate(${node.offsetWidth / 2 / scale}px, ${node.offsetHeight / 2 / scale}px)`
-            },
-            width: node.offsetWidth * scale
+                transform: `scale(${scale})`,
+                transformOrigin: "top left",
+                width: `${node.offsetWidth}px`,
+                height: `${node.offsetHeight}px`
+            }
         }).then((dataUrl) => {
                 let imageElement = document.createElement("img");  
                 imageElement.src = dataUrl;
