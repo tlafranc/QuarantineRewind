@@ -41,6 +41,7 @@ class TopTracksBox extends React.Component {
                     <h3>Top Artists</h3>
                     <TopArtists
                         artists={topArtists}
+                        timeRange={timeRange}
                         width={width}
                     />
                     <h3>Top Songs</h3>

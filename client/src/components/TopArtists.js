@@ -12,12 +12,21 @@ class TopArtists extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            textHeight: 0
         };
     }
 
+    componentDidMount() {
+        const { timeRange } = this.props;
+        this.setState({
+            textHeight: document.getElementById(`ArtistNames-${timeRange}`).clientHeight
+        });
+    }
+
     render() {
-        const { artists } = this.props;
+        const { artists, timeRange, width } = this.props;
+        const { textHeight } = this.state;
+        const marginLeft = 0;
 
         const artistItems = _(artists).map((artist) => {
             return (
@@ -34,13 +43,16 @@ class TopArtists extends React.Component {
             }
         }).value();
 
+        const imageSize = textHeight;
+
         return (
             <div className="TopArtists">
-                <div className="ArtistNames" style={{width: `${this.props.width / 2 - 1}px`}}>
+                <div id={`ArtistNames-${timeRange}`}className="ArtistNames" 
+                    style={{ marginLeft: `${marginLeft}px`, width: `${width * .45 - marginLeft - 1}px`}}>
                     {artistItems}
                 </div>
-                <div className="ArtistImages" style={{width: `${this.props.width / 2 - 1}px`}}>
-                    <ThreeImageLayout images={images} width={this.props.width / 2 - 1} />
+                <div className="ArtistImages" style={{width: `${imageSize * 3}px`}}>
+                    <ThreeImageLayout images={images} width={imageSize} />
                 </div>
             </div>
         );

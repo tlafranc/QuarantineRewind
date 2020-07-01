@@ -30,7 +30,7 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			width: Math.min(window.innerWidth, 465),
+			width: Math.min(window.innerWidth, 375),
 			accessToken: null
 		};
 	}
@@ -54,7 +54,6 @@ class App extends React.Component {
 
 		} else if (savedAccessToken && Date.now() - accessTokenTime > expireTime) {
 			accessToken = (await axios.get(`${refreshUri}?refresh_token=${savedRefreshToken}`)).data.access_token;
-			console.log('accessToken', accessToken);
 			
 			window.localStorage.setItem('accessToken', accessToken);
 			window.localStorage.setItem('accessTokenTime', Date.now());
@@ -73,7 +72,7 @@ class App extends React.Component {
 
     updateDimensions = _.throttle(() => {
         this.setState({
-            width: Math.min(window.innerWidth, 465)
+            width: Math.min(window.innerWidth, 375)
         });
 	}, 100)
 
