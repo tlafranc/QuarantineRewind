@@ -26,8 +26,10 @@ class LoginScreen extends React.Component {
     }
 
     render() {
+        const { height, width } = this.props;
+
         return (
-            <div className="LoginScreen">
+            <div className="LoginScreen" style={{ height: `${height}px`, width: `${width}px`}}>
                 <div className="Header Header1">
                     <h2 className="RewindText">REW</h2>
                     <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: '-10px' }}/>
@@ -43,7 +45,7 @@ class LoginScreen extends React.Component {
                     <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: '-10px' }}/>
                     <ArrowBackIosOutlinedIcon className="RewindIcon" />
                 </div>
-                <div className="Content">
+                <div className="LoginContent">
                     <h1>Quarantine Rewind</h1>
                     <h3>Find out your top songs and artists.</h3>
                     <div className="ContentInfo">

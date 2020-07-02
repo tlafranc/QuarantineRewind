@@ -18,9 +18,9 @@ import './UserScreen.scss';
 const userScreenId = "ShareBox";
 const timeRanges = ["long_term", "medium_term", "short_term"];
 const timeRangeToShift = {
-    "short_term": -2,
-    "medium_term": -1,
-    "long_term": 0
+    "short_term": -1,
+    "medium_term": 0,
+    "long_term": 1
 }
 const timeRangeToTitle = {
     "short_term": "Monthly",
@@ -153,7 +153,7 @@ class UserScreen extends React.Component {
     } 
 
     render() {
-        const { width } = this.props;
+        const { height, width } = this.props;
         const { songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         const sideMargin = 16;
         const timeRange = timeRanges[timeRangeIndex];
@@ -165,6 +165,7 @@ class UserScreen extends React.Component {
                     <TopTracksBox
                         key={timeRange}
                         id={`${userScreenId}-${timeRange}`} 
+                        height={ (i == timeRangeIndex ? 1 : 0.9) * height }
                         sideMargin={sideMargin}
                         songValencesData={songValencesData[i]}
                         timeRange={timeRange}
@@ -182,32 +183,34 @@ class UserScreen extends React.Component {
                     { topTracksBoxes }
                 </div>
 
-                <div className="UserScreenButtons">
-                    <div className={`RewindTimeRangeIcon ${timeRangeIndex === 0 ? 'disabled' : ''}`}
-                        onClick={this.rewind}>
-                        <small className="IconLabel">
-                            {timeRangeIndex === 0
-                                ? ''
-                                : timeRangeToTitle[timeRanges[timeRangeIndex - 1]]
-                            }
-                        </small>
-                        <FastRewindIcon className="IconButton" fontSize="large" />
+                {!songValencesData ? null : 
+                    <div className="UserScreenButtons">
+                        <div className={`RewindTimeRangeIcon ${timeRangeIndex === 0 ? 'disabled' : ''}`}
+                            onClick={this.rewind}>
+                            <small className="IconLabel">
+                                {timeRangeIndex === 0
+                                    ? ''
+                                    : timeRangeToTitle[timeRanges[timeRangeIndex - 1]]
+                                }
+                            </small>
+                            <FastRewindIcon className="IconButton" fontSize="large" />
+                        </div>
+                        <div className="ShareIcon" onClick={this.share}>
+                            <small className="IconLabel">Share</small>
+                            <ShareIcon className="IconButton" fontSize="large" />
+                        </div>
+                        <div className={`ForwardTimeRangeIcon ${timeRangeIndex === timeRanges.length - 1 ? 'disabled' : ''}`}
+                            onClick={this.forward}>
+                            <small className="IconLabel">
+                                {timeRangeIndex === timeRanges.length - 1
+                                    ? ''
+                                    : timeRangeToTitle[timeRanges[timeRangeIndex + 1]]
+                                }
+                            </small>
+                            <FastForwardIcon className="IconButton" fontSize="large" />
+                        </div>
                     </div>
-                    <div className="ShareIcon" onClick={this.share}>
-                        <small className="IconLabel">Share</small>
-                        <ShareIcon className="IconButton" fontSize="large" />
-                    </div>
-                    <div className={`ForwardTimeRangeIcon ${timeRangeIndex === timeRanges.length - 1 ? 'disabled' : ''}`}
-                        onClick={this.forward}>
-                        <small className="IconLabel">
-                            {timeRangeIndex === timeRanges.length - 1
-                                ? ''
-                                : timeRangeToTitle[timeRanges[timeRangeIndex + 1]]
-                            }
-                        </small>
-                        <FastForwardIcon className="IconButton" fontSize="large" />
-                    </div>
-                </div>
+                }
             </div>
         );
     }

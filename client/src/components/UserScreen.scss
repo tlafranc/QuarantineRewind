@@ -1,12 +1,12 @@
 .UserScreen {
     text-align: center;
     position: relative;
-    overflow: hidden;
+    height: 100%;
 
     .TopTrackBoxesContainer {
         display: flex;
         transition: transform 0.5s;
-        height: 95vh;
+        height: 100%;
     }
 
     .UserScreenButtons {

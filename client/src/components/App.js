@@ -7,6 +7,9 @@ import axios from 'axios';
 import LoginScreen from './LoginScreen.js';
 import UserScreen from './UserScreen.js';
 
+// Import CSS
+import './App.scss';
+
 // Function that parses the hash params of a URL
 // Taken from https://github.com/spotify/web-api-auth-examples/blob/master/implicit_grant/public/index.html
 // On 2020-05-26
@@ -30,8 +33,9 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			width: Math.min(window.innerWidth, 375),
-			accessToken: null
+			accessToken: null,
+			height: Math.min(window.innerHeight, 750),
+			width: Math.min(window.innerWidth, 375)
 		};
 	}
 
@@ -72,19 +76,20 @@ class App extends React.Component {
 
     updateDimensions = _.throttle(() => {
         this.setState({
+			height: Math.min(window.innerHeight, 750),
             width: Math.min(window.innerWidth, 375)
         });
 	}, 100)
 
 	render() {
-		const { width, accessToken } = this.state;
+		const { height, width, accessToken } = this.state;
 
 		return (
-			<div className="App">
-				<div className="Content" style={{ width: `${width}px`, margin: '0 auto' }}>
+			<div className="App" style={{ height: window.innerHeight }}>
+				<div className="Content" style={{ height: `${height}px`, margin: '0 auto' }}>
 					{accessToken 
-						? <UserScreen width={width} accessToken={accessToken} />
-						: <LoginScreen />
+						? <UserScreen height={height} width={width} accessToken={accessToken} />
+						: <LoginScreen height={height} width={width}/>
 					}
 				</div>
 			</div>

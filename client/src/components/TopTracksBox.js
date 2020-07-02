@@ -19,10 +19,20 @@ class TopTracksBox extends React.Component {
     }
 
     render() {
-        const { id, sideMargin, songValencesData, timeRange, title, topArtists, topSongs, width } = this.props;
+        const {
+            height, 
+            id, 
+            sideMargin, 
+            songValencesData, 
+            timeRange, 
+            title, 
+            topArtists, 
+            topSongs, 
+            width 
+        } = this.props;
 
         return (
-            <div id={id} className="ShareBox">
+            <div id={id} className="ShareBox" style={{ height: `${height}px` }}>
                 <div className="Title">
                     <h2 className="HeaderBlank">
                         {`My ${title} Rewind`}

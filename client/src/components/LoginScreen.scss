@@ -2,7 +2,7 @@
     position: relative;
     display: flex;
     color: white;
-    height: 100vh;
+    height: 100%;
     flex-direction: column;
     text-align: center;
     background-image: linear-gradient(#DA4453, #89216B);
@@ -37,7 +37,7 @@
         clip-path: inset(39px 0px 0px 0px);
     }
 
-    .Content {
+    .LoginContent {
         padding: 20vh 15px 0px 15px;
         flex: 0 1 auto;
 
