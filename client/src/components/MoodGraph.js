@@ -38,14 +38,7 @@ class MoodGraph extends React.Component {
             yScale.domain([0, d3.max(interpolatedFreq, (d) => { return d; })]);
 
             var graphArea = svg.append("g")
-               .attr("transform", `translate(${25}, ${12.5})`)
-               .style("outline", "thin solid black");
-
-            graphArea.append("rect")
-                .attr("x", 0)
-                .attr("y", 0)
-                .attr("width", width)
-                .attr("height", height);
+               .attr("transform", `translate(${25}, ${12.5})`);
     
             graphArea.selectAll(".bar")
                 .data(interpolatedFreq)
@@ -66,7 +59,7 @@ class MoodGraph extends React.Component {
                 .attr("y1", -10)
                 .attr("y2", height + 10)
                 .style("stroke", d3.interpolateRdYlBu(1 - medianValence / (numBins - 1)))
-                .style("stroke-width", xScale.bandwidth() * .75);
+                .style("stroke-width", xScale.bandwidth() * .5);
 
             meanValance.append("text")
                 .attr("class", "meanValenceText")
