@@ -18,9 +18,9 @@ import './UserScreen.scss';
 const userScreenId = "ShareBox";
 const timeRanges = ["long_term", "medium_term", "short_term"];
 const timeRangeToShift = {
-    "short_term": -1,
-    "medium_term": 0,
-    "long_term": 1
+    "short_term": -2,
+    "medium_term": -1,
+    "long_term": 0
 }
 const timeRangeToTitle = {
     "short_term": "Monthly",
@@ -40,8 +40,6 @@ class UserScreen extends React.Component {
     }
 
     async componentDidMount() {
-        const { accessToken } = this.props;
-
         const topArtists = await this.getTopArtists();
         const topSongs = await this.getTopSongs();
         const songValencesData = await Promise.all(_.map(topSongs, async (topSongsList) => {
@@ -153,7 +151,7 @@ class UserScreen extends React.Component {
     } 
 
     render() {
-        const { height, width } = this.props;
+        const { height, combinedWidth, slideWidth } = this.props;
         const { songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         const sideMargin = 16;
         const timeRange = timeRanges[timeRangeIndex];
@@ -172,19 +170,21 @@ class UserScreen extends React.Component {
                         title={timeRangeToTitle[timeRange]}
                         topArtists={topArtists[i]} 
                         topSongs={topSongs[i]}
-                        width={width - 2 * sideMargin} />
+                        width={slideWidth - 2 * sideMargin} />
                 );
             })
             : null;
 
+        const leftShift = (combinedWidth - slideWidth) / 2;
+
         return (
             <div className="UserScreen">
-                <div className="TopTrackBoxesContainer" style={{transform: `translate(${topTracksBoxesShift * width}px, 0)`}}>
+                <div className="TopTrackBoxesContainer" style={{transform: `translate(${leftShift + topTracksBoxesShift * slideWidth}px, 0)`}}>
                     { topTracksBoxes }
                 </div>
 
                 {!songValencesData ? null : 
-                    <div className="UserScreenButtons">
+                    <div className="UserScreenButtons" style={{width: `${combinedWidth}px`}}>
                         <div className={`RewindTimeRangeIcon ${timeRangeIndex === 0 ? 'disabled' : ''}`}
                             onClick={this.rewind}>
                             <small className="IconLabel">

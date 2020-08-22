@@ -26,7 +26,9 @@ function getHashParams() {
 const expireTime = 5; // 30 minutes
 const refreshUri = process.env.NODE_ENV == "production" 
     ? 'https://quarantine-rewind.herokuapp.com/refresh_token'
-    : 'http://localhost:8888/refresh_token';
+	: 'http://localhost:8888/refresh_token';
+	
+const slideWidth = 375;
 
 class App extends React.Component {
 	constructor(props) {
@@ -35,7 +37,8 @@ class App extends React.Component {
 		this.state = {
 			accessToken: null,
 			height: Math.min(window.innerHeight, 750),
-			width: Math.min(window.innerWidth, 375)
+			slideWidth: Math.min(window.innerWidth, slideWidth),
+			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
 		};
 	}
 
@@ -77,19 +80,24 @@ class App extends React.Component {
     updateDimensions = _.throttle(() => {
         this.setState({
 			height: Math.min(window.innerHeight, 750),
-            width: Math.min(window.innerWidth, 375)
+			slideWidth: Math.min(window.innerWidth, slideWidth),
+			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
         });
 	}, 100)
 
 	render() {
-		const { height, width, accessToken } = this.state;
+		const { height, slideWidth, combinedWidth, accessToken } = this.state;
 
 		return (
 			<div className="App" style={{ height: window.innerHeight }}>
-				<div className="Content" style={{ height: `${height}px`, margin: '0 auto' }}>
+				<div className="Content" style={{ 
+					height: `${height}px`, 
+					width: `${combinedWidth}px`, 
+					margin: '0 auto'
+				}}>
 					{accessToken 
-						? <UserScreen height={height} width={width} accessToken={accessToken} />
-						: <LoginScreen height={height} width={width}/>
+						? <UserScreen height={height} slideWidth={slideWidth} combinedWidth={combinedWidth} accessToken={accessToken} />
+						: <LoginScreen height={height} width={slideWidth}/>
 					}
 				</div>
 			</div>
