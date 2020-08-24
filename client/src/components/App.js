@@ -28,7 +28,8 @@ const refreshUri = process.env.NODE_ENV == "production"
     ? 'https://quarantine-rewind.herokuapp.com/refresh_token'
 	: 'http://localhost:8888/refresh_token';
 	
-const slideWidth = 375;
+const slideWidth = 414;
+const maxHeight = 717;
 
 class App extends React.Component {
 	constructor(props) {
@@ -36,7 +37,7 @@ class App extends React.Component {
 
 		this.state = {
 			accessToken: null,
-			height: Math.min(window.innerHeight, 750),
+			height: Math.min(window.innerHeight, maxHeight),
 			slideWidth: Math.min(window.innerWidth, slideWidth),
 			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
 		};
@@ -79,7 +80,7 @@ class App extends React.Component {
 
     updateDimensions = _.throttle(() => {
         this.setState({
-			height: Math.min(window.innerHeight, 750),
+			height: Math.min(window.innerHeight, maxHeight),
 			slideWidth: Math.min(window.innerWidth, slideWidth),
 			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
         });

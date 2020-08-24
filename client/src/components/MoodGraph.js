@@ -28,8 +28,9 @@ class MoodGraph extends React.Component {
             // URL: https://www.tutorialsteacher.com/d3js/create-bar-chart-using-d3js
             // Accessed on: 2020-06-10
             const svg = d3.select(`#MoodGraph-${timeRange}`),
+                sidePadding = 16,
                 margin = 50,
-                width = svg.attr("width") - margin,
+                width = svg.attr("width") - 2 * sidePadding,
                 height = svg.attr("height") - margin / 4 - 20;
 
             var xScale = d3.scaleBand().range([0, width]).padding(0.1),
@@ -38,7 +39,7 @@ class MoodGraph extends React.Component {
             yScale.domain([0, d3.max(interpolatedFreq, (d) => { return d; })]);
 
             var graphArea = svg.append("g")
-               .attr("transform", `translate(${25}, ${12.5})`);
+               .attr("transform", `translate(${sidePadding}, ${12.5})`);
     
             graphArea.selectAll(".bar")
                 .data(interpolatedFreq)
@@ -51,7 +52,7 @@ class MoodGraph extends React.Component {
                 .attr("height", (d) => { return height - yScale(d) + 1; });
 
             const meanValance = svg.append("g")
-                .attr("transform", `translate(${25}, ${12.5})`);
+                .attr("transform", `translate(${sidePadding}, ${12.5})`);
 
             meanValance.append("line")
                 .attr("x1", xScale(medianValence) + xScale.bandwidth() / 2)
@@ -70,7 +71,7 @@ class MoodGraph extends React.Component {
                 .attr("text-anchor", "middle");
 
             const axis = svg.append("g")
-                .attr("transform", `translate(${25}, ${12.5})`);
+                .attr("transform", `translate(${sidePadding}, ${12.5})`);
 
             axis.append("text")
                 .attr("class", "axisText")

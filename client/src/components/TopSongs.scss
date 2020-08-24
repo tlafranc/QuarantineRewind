@@ -3,12 +3,13 @@
     flex-direction: row;
     text-align: left;
     align-items: center;
-    padding-bottom: 5px;
+    padding-bottom: 8px;
 
     .SongInfo {
         display: flex;
         flex-direction: column;
         padding-left: 10px;
+        justify-content: space-between;
 
         .SongName {
             white-space: nowrap;
@@ -16,7 +17,7 @@
             text-overflow: ellipsis;
         }
         .SongArtist {
-            color: grey;
+            color: gainsboro;
             font-size: 0.9em;
             white-space: nowrap;
             overflow: hidden;

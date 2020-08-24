@@ -12,22 +12,23 @@ class ThreeImageLayout extends React.Component {
 
     render() {
         const { images, width } = this.props;
+        const verticalShift = 8;
 
         return (
             <div className="ThreeImageLayout">
                 <img className="image" src={images[2].url} alt={`${images[2].alt}`} width={`${width}px`} height={`${width}px`} 
                     style={{
-                        transform: `translate(${width * 9 / 5}px, ${width / 5}px)`
+                        transform: `translate(${width * 2}px, ${verticalShift}px)`
                     }}
                 />
                 <img className="image" src={images[1].url} alt={`${images[1].alt}`} width={`${width}px`} height={`${width}px`} 
                     style={{
-                        transform: `translate(0, 0)`
+                        transform: `translate(${width * 1 / 5}px, 0)`
                     }}
                 />
                 <img className="image" src={images[0].url} alt={`${images[0].alt}`} width={`${width}px`} height={`${width}px`} 
                     style={{
-                        transform: `translate(${-width * 9 / 5}px, ${-width / 5}px)`
+                        transform: `translate(${-width * 8 / 5}px, ${-1 * verticalShift}px)`
                     }}
                 />
             </div>

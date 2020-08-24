@@ -153,7 +153,7 @@ class UserScreen extends React.Component {
     render() {
         const { height, combinedWidth, slideWidth } = this.props;
         const { songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
-        const sideMargin = 16;
+        
         const timeRange = timeRanges[timeRangeIndex];
         const topTracksBoxesShift = timeRangeToShift[timeRange];
 
@@ -164,13 +164,12 @@ class UserScreen extends React.Component {
                         key={timeRange}
                         id={`${userScreenId}-${timeRange}`} 
                         height={ (i == timeRangeIndex ? 1 : 0.9) * height }
-                        sideMargin={sideMargin}
                         songValencesData={songValencesData[i]}
                         timeRange={timeRange}
                         title={timeRangeToTitle[timeRange]}
                         topArtists={topArtists[i]} 
                         topSongs={topSongs[i]}
-                        width={slideWidth - 2 * sideMargin} />
+                        width={slideWidth} />
                 );
             })
             : null;

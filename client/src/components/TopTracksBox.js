@@ -22,7 +22,6 @@ class TopTracksBox extends React.Component {
         const {
             height, 
             id, 
-            sideMargin, 
             songValencesData, 
             timeRange, 
             title, 
@@ -30,9 +29,13 @@ class TopTracksBox extends React.Component {
             topSongs, 
             width 
         } = this.props;
+        const sideMargin = 20;
+        const subSideMargin = 16;
+        const contentWidth = width - 2 * sideMargin;
+        const subContentWidth = contentWidth - 2 * subSideMargin;
 
         return (
-            <div id={id} className="ShareBox" style={{ height: `${height}px` }}>
+            <div id={id} className="ShareBox" style={{ height: `${height}px`, width: `${contentWidth}px`, margin: `auto ${sideMargin}px` }}>
                 <div className="Title">
                     <h2 className="HeaderBlank">
                         {`My ${title} Rewind`}
@@ -52,12 +55,12 @@ class TopTracksBox extends React.Component {
                     <TopArtists
                         artists={topArtists}
                         timeRange={timeRange}
-                        width={width}
+                        width={subContentWidth}
                     />
                     <h3>Top Songs</h3>
                     <TopSongs
                         songs={_.slice(topSongs, 0, 5)}
-                        width={width}
+                        width={subContentWidth}
                     />
                     <h3 className="MoodGraphHeader">{`${title} Mood`}</h3>
                     <small className="MoodGraphTitle">Mood of My Most Played Songs</small>
@@ -65,7 +68,7 @@ class TopTracksBox extends React.Component {
                     <MoodGraph
                         songValencesData={songValencesData}
                         timeRange={timeRange}
-                        width={width}
+                        width={subContentWidth}
                     />
                 </div>
             </div>
