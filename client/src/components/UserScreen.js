@@ -18,20 +18,67 @@ import './UserScreen.scss';
 const userScreenId = "ShareBox";
 const timeRanges = ["long_term", "medium_term", "short_term"];
 const timeRangeToShift = {
-    "short_term": -2,
-    "medium_term": -1,
-    "long_term": 0
+    "short_term": {
+        "short_term": -2,
+        "medium_term": -2,
+        "long_term": 1
+    },
+    "medium_term": {
+        "short_term": -1,
+        "medium_term": -1,
+        "long_term": -1
+    },
+    "long_term": {
+        "short_term": -3,
+        "medium_term": 0,
+        "long_term": 0
+    }
 }
 const timeRangeToTitle = {
     "short_term": "Monthly",
     "medium_term": "Quarantine",
     "long_term": "Lifetime"
 }
+const rewindTimeRangeToZIndex = {
+    "short_term": {
+        "short_term": 3,
+        "medium_term": 1,
+        "long_term": 2
+    },
+    "medium_term": {
+        "short_term": 2,
+        "medium_term": 3,
+        "long_term": 1
+    },
+    "long_term": {
+        "short_term": 1,
+        "medium_term": 2,
+        "long_term": 3
+    }
+}
+const forwardTimeRangeToZIndex = {
+    "short_term": {
+        "short_term": 3,
+        "medium_term": 2,
+        "long_term": 1
+    },
+    "medium_term": {
+        "short_term": 1,
+        "medium_term": 3,
+        "long_term": 2
+    },
+    "long_term": {
+        "short_term": 2,
+        "medium_term": 1,
+        "long_term": 3
+    }
+}
 
 class UserScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            lastAction: null,
             timeRangeIndex: 1,
             songValencesData: null,
             topArtists: null,
@@ -128,34 +175,33 @@ class UserScreen extends React.Component {
             });
     }
 
-    rewind = () => {
+    rewind = _.throttle(() => {
         const { timeRangeIndex } = this.state;
-        if (timeRangeIndex === 0) {
-            return;
-        }
 
         this.setState({
-            timeRangeIndex: timeRangeIndex - 1
+            lastAction: 'rewind',
+            timeRangeIndex: timeRangeIndex === 0 ? timeRanges.length - 1 : timeRangeIndex - 1
         });
-    }
+    }, 500, { trailing: false });
 
-    forward = () => {
+    forward = _.throttle(() => {
         const { timeRangeIndex } = this.state;
-        if (timeRangeIndex === timeRanges.length - 1) {
-            return;
-        }
 
         this.setState({
-            timeRangeIndex: timeRangeIndex + 1
+            lastAction: 'forward',
+            timeRangeIndex: timeRangeIndex === timeRanges.length - 1 ? 0 : timeRangeIndex + 1
         });
-    } 
+    }, 500, { trailing: false });
 
     render() {
         const { height, combinedWidth, slideWidth } = this.props;
-        const { songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
+        const { lastAction, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         
-        const timeRange = timeRanges[timeRangeIndex];
-        const topTracksBoxesShift = timeRangeToShift[timeRange];
+        const activeTimeRange = timeRanges[timeRangeIndex];
+        const topTracksBoxesShift = timeRangeToShift[activeTimeRange];
+
+        const zIndexMapConstants = lastAction === 'forward' ? forwardTimeRangeToZIndex : rewindTimeRangeToZIndex;
+        const zIndexMap = zIndexMapConstants[activeTimeRange];
 
         const topTracksBoxes = songValencesData 
             ? _.map(timeRanges, (timeRange, i) => {
@@ -165,6 +211,10 @@ class UserScreen extends React.Component {
                         id={`${userScreenId}-${timeRange}`} 
                         height={ (i == timeRangeIndex ? 1 : 0.9) * height }
                         songValencesData={songValencesData[i]}
+                        style={{
+                            transform: `translate(${topTracksBoxesShift[timeRange] * slideWidth}px, 0)`,
+                            zIndex: zIndexMap[timeRange]
+                        }}
                         timeRange={timeRange}
                         title={timeRangeToTitle[timeRange]}
                         topArtists={topArtists[i]} 
@@ -178,17 +228,17 @@ class UserScreen extends React.Component {
 
         return (
             <div className="UserScreen">
-                <div className="TopTrackBoxesContainer" style={{transform: `translate(${leftShift + topTracksBoxesShift * slideWidth}px, 0)`}}>
+                <div className="TopTrackBoxesContainer" style={{transform: `translate(${leftShift}px, 0)`}}>
                     { topTracksBoxes }
                 </div>
 
                 {!songValencesData ? null : 
                     <div className="UserScreenButtons" style={{width: `${combinedWidth}px`}}>
-                        <div className={`RewindTimeRangeIcon ${timeRangeIndex === 0 ? 'disabled' : ''}`}
+                        <div className="RewindTimeRangeIcon"
                             onClick={this.rewind}>
                             <small className="IconLabel">
                                 {timeRangeIndex === 0
-                                    ? ''
+                                    ? timeRangeToTitle[timeRanges[timeRanges.length - 1]]
                                     : timeRangeToTitle[timeRanges[timeRangeIndex - 1]]
                                 }
                             </small>
@@ -198,11 +248,11 @@ class UserScreen extends React.Component {
                             <small className="IconLabel">Share</small>
                             <ShareIcon className="IconButton" fontSize="large" />
                         </div>
-                        <div className={`ForwardTimeRangeIcon ${timeRangeIndex === timeRanges.length - 1 ? 'disabled' : ''}`}
+                        <div className="ForwardTimeRangeIcon"
                             onClick={this.forward}>
                             <small className="IconLabel">
                                 {timeRangeIndex === timeRanges.length - 1
-                                    ? ''
+                                    ? timeRangeToTitle[timeRanges[0]]
                                     : timeRangeToTitle[timeRanges[timeRangeIndex + 1]]
                                 }
                             </small>

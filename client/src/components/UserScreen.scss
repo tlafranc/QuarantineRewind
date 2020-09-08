@@ -6,7 +6,6 @@
 
     .TopTrackBoxesContainer {
         display: flex;
-        transition: transform 0.5s;
         height: 100%;
     }
 
@@ -41,13 +40,6 @@
             .IconLabel {
                 display: block;
                 margin-bottom: 10px;
-            }
-    
-            &.disabled {
-                color: grey;
-                .IconLabel {
-                    opacity: 0;
-                }
             }
         }
     }

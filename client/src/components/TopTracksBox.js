@@ -23,6 +23,7 @@ class TopTracksBox extends React.Component {
             height, 
             id, 
             songValencesData, 
+            style,
             timeRange, 
             title, 
             topArtists, 
@@ -35,7 +36,12 @@ class TopTracksBox extends React.Component {
         const subContentWidth = contentWidth - 2 * subSideMargin;
 
         return (
-            <div id={id} className="ShareBox" style={{ height: `${height}px`, width: `${contentWidth}px`, margin: `auto ${sideMargin}px` }}>
+            <div id={id} className="ShareBox" style={{ 
+                ...style,
+                height: `${height}px`, 
+                width: `${contentWidth}px`, 
+                margin: `auto ${sideMargin}px` 
+            }}>
                 <div className="Title">
                     <h2 className="HeaderBlank">
                         {`My ${title} Rewind`}
