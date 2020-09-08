@@ -28,7 +28,7 @@ class TopSongs extends React.Component {
                         alt={`${song.name}`} 
                         width={`${imageSize}px`} 
                         height={`${imageSize}px`} />
-                    <div className="SongInfo" style={{ width: 0.8 * contentWidth, height: `${imageSize - 4}px` }}>
+                    <div className="SongInfo" style={{ width: 0.8 * contentWidth, height: `${imageSize}px` }}>
                         <div className="SongName">{song.name}</div>
                         <div className="SongArtist">{song.artists[0].name}</div>
                     </div>

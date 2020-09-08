@@ -8,6 +8,19 @@
     background-image: linear-gradient(#fcb045, #fd1d1d,#833ab4);
 }
 
+// #ShareBox-short_term {
+//     background-image: url(../images/test.jpg)
+// }
+// #ShareBox-medium_term {
+//     background-image: url(../images/test.jpg)
+// }
+// #ShareBox-long_term {
+//     background-image: url(../images/test.jpg)
+// }
+// .ShareBox {
+//     background-position: bottom
+// }
+
 
 .ShareBox {
     text-align: center;
@@ -17,9 +30,9 @@
     .Title {
         position: relative;
         display: inline-block;
-        margin: 10px;
+        margin-top: 8px;
 
-        --h2-padding: 10px;
+        --h2-padding: 8px;
         padding: var(--h2-padding);
 
         h2 {
@@ -57,6 +70,7 @@
             margin-top: 8px;
             margin-bottom: 8px;
             text-transform: uppercase;
+            color: white;
             text-shadow: 2px 2px 0px black;
         }
 
