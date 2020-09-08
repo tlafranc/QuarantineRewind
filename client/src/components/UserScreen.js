@@ -182,7 +182,7 @@ class UserScreen extends React.Component {
             lastAction: 'rewind',
             timeRangeIndex: timeRangeIndex === 0 ? timeRanges.length - 1 : timeRangeIndex - 1
         });
-    }, 500, { trailing: false });
+    }, 250, { trailing: false });
 
     forward = _.throttle(() => {
         const { timeRangeIndex } = this.state;
@@ -191,7 +191,7 @@ class UserScreen extends React.Component {
             lastAction: 'forward',
             timeRangeIndex: timeRangeIndex === timeRanges.length - 1 ? 0 : timeRangeIndex + 1
         });
-    }, 500, { trailing: false });
+    }, 250, { trailing: false });
 
     render() {
         const { height, combinedWidth, slideWidth } = this.props;
