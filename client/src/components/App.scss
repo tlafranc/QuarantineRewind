@@ -10,5 +10,14 @@
         left: 50%;
         transform: translate(-50%, -50%);
         color: white;
+
+        button.SpotifyButton {
+            font-size: 1.2em;
+            width: 175px;
+            border-radius: 25px;
+            background-color: rgb(27, 168, 76);
+            color: white;
+            font-weight: 700;
+        }
     }
 }

@@ -1,6 +1,5 @@
 // Import libraries
 import React from 'react';
-import _ from 'lodash';
 
 class ThreeImageLayout extends React.Component {
     constructor(props) {

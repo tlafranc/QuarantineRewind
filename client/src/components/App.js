@@ -24,7 +24,7 @@ function getHashParams() {
 }
 
 const expireTime = 5; // 30 minutes
-const refreshUri = process.env.NODE_ENV == "production" 
+const refreshUri = process.env.NODE_ENV === "production" 
     ? 'https://quarantine-rewind.herokuapp.com/refresh_token'
 	: 'http://localhost:8888/refresh_token';
 	

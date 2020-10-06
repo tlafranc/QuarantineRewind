@@ -61,15 +61,8 @@
         flex: 1 1 auto;
         margin: 0 auto;
         height: 100%;
-    
-        button.LoginButton {
-            font-size: 1.2em;
-            width: 175px;
-            border-radius: 25px;
-            background-color: rgb(27, 168, 76);
-            color: white;
-            font-weight: 700;
-            
+
+        .LoginButton {
             margin-top: 20vh;
         }
     }

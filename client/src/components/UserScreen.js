@@ -209,7 +209,7 @@ class UserScreen extends React.Component {
                     <TopTracksBox
                         key={timeRange}
                         id={`${userScreenId}-${timeRange}`} 
-                        height={ (i == timeRangeIndex ? 1 : 0.9) * height }
+                        height={ (i === timeRangeIndex ? 1 : 0.9) * height }
                         songValencesData={songValencesData[i]}
                         style={{
                             transform: `translate(${topTracksBoxesShift[timeRange] * slideWidth}px, 0)`,

@@ -1,6 +1,5 @@
 // Import libraries
 import React from 'react';
-import _ from 'lodash';
 import * as d3 from 'd3';
 
 // Import CSS

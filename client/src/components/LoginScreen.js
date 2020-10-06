@@ -9,7 +9,7 @@ import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
 import './LoginScreen.scss';
 // import SpotifyLogo from '../images/SpotifyLogo2.png';
 
-const loginUri = process.env.NODE_ENV == "production" 
+const loginUri = process.env.NODE_ENV === "production" 
     ? 'https://quarantine-rewind.herokuapp.com/login'
     : 'http://localhost:8888/login';
 
@@ -55,7 +55,7 @@ class LoginScreen extends React.Component {
                     </div>
                 </div>
                 <div className="ButtonContainer">
-                    <Button className="LoginButton" variant="contained" onClick={this.login}>
+                    <Button className="SpotifyButton LoginButton" variant="contained" onClick={this.login}>
                         Log In
                     </Button>
                 </div>
