@@ -26,8 +26,8 @@ class TopArtists extends React.Component {
     render() {
         const { artists, timeRange, width } = this.props;
         const { textHeight } = this.state;
-        const sidePadding = 16;
-        const contentWidth = width - 2 * sidePadding;
+        const sideMargin = 16;
+        const contentWidth = width - 2 * sideMargin;
 
         const artistItems = _(artists).map((artist) => {
             return (
@@ -46,7 +46,7 @@ class TopArtists extends React.Component {
 
         const imageSize = textHeight;
         return (
-            <div className="TopArtists" style={{ padding: `0 ${sidePadding}px`, height: `${imageSize}px` }}>
+            <div className="TopArtists" style={{ margin: `0 ${sideMargin}px`, height: `${imageSize}px` }}>
                 <div id={`ArtistNames-${timeRange}`}className="ArtistNames" 
                     style={{ width: `${contentWidth * .45 - 1}px`}}>
                     {artistItems}

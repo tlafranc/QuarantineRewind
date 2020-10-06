@@ -31,7 +31,7 @@ class TopTracksBox extends React.Component {
             width 
         } = this.props;
         const sideMargin = 20;
-        const subSideMargin = 16;
+        const subSideMargin = 20;
         const contentWidth = width - 2 * sideMargin;
         const subContentWidth = contentWidth - 2 * subSideMargin;
 
@@ -56,7 +56,7 @@ class TopTracksBox extends React.Component {
                         {`My ${title} Rewind`}
                     </h2>
                 </div>
-                <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px 0 ${sideMargin}px`}}>
+                <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px`}}>
                     <h3>Top Artists</h3>
                     <TopArtists
                         artists={topArtists}
