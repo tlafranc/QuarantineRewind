@@ -149,10 +149,21 @@ class UserScreen extends React.Component {
         };
     }
 
-    share = () => {
+    share = async () => {
         const { timeRangeIndex } = this.state;
         const node = document.getElementById(`${userScreenId}-${timeRanges[timeRangeIndex]}`);
         const scale = 2;
+        await domtoimage.toPng(node, {
+            height: node.offsetHeight * scale,
+            width: node.offsetWidth * scale,
+            style: {
+                transform: `scale(${scale})`,
+                transformOrigin: "top left",
+                width: `${node.offsetWidth}px`,
+                height: `${node.offsetHeight}px`
+            }
+        });
+
         domtoimage.toPng(node, {
             height: node.offsetHeight * scale,
             width: node.offsetWidth * scale,
