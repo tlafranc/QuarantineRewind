@@ -11,6 +11,8 @@ import TopTracksBox from './TopTracksBox.js'
 import ShareIcon from '@material-ui/icons/Share';
 import FastRewindIcon from '@material-ui/icons/FastRewind';
 import FastForwardIcon from '@material-ui/icons/FastForward';
+import Modal from '@material-ui/core/Modal';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 // Import CSS
 import './UserScreen.scss';
@@ -79,6 +81,8 @@ class UserScreen extends React.Component {
         super(props);
         this.state = {
             lastAction: null,
+            helpModalOpen: true,
+            shareModalOpen: false,
             timeRangeIndex: 1,
             songValencesData: null,
             topArtists: null,
@@ -164,26 +168,30 @@ class UserScreen extends React.Component {
             }
         });
 
-        domtoimage.toPng(node, {
-            height: node.offsetHeight * scale,
-            width: node.offsetWidth * scale,
-            style: {
-                transform: `scale(${scale})`,
-                transformOrigin: "top left",
-                width: `${node.offsetWidth}px`,
-                height: `${node.offsetHeight}px`
-            }
-        }).then((dataUrl) => {
-                let imageElement = document.createElement("img");  
-                imageElement.src = dataUrl;
-                imageElement.alt = "Your Quarantine Rewind";
-                imageElement.width = node.offsetWidth;
-                imageElement.height = node.offsetHeight;
-                document.body.appendChild(imageElement);
-            })
-            .catch(function (error) {
-                console.error('Dom To Image Error: ', error);
-            });
+        this.setState({
+            shareModalOpen: true
+        }, () => {
+            domtoimage.toPng(node, {
+                height: node.offsetHeight * scale,
+                width: node.offsetWidth * scale,
+                style: {
+                    transform: `scale(${scale})`,
+                    transformOrigin: "top left",
+                    width: `${node.offsetWidth}px`,
+                    height: `${node.offsetHeight}px`
+                }
+            }).then((dataUrl) => {
+                    let imageElement = document.createElement("img");  
+                    imageElement.src = dataUrl;
+                    imageElement.alt = "Your Quarantine Rewind";
+                    imageElement.width = node.offsetWidth - 40;
+                    let imageContainer = document.getElementsByClassName('ShareModal')[0];
+                    imageContainer.appendChild(imageElement);
+                })
+                .catch(function (error) {
+                    console.error('Dom To Image Error: ', error);
+                });
+        });
     }
 
     rewind = _.throttle(() => {
@@ -204,9 +212,30 @@ class UserScreen extends React.Component {
         });
     }, 250, { trailing: false });
 
+    openHelpModal = () => {
+        this.setState({
+            helpModalOpen: true
+        });
+    };
+    closeHelpModal = () => {
+        this.setState({
+            helpModalOpen: false
+        });
+    };
+    openShareModal = () => {
+        this.setState({
+            shareModalOpen: true
+        });
+    };
+    closeShareModal = () => {
+        this.setState({
+            shareModalOpen: false
+        });
+    };
+
     render() {
         const { height, combinedWidth, slideWidth } = this.props;
-        const { lastAction, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
+        const { lastAction, helpModalOpen, shareModalOpen, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         
         const activeTimeRange = timeRanges[timeRangeIndex];
         const topTracksBoxesShift = timeRangeToShift[activeTimeRange];
@@ -214,6 +243,7 @@ class UserScreen extends React.Component {
         const zIndexMapConstants = lastAction === 'forward' ? forwardTimeRangeToZIndex : rewindTimeRangeToZIndex;
         const zIndexMap = zIndexMapConstants[activeTimeRange];
 
+        const topTracksBoxSideMargin = 20;
         const topTracksBoxes = songValencesData 
             ? _.map(timeRanges, (timeRange, i) => {
                 return (
@@ -221,6 +251,8 @@ class UserScreen extends React.Component {
                         key={timeRange}
                         id={`${userScreenId}-${timeRange}`} 
                         height={ (i === timeRangeIndex ? 1 : 0.9) * height }
+                        sideMargin={topTracksBoxSideMargin}
+                        subSideMargin={20}
                         songValencesData={songValencesData[i]}
                         style={{
                             transform: `translate(${topTracksBoxesShift[timeRange] * slideWidth}px, 0)`,
@@ -239,6 +271,34 @@ class UserScreen extends React.Component {
 
         return (
             <div className="UserScreen">
+                {/* Subtracting by 24 since that's the elements size */}
+                <HelpOutlineIcon className="HelpIcon" style={{transform: `translateX(${slideWidth / 2 - topTracksBoxSideMargin - 24 - 10}px)`, paddingTop: `10px`}} onClick={this.openHelpModal}/>
+                <Modal 
+                    open={helpModalOpen}
+                    onClose={this.closeHelpModal}
+                >
+                    <div className="Modal HelpModal" style={{width: `${slideWidth - 20}px`, padding: `0 10px`}}>
+                        <p style={{textAlign: 'center'}}>Welcome to Quarantine Rewind!</p>
+                        <div>
+                            This app shows you your top songs and artists over different time periods:
+                            <ul>
+                                <li>Monthly: Past month</li>
+                                <li>Quarantine: Past 6 months</li>
+                                <li>Lifetime: Past couple years</li>
+                            </ul>
+                        </div>
+                        <p>Use the play buttons at the bottom to cycle through the cards and the share button to export the card as an image.</p>
+                    </div>
+                </Modal>
+                <Modal 
+                    open={shareModalOpen}
+                    onClose={this.closeShareModal}
+                >
+                    <div className="Modal ShareModal" style={{width: `${slideWidth - 20}px`, padding: `0 10px`}}>
+                        <div><span className="DirectionsText">Tap + Hold</span> to save image on mobile devices</div>
+                        <div><span className="DirectionsText">Right click</span> to save image on desktop</div>
+                    </div>
+                </Modal>
                 <div className="TopTrackBoxesContainer" style={{transform: `translate(${leftShift}px, 0)`}}>
                     { topTracksBoxes }
                 </div>

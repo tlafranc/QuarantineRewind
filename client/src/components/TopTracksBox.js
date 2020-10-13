@@ -22,6 +22,8 @@ class TopTracksBox extends React.Component {
         const {
             height, 
             id, 
+            sideMargin,
+            subSideMargin,
             songValencesData, 
             style,
             timeRange, 
@@ -30,8 +32,6 @@ class TopTracksBox extends React.Component {
             topSongs, 
             width 
         } = this.props;
-        const sideMargin = 20;
-        const subSideMargin = 20;
         const contentWidth = width - 2 * sideMargin;
         const subContentWidth = contentWidth - 2 * subSideMargin;
 
