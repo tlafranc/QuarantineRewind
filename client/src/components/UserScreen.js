@@ -91,8 +91,12 @@ class UserScreen extends React.Component {
     }
 
     async componentDidMount() {
-        const topArtists = await this.getTopArtists();
-        const topSongs = await this.getTopSongs();
+        const topArtists = await Promise.all(_.map(timeRanges, async (timeRange) => {
+            return (await this.spotifyRequest(`https://api.spotify.com/v1/me/top/artists?limit=3&time_range=${timeRange}`)).data.items;
+        }));
+        const topSongs = await Promise.all(_.map(timeRanges, async (timeRange) => {
+            return (await this.spotifyRequest(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`)).data.items;
+        }));
         const songValencesData = await Promise.all(_.map(topSongs, async (topSongsList) => {
             return await this.getSongValencesData(topSongsList); 
         }));
@@ -104,29 +108,30 @@ class UserScreen extends React.Component {
         });
     }
 
-    getTopArtists = async () => {
-        return await Promise.all(_.map(timeRanges, async (timeRange) => {
-            return (await axios.get(`https://api.spotify.com/v1/me/top/artists?limit=3&time_range=${timeRange}`, {
+    spotifyRequest = async (url) => {
+        try {
+            return (await axios.get(url, {
                 headers: { 'Authorization': `Bearer ${this.props.accessToken}` }
-            })).data.items;
-        }));
-    }
-
-    getTopSongs = async () => {
-        return await Promise.all(_.map(timeRanges, async (timeRange) => {
-            return (await axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`, {
-                headers: { 'Authorization': `Bearer ${this.props.accessToken}` }
-            })).data.items;
-        }));
+            }));
+        } catch (err) {
+            let statusCode = err.response.status;
+            if (statusCode === 429) {
+                await (new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                    }, err.response.headers['retry-after'] * 1000);
+                }));
+                return await this.spotifyRequest(url);
+            }
+        }
     }
 
     getSongValencesData = async (songs) => {
         const songIds = _(songs).map((song) => {
             return song.id;
         }).value();
-        const songFeatures = (await axios.get(`https://api.spotify.com/v1/audio-features/?ids=${songIds.join()}`, {
-                headers: { 'Authorization': `Bearer ${this.props.accessToken}`}
-            })).data.audio_features;
+
+        const songFeatures = (await this.spotifyRequest(`https://api.spotify.com/v1/audio-features/?ids=${songIds.join()}`)).data.audio_features;
         const songValences = _(songFeatures).map((song) => {
             return song.valence;
         }).value();
