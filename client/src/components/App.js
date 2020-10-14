@@ -37,7 +37,7 @@ class App extends React.Component {
 
 		this.state = {
 			accessToken: null,
-			height: Math.min(window.innerHeight, maxHeight),
+			slideHeight: Math.min(window.innerHeight, maxHeight),
 			slideWidth: Math.min(window.innerWidth, slideWidth),
 			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
 		};
@@ -80,25 +80,36 @@ class App extends React.Component {
 
     updateDimensions = _.throttle(() => {
         this.setState({
-			height: Math.min(window.innerHeight, maxHeight),
+			slideHeight: Math.min(window.innerHeight, maxHeight),
 			slideWidth: Math.min(window.innerWidth, slideWidth),
 			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
         });
-	}, 100)
+	}, 100);
+
+	logout = async () => {
+		window.localStorage.removeItem('accessToken');
+		window.localStorage.removeItem('refreshToken');
+		window.localStorage.removeItem('accessTokenTime');
+
+		window.location.href = window.location.href.split('#')[0]
+
+		this.setState({
+			accessToken: null
+		});
+	}
 
 	render() {
-		const { height, slideWidth, combinedWidth, accessToken } = this.state;
+		const { slideHeight, slideWidth, combinedWidth, accessToken } = this.state;
 
 		return (
-			<div className="App" style={{ height: window.innerHeight }}>
+			<div className="App" style={{ minHeight: window.innerHeight }}>
 				<div className="Content" style={{ 
-					height: `${height}px`, 
 					width: `${combinedWidth}px`, 
-					margin: '0 auto'
+					margin: 'auto'
 				}}>
 					{accessToken 
-						? <UserScreen height={height} slideWidth={slideWidth} combinedWidth={combinedWidth} accessToken={accessToken} />
-						: <LoginScreen height={height} width={slideWidth}/>
+						? <UserScreen height={slideHeight} slideWidth={slideWidth} combinedWidth={combinedWidth} accessToken={accessToken} logout={this.logout} />
+						: <LoginScreen height={slideHeight} width={slideWidth}/>
 					}
 				</div>
 			</div>
