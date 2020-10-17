@@ -14,7 +14,7 @@ class ThreeImageLayout extends React.Component {
         const verticalShift = 8;
 
         return (
-            <div className="ThreeImageLayout">
+            <div className="ThreeImageLayout" style={{height: `${width}px`}}>
                 <img className="image" src={images[2].url} alt={`${images[2].alt}`} width={`${width}px`} height={`${width}px`} 
                     style={{
                         transform: `translate(${width * 2}px, ${verticalShift}px)`

@@ -23,22 +23,24 @@ function getHashParams() {
 	return hashParams;
 }
 
-const expireTime = 5; // 30 minutes
+const expireTime = 30; // 30 minutes
 const refreshUri = process.env.NODE_ENV === "production" 
     ? 'https://quarantine-rewind.herokuapp.com/refresh_token'
 	: 'http://localhost:8888/refresh_token';
 	
-const slideWidth = 414;
-const maxHeight = 717;
+const maxHeight = 700;
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 
+		const slideHeight = Math.min(window.innerHeight - 40, maxHeight);
+		const slideWidth = slideHeight * 9 / 16;
+
 		this.state = {
 			accessToken: null,
-			slideHeight: Math.min(window.innerHeight, maxHeight),
-			slideWidth: Math.min(window.innerWidth, slideWidth),
+			slideHeight,
+			slideWidth,
 			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
 		};
 	}
@@ -79,9 +81,12 @@ class App extends React.Component {
     }
 
     updateDimensions = _.throttle(() => {
+		const slideHeight = Math.min(window.innerHeight - 40, maxHeight);
+		const slideWidth = slideHeight * 9 / 16;
+
         this.setState({
-			slideHeight: Math.min(window.innerHeight, maxHeight),
-			slideWidth: Math.min(window.innerWidth, slideWidth),
+			slideHeight,
+			slideWidth,
 			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
         });
 	}, 100);
@@ -100,15 +105,16 @@ class App extends React.Component {
 
 	render() {
 		const { slideHeight, slideWidth, combinedWidth, accessToken } = this.state;
+		const fontSize = 0.0229 * slideHeight;
 
 		return (
-			<div className="App" style={{ minHeight: window.innerHeight }}>
+			<div className="App" style={{ minHeight: window.innerHeight, fontSize: `${fontSize}px` }}>
 				<div className="Content" style={{ 
 					width: `${combinedWidth}px`, 
 					margin: 'auto'
 				}}>
 					{accessToken 
-						? <UserScreen height={slideHeight} slideWidth={slideWidth} combinedWidth={combinedWidth} accessToken={accessToken} logout={this.logout} />
+						? <UserScreen height={slideHeight} slideWidth={slideWidth} combinedWidth={combinedWidth} accessToken={accessToken} logout={this.logout} fontSize={fontSize}/>
 						: <LoginScreen height={slideHeight} width={slideWidth}/>
 					}
 				</div>

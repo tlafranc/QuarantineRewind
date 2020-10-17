@@ -44,14 +44,15 @@ class TopArtists extends React.Component {
             }
         }).value();
 
-        const imageSize = textHeight;
+        const leftSideWidth = contentWidth * .45 - 1
+        const imageSize = (contentWidth - leftSideWidth) / 3;
         return (
             <div className="TopArtists" style={{ margin: `0 ${sideMargin}px`, height: `${imageSize}px` }}>
                 <div id={`ArtistNames-${timeRange}`}className="ArtistNames" 
-                    style={{ width: `${contentWidth * .45 - 1}px`}}>
+                    style={{ width: `${leftSideWidth}px`}}>
                     {artistItems}
                 </div>
-                <div className="ArtistImages" style={{width: `${imageSize * 3}px`}}>
+                <div className="ArtistImages" style={{width: `${imageSize * 3}px`, height: `${textHeight}px`}}>
                     <ThreeImageLayout images={images} width={imageSize} />
                 </div>
             </div>

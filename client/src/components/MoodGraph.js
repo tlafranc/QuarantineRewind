@@ -94,11 +94,11 @@ class MoodGraph extends React.Component {
     }
 
     render() {
-        const { timeRange, width } = this.props;
+        const { timeRange, width, height } = this.props;
 
         return (
             <div className="MoodGraphContainer">
-                <svg id={`MoodGraph-${timeRange}`} className="MoodGraph" width={width} height="125"></svg>
+                <svg id={`MoodGraph-${timeRange}`} className="MoodGraph" width={width} height={height}></svg>
             </div>
         );
     }

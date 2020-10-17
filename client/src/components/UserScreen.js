@@ -96,7 +96,7 @@ class UserScreen extends React.Component {
             return (await this.spotifyRequest(`https://api.spotify.com/v1/me/top/artists?limit=3&time_range=${timeRange}`)).data.items;
         }));
         const topSongs = await Promise.all(_.map(timeRanges, async (timeRange) => {
-            return (await this.spotifyRequest(`https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=${timeRange}`)).data.items;
+            return (await this.spotifyRequest(`https://api.spotify.com/v1/me/top/tracks?limit=16&time_range=${timeRange}`)).data.items;
         }));
         const songValencesData = await Promise.all(_.map(topSongs, async (topSongsList) => {
             return await this.getSongValencesData(topSongsList); 
@@ -240,7 +240,7 @@ class UserScreen extends React.Component {
     };
 
     render() {
-        const { height, combinedWidth, slideWidth } = this.props;
+        const { height, combinedWidth, slideWidth, fontSize } = this.props;
         const { lastAction, helpModalOpen, shareModalOpen, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         
         const activeTimeRange = timeRanges[timeRangeIndex];
@@ -256,6 +256,7 @@ class UserScreen extends React.Component {
                     <TopTracksBox
                         key={timeRange}
                         id={`${userScreenId}-${timeRange}`} 
+                        fontSize={fontSize}
                         height={ (i === timeRangeIndex ? 1 : 0.9) * height }
                         sideMargin={topTracksBoxSideMargin}
                         subSideMargin={20}

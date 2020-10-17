@@ -14,10 +14,10 @@ class TopSongs extends React.Component {
     }
 
     render() {
-        const { songs, width } = this.props;
+        const { fontSize, songs, width } = this.props;
         const sidePadding = 16;
         const contentWidth = width - 2 * sidePadding;
-        const imageSize = 40;
+        const imageSize = 2 * fontSize + 4;
 
         const songItems = _(songs).map((song, i) => {
             return (

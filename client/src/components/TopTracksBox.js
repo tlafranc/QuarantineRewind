@@ -22,6 +22,7 @@ class TopTracksBox extends React.Component {
         const {
             height, 
             id, 
+            fontSize,
             sideMargin,
             subSideMargin,
             songValencesData, 
@@ -65,6 +66,7 @@ class TopTracksBox extends React.Component {
                     />
                     <h3>Top Songs</h3>
                     <TopSongs
+                        fontSize={fontSize}
                         songs={_.slice(topSongs, 0, 5)}
                         width={subContentWidth}
                     />
@@ -75,6 +77,7 @@ class TopTracksBox extends React.Component {
                         songValencesData={songValencesData}
                         timeRange={timeRange}
                         width={subContentWidth}
+                        height={0.18 * height}
                     />
                 </div>
             </div>
