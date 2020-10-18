@@ -17,11 +17,19 @@ class TopArtists extends React.Component {
     }
 
     componentDidMount() {
+        this.updateTextHeight();
+    }
+
+    componentDidUpdate() {
+        this.updateTextHeight();
+    }
+
+    updateTextHeight = _.debounce(() => {
         const { timeRange } = this.props;
         this.setState({
             textHeight: document.getElementById(`ArtistNames-${timeRange}`).clientHeight
         });
-    }
+    }, 250);
 
     render() {
         const { artists, timeRange, width } = this.props;
