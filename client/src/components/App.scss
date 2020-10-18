@@ -1,47 +1,51 @@
-.App {
-    display: flex;
-    background-color: #0d0d0d;
-    background-image: url(../images/Spotify_Logo_RGB_Green.png);
-    background-size: 220px;
-    background-repeat: repeat;
-
-    .Content {
-        color: white;
-
-        button.SpotifyButton {
-            font-size: 1.2em;
-            width: 175px;
-            border-radius: 25px;
-            background-color: rgb(27, 168, 76);
-            color: white;
-            font-weight: 700;
-        }
-    }
+body {
+    --gold-color: gold;
     
-    .ShadowContainer {
-        position: relative;
-
-        .ShadowMain {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            margin: 0;
-            z-index: 2;
+    .App {
+        display: flex;
+        background-color: #0d0d0d;
+        background-image: url(../images/Spotify_Logo_RGB_Green.png);
+        background-size: 220px;
+        background-repeat: repeat;
+    
+        .Content {
             color: white;
+    
+            button.SpotifyButton {
+                font-size: 1.2em;
+                width: 175px;
+                border-radius: 25px;
+                background-color: rgb(27, 168, 76);
+                color: white;
+                font-weight: 700;
+            }
         }
-        .Shadow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            margin: 0;
-            z-index: 1;
-            color: black;
-            transform: translate(2px, 2px);
-        }
-        .ShadowBlank {
-            color: transparent;
+        
+        .ShadowContainer {
+            position: relative;
+    
+            .ShadowMain {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                margin: 0;
+                z-index: 2;
+                color: white;
+            }
+            .Shadow {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                margin: 0;
+                z-index: 1;
+                color: black;
+                transform: translate(2px, 2px);
+            }
+            .ShadowBlank {
+                color: transparent;
+            }
         }
     }
 }

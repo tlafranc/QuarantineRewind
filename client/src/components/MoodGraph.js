@@ -66,6 +66,7 @@ class MoodGraph extends React.Component {
                 .attr("transform", `translate(${sidePadding}, ${12.5})`);
 
             meanValance.append("line")
+                .attr("class", "meanValenceLine")
                 .attr("x1", xScale(medianValence) + xScale.bandwidth() / 2)
                 .attr("x2", xScale(medianValence) + xScale.bandwidth() / 2)
                 .attr("y1", -10)
