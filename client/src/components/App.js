@@ -115,7 +115,7 @@ class App extends React.Component {
 				}}>
 					{accessToken 
 						? <UserScreen height={slideHeight} slideWidth={slideWidth} combinedWidth={combinedWidth} accessToken={accessToken} logout={this.logout} fontSize={fontSize}/>
-						: <LoginScreen height={slideHeight} width={slideWidth}/>
+						: <LoginScreen height={slideHeight} width={slideWidth} fontSize={fontSize}/>
 					}
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 body {
     --gold-color: gold;
-    
+
     .App {
         display: flex;
         background-color: #0d0d0d;
@@ -18,6 +18,10 @@ body {
                 background-color: rgb(27, 168, 76);
                 color: white;
                 font-weight: 700;
+            }
+
+            .Smaller {
+                font-size: .85em;
             }
         }
         

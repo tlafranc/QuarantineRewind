@@ -26,32 +26,33 @@ class LoginScreen extends React.Component {
     }
 
     render() {
-        const { height, width } = this.props;
+        const { fontSize, height, width } = this.props;
 
         return (
-            <div className="LoginScreen" style={{ height: `${height}px`, width: `${width}px`, margin: `0 auto`}}>
-                <div className="Header Header1">
+            // Reduce the width of the login screen by 2 * fontSize for consistency
+            <div className="LoginScreen" style={{ height: `${height}px`, width: `${width - 2 * fontSize}px`, margin: `0 auto`}}>
+                <div className="Header Header1" style={{ clipPath: `inset(0px 0px ${2 * fontSize * 33 / 32}px 0px)` }}>
                     <h2 className="RewindText">REW</h2>
-                    <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: '-10px' }}/>
+                    <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: `${-1 * fontSize / 2}px` }}/>
                     <ArrowBackIosOutlinedIcon className="RewindIcon" />
                 </div>
-                <div className="Header Header2">
+                <div className="Header Header2" style={{ clipPath: `inset(${2 * fontSize * 35 / 32}px 0px ${fontSize * 7 / 4}px 0px)` }}>
                     <h2 className="RewindText">REW</h2>
-                    <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: '-10px' }}/>
+                    <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: `${-1 * fontSize / 2}px` }}/>
                     <ArrowBackIosOutlinedIcon className="RewindIcon" />
                 </div>
-                <div className="Header Header3">
+                <div className="Header Header3" style={{ clipPath: `inset(${2 * fontSize * 39 / 32}px 0px 0px 0px)` }}>
                     <h2 className="RewindText">REW</h2>
-                    <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: '-10px' }}/>
+                    <ArrowBackIosOutlinedIcon className="RewindIcon" style={{ marginRight: `${-1 * fontSize / 2}px` }}/>
                     <ArrowBackIosOutlinedIcon className="RewindIcon" />
                 </div>
                 <div className="LoginContent">
                     <h1>Quarantine Rewind</h1>
                     <h3>Find out your top songs and artists</h3>
                     <div className="ContentInfo">
-                        <small>Code is open source and can be found on GitHub</small>
-                        <small>Don't have a Spotify account? Watch the YouTube video</small>
-                        <small>Made by Thomas Lafrance</small>
+                        <div className="Smaller">Code is open source and can be found on GitHub</div>
+                        <div className="Smaller">Don't have Spotify? Watch the YouTube video</div>
+                        <div className="Smaller">Made by Thomas Lafrance</div>
                     </div>
                 </div>
                 <div className="ButtonContainer">
