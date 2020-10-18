@@ -21,7 +21,7 @@ class TopSongs extends React.Component {
 
         const songItems = _(songs).map((song, i) => {
             return (
-                <div className="Song" key={song.name}>
+                <div className="Song" key={song.name} style={{paddingBottom: `${fontSize / 2}px`}}>
                     <img 
                         className="SongImage" 
                         src={song.album.images[0].url} 

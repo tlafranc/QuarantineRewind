@@ -249,7 +249,7 @@ class UserScreen extends React.Component {
         const zIndexMapConstants = lastAction === 'forward' ? forwardTimeRangeToZIndex : rewindTimeRangeToZIndex;
         const zIndexMap = zIndexMapConstants[activeTimeRange];
 
-        const topTracksBoxSideMargin = 20;
+        const topTracksBoxSideMargin = fontSize;
         const topTracksBoxes = songValencesData 
             ? _.map(timeRanges, (timeRange, i) => {
                 return (
@@ -259,7 +259,7 @@ class UserScreen extends React.Component {
                         fontSize={fontSize}
                         height={ (i === timeRangeIndex ? 1 : 0.9) * height }
                         sideMargin={topTracksBoxSideMargin}
-                        subSideMargin={20}
+                        subSideMargin={fontSize}
                         songValencesData={songValencesData[i]}
                         style={{
                             transform: `translate(${topTracksBoxesShift[timeRange] * slideWidth}px, 0)`,
@@ -307,35 +307,41 @@ class UserScreen extends React.Component {
                     </div>
                 </Modal>
                 <div style={{position: 'relative'}}>
-                    <div className="TopTrackBoxesContainer" style={{transform: `translate(${leftShift}px, 0)`}}>
+                    <div className="TopTrackBoxesContainer" style={{transform: `translate(${leftShift}px, 0)`, height: `${height}px`}}>
                         { topTracksBoxes }
                     </div>
 
                     {!songValencesData ? null :
-                        <div className="UserScreenButtons" style={{width: `${combinedWidth}px`}}>
+                        <div className="UserScreenButtons" style={{bottom: `${fontSize}px`, width: `${slideWidth - 2 * topTracksBoxSideMargin}px`}}>
                             <div className="RewindTimeRangeIcon"
                                 onClick={this.rewind}>
-                                <small className="IconLabel">
+                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>
                                     {timeRangeIndex === 0
                                         ? timeRangeToTitle[timeRanges[timeRanges.length - 1]]
                                         : timeRangeToTitle[timeRanges[timeRangeIndex - 1]]
                                     }
                                 </small>
-                                <FastRewindIcon className="IconButton" fontSize="large" />
+                                <div style={{fontSize:`${fontSize * 2}px`}}>
+                                    <FastRewindIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                </div>
                             </div>
                             <div className="ShareIcon" onClick={this.share}>
-                                <small className="IconLabel">Share</small>
-                                <ShareIcon className="IconButton" fontSize="large" />
+                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>Share</small>
+                                <div style={{fontSize:`${fontSize * 2}px`}}>
+                                    <ShareIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                </div>
                             </div>
                             <div className="ForwardTimeRangeIcon"
                                 onClick={this.forward}>
-                                <small className="IconLabel">
+                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>
                                     {timeRangeIndex === timeRanges.length - 1
                                         ? timeRangeToTitle[timeRanges[0]]
                                         : timeRangeToTitle[timeRanges[timeRangeIndex + 1]]
                                     }
                                 </small>
-                                <FastForwardIcon className="IconButton" fontSize="large" />
+                                <div style={{fontSize:`${fontSize * 2}px`}}>
+                                    <FastForwardIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                </div>
                             </div>
                         </div>
                     }

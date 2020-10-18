@@ -47,7 +47,7 @@ class TopArtists extends React.Component {
         const leftSideWidth = contentWidth * .45 - 1
         const imageSize = (contentWidth - leftSideWidth) / 3;
         return (
-            <div className="TopArtists" style={{ margin: `0 ${sideMargin}px`, height: `${imageSize}px` }}>
+            <div className="TopArtists" style={{ margin: `0 ${sideMargin}px` }}>
                 <div id={`ArtistNames-${timeRange}`}className="ArtistNames" 
                     style={{ width: `${leftSideWidth}px`}}>
                     {artistItems}

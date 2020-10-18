@@ -43,7 +43,7 @@ class TopTracksBox extends React.Component {
                 width: `${contentWidth}px`, 
                 margin: `auto ${sideMargin}px` 
             }}>
-                <div className="Title">
+                <div className="Title" style={{paddingTop: 0, marginTop: `${fontSize}px`}}>
                     <h2 className="HeaderBlank">
                         {`My ${title} Rewind`}
                     </h2>
@@ -58,13 +58,13 @@ class TopTracksBox extends React.Component {
                     </h2>
                 </div>
                 <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px`}}>
-                    <h3>Top Artists</h3>
+                    <h3 style={{margin:`${fontSize / 2}px 0`}}>Top Artists</h3>
                     <TopArtists
                         artists={topArtists}
                         timeRange={timeRange}
                         width={subContentWidth}
                     />
-                    <h3>Top Songs</h3>
+                    <h3 style={{margin:`${fontSize / 2}px 0`}}>Top Songs</h3>
                     <TopSongs
                         fontSize={fontSize}
                         songs={_.slice(topSongs, 0, 5)}

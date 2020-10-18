@@ -44,7 +44,7 @@
             }
             &.Header1, &.Header2, &.Header3 {
                 position: absolute;
-                top: var(--h2-padding);
+                top: 0;
                 left: var(--h2-padding);
                 color: white;
                 text-shadow: 2px 2px 0px black;
@@ -67,8 +67,6 @@
         text-align: left;
 
         h3 {
-            margin-top: 8px;
-            margin-bottom: 8px;
             text-transform: uppercase;
             color: white;
             text-shadow: 2px 2px 0px black;
