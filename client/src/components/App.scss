@@ -17,4 +17,31 @@
             font-weight: 700;
         }
     }
+    
+    .ShadowContainer {
+        position: relative;
+
+        .ShadowMain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            z-index: 2;
+            color: white;
+        }
+        .Shadow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            z-index: 1;
+            color: black;
+            transform: translate(2px, 2px);
+        }
+        .ShadowBlank {
+            color: transparent;
+        }
+    }
 }

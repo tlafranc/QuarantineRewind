@@ -44,21 +44,33 @@ class TopTracksBox extends React.Component {
                 width: `${contentWidth}px`, 
                 margin: `auto ${sideMargin}px` 
             }}>
-                <ShearedTitle className="Title" fontSize={fontSize} style={{color: 'white', paddingTop: 0, marginTop: `${fontSize}px`}} shadow={true} title={`My ${title} Rewind`} />
+                <ShearedTitle className="ShadowContainer Title" fontSize={fontSize} style={{color: 'white', paddingTop: 0, marginTop: `${fontSize}px`}} shadow={true} title={`My ${title} Rewind`} />
                 <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px`}}>
-                    <h3 style={{margin:`${fontSize / 2}px 0`}}>Top Artists</h3>
+                    <div className="ShadowContainer">
+                        <h3 className="ShadowBlank" style={{margin:`${fontSize / 2}px 0`}}>Top Artists</h3>
+                        <h3 className="Shadow">Top Artists</h3>
+                        <h3 className="ShadowMain">Top Artists</h3>
+                    </div>
                     <TopArtists
                         artists={topArtists}
                         timeRange={timeRange}
                         width={subContentWidth}
                     />
-                    <h3 style={{margin:`${fontSize / 2}px 0`}}>Top Songs</h3>
+                    <div className="ShadowContainer">
+                        <h3 className="ShadowBlank" style={{margin:`${fontSize / 2}px 0`}}>Top Songs</h3>
+                        <h3 className="Shadow">Top Songs</h3>
+                        <h3 className="ShadowMain">Top Songs</h3>
+                    </div>
                     <TopSongs
                         fontSize={fontSize}
                         songs={_.slice(topSongs, 0, 5)}
                         width={subContentWidth}
                     />
-                    <h3 className="MoodGraphHeader">{`${title} Mood`}</h3>
+                    <div className="ShadowContainer">
+                        <h3 className="ShadowBlank MoodGraphHeader">{`${title} Mood`}</h3>
+                        <h3 className="Shadow">{`${title} Mood`}</h3>
+                        <h3 className="ShadowMain">{`${title} Mood`}</h3>
+                    </div>
                     <small className="MoodGraphTitle">Mood of My Most Played Songs</small>
                     
                     <MoodGraph
