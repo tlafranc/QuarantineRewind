@@ -40,8 +40,7 @@ class App extends React.Component {
 		this.state = {
 			accessToken: null,
 			slideHeight,
-			slideWidth,
-			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
+			slideWidth
 		};
 	}
 
@@ -86,8 +85,7 @@ class App extends React.Component {
 
         this.setState({
 			slideHeight,
-			slideWidth,
-			combinedWidth: Math.min(window.innerWidth, slideWidth * 3)
+			slideWidth
         });
 	}, 100);
 
@@ -104,17 +102,16 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { slideHeight, slideWidth, combinedWidth, accessToken } = this.state;
+		const { slideHeight, slideWidth, accessToken } = this.state;
 		const fontSize = 0.0229 * slideHeight;
 
 		return (
 			<div className="App" style={{ minHeight: window.innerHeight, fontSize: `${fontSize}px` }}>
 				<div className="Content" style={{ 
-					width: `${combinedWidth}px`, 
 					margin: 'auto'
 				}}>
 					{accessToken 
-						? <UserScreen height={slideHeight} slideWidth={slideWidth} combinedWidth={combinedWidth} accessToken={accessToken} logout={this.logout} fontSize={fontSize}/>
+						? <UserScreen height={slideHeight} slideWidth={slideWidth} accessToken={accessToken} logout={this.logout} fontSize={fontSize}/>
 						: <LoginScreen height={slideHeight} width={slideWidth} fontSize={fontSize}/>
 					}
 				</div>

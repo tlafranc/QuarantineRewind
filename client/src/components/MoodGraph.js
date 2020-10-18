@@ -112,7 +112,7 @@ class MoodGraph extends React.Component {
         } catch(e) {
             console.error(e);
         }
-    }, 250);
+    }, 50);
 
     render() {
         const { timeRange, width, height } = this.props;

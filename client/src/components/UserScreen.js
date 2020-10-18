@@ -240,7 +240,7 @@ class UserScreen extends React.Component {
     };
 
     render() {
-        const { height, combinedWidth, slideWidth, fontSize } = this.props;
+        const { height, slideWidth, fontSize } = this.props;
         const { lastAction, helpModalOpen, shareModalOpen, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         
         const activeTimeRange = timeRanges[timeRangeIndex];
@@ -249,27 +249,30 @@ class UserScreen extends React.Component {
         const zIndexMapConstants = lastAction === 'forward' ? forwardTimeRangeToZIndex : rewindTimeRangeToZIndex;
         const zIndexMap = zIndexMapConstants[activeTimeRange];
 
+        const sizeReductionMultiplier = 0.9;
+        const combinedWidth = slideWidth + 2 * sizeReductionMultiplier * slideWidth;
         const topTracksBoxSideMargin = fontSize;
         const topTracksBoxes = songValencesData 
             ? _.map(timeRanges, (timeRange, i) => {
+                const slideSizeMultiplier = i === timeRangeIndex ? 1 : sizeReductionMultiplier;
                 return (
                     <TopTracksBox
                         key={timeRange}
                         id={`${userScreenId}-${timeRange}`} 
-                        fontSize={fontSize}
-                        height={ (i === timeRangeIndex ? 1 : 0.9) * height }
-                        sideMargin={topTracksBoxSideMargin}
-                        subSideMargin={fontSize}
+                        fontSize={fontSize * slideSizeMultiplier}
+                        height={height * slideSizeMultiplier}
+                        sideMargin={topTracksBoxSideMargin * slideSizeMultiplier}
+                        subSideMargin={fontSize * slideSizeMultiplier}
                         songValencesData={songValencesData[i]}
                         style={{
-                            transform: `translate(${topTracksBoxesShift[timeRange] * slideWidth}px, 0)`,
+                            transform: `translate(${topTracksBoxesShift[timeRange] * (combinedWidth / 3)}px, 0)`,
                             zIndex: zIndexMap[timeRange]
                         }}
                         timeRange={timeRange}
                         title={timeRangeToTitle[timeRange]}
                         topArtists={topArtists[i]} 
                         topSongs={topSongs[i]}
-                        width={slideWidth} />
+                        width={slideWidth * slideSizeMultiplier} />
                 );
             })
             : null;

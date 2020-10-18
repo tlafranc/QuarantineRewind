@@ -42,7 +42,8 @@ class TopTracksBox extends React.Component {
                 ...style,
                 height: `${height}px`, 
                 width: `${contentWidth}px`, 
-                margin: `auto ${sideMargin}px` 
+                margin: `auto ${sideMargin}px`,
+                fontSize: `${fontSize}px`
             }}>
                 <ShearedTitle className="ShadowContainer Title" fontSize={fontSize} style={{color: 'white', paddingTop: 0, marginTop: `${fontSize}px`}} shadow={true} title={`My ${title} Rewind`} />
                 <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px`}}>
