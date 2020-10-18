@@ -1,6 +1,7 @@
 // Import libraries
 import React from 'react';
 import * as d3 from 'd3';
+import _ from 'lodash';
 
 // Import CSS
 import './MoodGraph.scss';
@@ -13,7 +14,15 @@ class MoodGraph extends React.Component {
         };
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.drawGraph();
+    }
+
+    componentDidUpdate() {
+        this.drawGraph();
+    }
+
+    drawGraph = _.debounce(() => {
         try {
             const { songValencesData, timeRange } = this.props;
             const freqArray = songValencesData.freqArray;
@@ -31,6 +40,9 @@ class MoodGraph extends React.Component {
                 margin = 50,
                 width = svg.attr("width") - 2 * sidePadding,
                 height = svg.attr("height") - margin / 4 - 20;
+
+            // Clear HTML
+            svg.selectAll("*").remove();
 
             var xScale = d3.scaleBand().range([0, width]).padding(0.1),
                 yScale = d3.scaleLinear().range ([height, 0]);
@@ -91,7 +103,7 @@ class MoodGraph extends React.Component {
         } catch(e) {
             console.error(e);
         }
-    }
+    }, 250);
 
     render() {
         const { timeRange, width, height } = this.props;
