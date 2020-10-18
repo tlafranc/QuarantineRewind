@@ -38,28 +38,6 @@
         h2 {
             margin-top: 0;
             margin-bottom: 0;
-
-            &.HeaderBlank {
-                color: transparent;
-            }
-            &.Header1, &.Header2, &.Header3 {
-                position: absolute;
-                top: 0;
-                left: var(--h2-padding);
-                color: white;
-                text-shadow: 2px 2px 0px black;
-            }
-            &.Header1 {
-                clip-path: inset(0px 0px 12px 0px);
-            }
-            &.Header2 {
-                clip-path: inset(15px 0px 8px 0px);
-                transform: translate(-2px);
-            }
-            &.Header3 {
-                clip-path: inset(20px 0px 0px 0px);
-                transform: translate(-3px);
-            }
         }
     }
 

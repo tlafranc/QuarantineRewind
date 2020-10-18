@@ -47,11 +47,11 @@ class LoginScreen extends React.Component {
                 </div>
                 <div className="LoginContent">
                     <h1>Quarantine Rewind</h1>
-                    <h3>Find out your top songs and artists.</h3>
+                    <h3>Find out your top songs and artists</h3>
                     <div className="ContentInfo">
-                        <small>Monthly Rewind: Approximately last 4 weeks</small>
-                        <small>Quarantine Rewind: Approximately last 6 months</small>
-                        <small>Lifetime Rewind: Several years of data</small>
+                        <small>Code is open source and can be found on GitHub</small>
+                        <small>Don't have a Spotify account? Watch the YouTube video</small>
+                        <small>Made by Thomas Lafrance</small>
                     </div>
                 </div>
                 <div className="ButtonContainer">

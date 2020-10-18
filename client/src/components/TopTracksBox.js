@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 // Import React Components
 import MoodGraph from './MoodGraph.js';
+import ShearedTitle from './ShearedTitle.js';
 import TopArtists from './TopArtists.js';
 import TopSongs from './TopSongs.js';
 
@@ -43,20 +44,7 @@ class TopTracksBox extends React.Component {
                 width: `${contentWidth}px`, 
                 margin: `auto ${sideMargin}px` 
             }}>
-                <div className="Title" style={{paddingTop: 0, marginTop: `${fontSize}px`}}>
-                    <h2 className="HeaderBlank">
-                        {`My ${title} Rewind`}
-                    </h2>
-                    <h2 className="Header1">
-                        {`My ${title} Rewind`}
-                    </h2>
-                    <h2 className="Header2">
-                        {`My ${title} Rewind`}
-                    </h2>
-                    <h2 className="Header3">
-                        {`My ${title} Rewind`}
-                    </h2>
-                </div>
+                <ShearedTitle className="Title" fontSize={fontSize} style={{color: 'white', paddingTop: 0, marginTop: `${fontSize}px`}} shadow={true} title={`My ${title} Rewind`} />
                 <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px`}}>
                     <h3 style={{margin:`${fontSize / 2}px 0`}}>Top Artists</h3>
                     <TopArtists
