@@ -240,7 +240,7 @@ class UserScreen extends React.Component {
     };
 
     render() {
-        const { height, slideWidth, fontSize } = this.props;
+        const { height, combinedWidth, slideWidth, sizeReductionMultiplier, fontSize } = this.props;
         const { lastAction, helpModalOpen, shareModalOpen, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         
         const activeTimeRange = timeRanges[timeRangeIndex];
@@ -249,9 +249,7 @@ class UserScreen extends React.Component {
         const zIndexMapConstants = lastAction === 'forward' ? forwardTimeRangeToZIndex : rewindTimeRangeToZIndex;
         const zIndexMap = zIndexMapConstants[activeTimeRange];
 
-        const sizeReductionMultiplier = 0.9;
         const shortWidth = sizeReductionMultiplier * slideWidth;
-        const combinedWidth = slideWidth + 2 * shortWidth;
         const topTracksBoxSideMargin = fontSize;
         const topTracksBoxes = songValencesData 
             ? _.map(timeRanges, (timeRange, i) => {
