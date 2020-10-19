@@ -52,7 +52,7 @@ class TopArtists extends React.Component {
             }
         }).value();
 
-        const leftSideWidth = contentWidth * .45 - 1
+        const leftSideWidth = contentWidth * .45 - 1;
         const imageSize = (contentWidth - leftSideWidth) / 3;
         return (
             <div className="TopArtists" style={{ margin: `0 ${sideMargin}px` }}>

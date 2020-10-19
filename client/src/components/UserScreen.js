@@ -22,19 +22,19 @@ const userScreenId = "ShareBox";
 const timeRanges = ["long_term", "medium_term", "short_term"];
 const timeRangeToShift = {
     "short_term": {
-        "short_term": -2,
-        "medium_term": -2,
-        "long_term": 1
+        "short_term": {short: -2, regular: 0},
+        "medium_term": {short: -2, regular: 0},
+        "long_term": {short: 0, regular: 1}
     },
     "medium_term": {
-        "short_term": -1,
-        "medium_term": -1,
-        "long_term": -1
+        "short_term": {short: -1, regular: 0},
+        "medium_term": {short: -1, regular: 0},
+        "long_term": {short: -1, regular: 0}
     },
     "long_term": {
-        "short_term": -3,
-        "medium_term": 0,
-        "long_term": 0
+        "short_term": {short: -2, regular: -1},
+        "medium_term": {short: 0, regular: 0},
+        "long_term": {short: 0, regular: 0}
     }
 }
 const timeRangeToTitle = {
@@ -96,7 +96,7 @@ class UserScreen extends React.Component {
             return (await this.spotifyRequest(`https://api.spotify.com/v1/me/top/artists?limit=3&time_range=${timeRange}`)).data.items;
         }));
         const topSongs = await Promise.all(_.map(timeRanges, async (timeRange) => {
-            return (await this.spotifyRequest(`https://api.spotify.com/v1/me/top/tracks?limit=16&time_range=${timeRange}`)).data.items;
+            return (await this.spotifyRequest(`https://api.spotify.com/v1/me/top/tracks?limit=25&time_range=${timeRange}`)).data.items;
         }));
         const songValencesData = await Promise.all(_.map(topSongs, async (topSongsList) => {
             return await this.getSongValencesData(topSongsList); 
@@ -250,7 +250,8 @@ class UserScreen extends React.Component {
         const zIndexMap = zIndexMapConstants[activeTimeRange];
 
         const sizeReductionMultiplier = 0.9;
-        const combinedWidth = slideWidth + 2 * sizeReductionMultiplier * slideWidth;
+        const shortWidth = sizeReductionMultiplier * slideWidth;
+        const combinedWidth = slideWidth + 2 * shortWidth;
         const topTracksBoxSideMargin = fontSize;
         const topTracksBoxes = songValencesData 
             ? _.map(timeRanges, (timeRange, i) => {
@@ -265,7 +266,7 @@ class UserScreen extends React.Component {
                         subSideMargin={fontSize * slideSizeMultiplier}
                         songValencesData={songValencesData[i]}
                         style={{
-                            transform: `translate(${topTracksBoxesShift[timeRange] * (combinedWidth / 3)}px, 0)`,
+                            transform: `translate(${topTracksBoxesShift[timeRange]['short'] * shortWidth + topTracksBoxesShift[timeRange]['regular'] * slideWidth}px, 0)`,
                             zIndex: zIndexMap[timeRange]
                         }}
                         timeRange={timeRange}
