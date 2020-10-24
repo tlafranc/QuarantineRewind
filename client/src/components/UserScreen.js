@@ -161,6 +161,7 @@ class UserScreen extends React.Component {
 
     share = async () => {
         const { timeRangeIndex } = this.state;
+        const { fontSize } = this.props;
         const node = document.getElementById(`${userScreenId}-${timeRanges[timeRangeIndex]}`);
         const scale = 2;
         await domtoimage.toPng(node, {
@@ -190,7 +191,7 @@ class UserScreen extends React.Component {
                     let imageElement = document.createElement("img");  
                     imageElement.src = dataUrl;
                     imageElement.alt = "Your Quarantine Rewind";
-                    imageElement.width = node.offsetWidth - 40;
+                    imageElement.width = node.offsetWidth - 4 * fontSize;
                     let imageContainer = document.getElementsByClassName('ShareModal')[0];
                     imageContainer.appendChild(imageElement);
                 })
@@ -293,9 +294,9 @@ class UserScreen extends React.Component {
                         <div>
                             This app shows you your top songs and artists over different time periods:
                             <ul>
-                                <li>Monthly: Past month</li>
-                                <li>Quarantine: Past 6 months</li>
-                                <li>Lifetime: Past couple years</li>
+                                <li>Monthly: Past Month</li>
+                                <li>Quarantine: Past 6 Months</li>
+                                <li>Lifetime: Past Couple Years</li>
                             </ul>
                         </div>
                         <p>Use the play buttons at the bottom to cycle through the cards and the share button to export the card as an image.</p>
@@ -305,9 +306,9 @@ class UserScreen extends React.Component {
                     open={shareModalOpen}
                     onClose={this.closeShareModal}
                 >
-                    <div className="Modal ShareModal" style={{width: `${slideWidth - 20}px`, padding: `0 10px`}}>
-                        <div><span className="DirectionsText">Tap + Hold</span> to save image on mobile devices</div>
-                        <div><span className="DirectionsText">Right click</span> to save image on desktop</div>
+                    <div className="Modal ShareModal" style={{width: `${slideWidth - 4 * fontSize}px`, padding: `0 10px`}}>
+                        <div><span className="DirectionsText">Tap + Hold</span> image to save on mobile devices</div>
+                        <div><span className="DirectionsText">Right click</span> image to save on desktop</div>
                     </div>
                 </Modal>
                 <div style={{position: 'relative'}}>

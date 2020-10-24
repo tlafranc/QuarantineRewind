@@ -76,17 +76,9 @@ class MoodGraph extends React.Component {
 
             meanValance.append("text")
                 .attr("class", "meanValenceText")
-                .attr("x", xScale(medianValence) + xScale.bandwidth() / 2 + 1)
-                .attr("y", -12 + 1)
-                .text("My Mean Mood")
-                .attr("fill", "black")
-                .attr("text-anchor", "middle");
-
-            meanValance.append("text")
-                .attr("class", "meanValenceText")
                 .attr("x", xScale(medianValence) + xScale.bandwidth() / 2)
                 .attr("y", -12)
-                .text("My Mean Mood")
+                .text("Average Mood")
                 .attr("fill", d3.interpolateRdYlBu(1 - medianValence / (numBins - 1)))
                 .attr("text-anchor", "middle");
 
