@@ -1,15 +1,30 @@
 #ShareBox-short_term {
-    background-image: url(../images/Colours1.png), linear-gradient( #30e8bf, #de9ed9, #EC307D);
+    // STRONG
+    // background-image: linear-gradient(#ff1100, #d83dc8, #43fffc);
+    // REGULAR
+    background-image: linear-gradient(#fd3021, #ce56c2, #89FFFD);
 }
 #ShareBox-medium_term {
-    background-image: linear-gradient(#fd8921, #ce56c2, #89FFFD);
+    // STRONG
+    // background-image: linear-gradient( #1bf8c8, #f04ce2, #ff0f73);
+    // REGULAR
+    background-image: linear-gradient( #30e8bf, #e269d8, #EC307D);
+     
     // background-image: linear-gradient( #23cdbb, #e2c7de, #d6368b);
 }
 #ShareBox-long_term {
     // background-image: linear-gradient(#fcb045, #fd1d1d,#833ab4);
     // background-image: linear-gradient(#61cbff, #f3b1a4,#e594b8);
-    background-image: linear-gradient(#fcb045, #fd1d1d, #833ab4);
+
+    // STRONG
+    // background-image: linear-gradient(#ffdf29, #fd1d1d, #833ab4);
+    // REGULAR
+    background-image: linear-gradient(#ffd359, #f53a3a, #994bce);
 }
+
+// TODO: OUTLINE COLORS
+// outline yellow: #ffd689
+// outline blue: #97e8d6
 
 // #ShareBox-short_term {
 //     background-image: url(../images/test.jpg)
