@@ -264,6 +264,8 @@ class UserScreen extends React.Component {
                         subSideMargin={fontSize * slideSizeMultiplier}
                         songValencesData={songValencesData[i]}
                         style={{
+                            // TODO: Required for background images
+                            backgroundSize: `auto ${height * slideSizeMultiplier}px`,
                             transform: `translate(${topTracksBoxesShift[timeRange]['short'] * shortWidth + topTracksBoxesShift[timeRange]['regular'] * slideWidth}px, 0)`,
                             zIndex: zIndexMap[timeRange]
                         }}

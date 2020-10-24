@@ -1,11 +1,14 @@
 #ShareBox-short_term {
-    background-image: linear-gradient(#ef32d9, #89FFFD);
+    background-image: linear-gradient(#fcb045, #fd1d1d, #833ab4);
 }
 #ShareBox-medium_term {
-    background-image: linear-gradient( #30e8bf, #E9ABC2, #EB307D);
+    background-image: linear-gradient(#fd8921, #ce56c2, #89FFFD);
+    // background-image: linear-gradient( #23cdbb, #e2c7de, #d6368b);
 }
 #ShareBox-long_term {
-    background-image: linear-gradient(#fcb045, #fd1d1d,#833ab4);
+    // background-image: linear-gradient(#fcb045, #fd1d1d,#833ab4);
+    // background-image: linear-gradient(#61cbff, #f3b1a4,#e594b8);
+    background-image: url(../images/Colours1.png), linear-gradient( #30e8bf, #de9ed9, #EC307D);
 }
 
 // #ShareBox-short_term {
@@ -24,7 +27,7 @@
 
 .ShareBox {
     text-align: center;
-    transition: height 0.5s, transform 0.5s;;
+    transition: height 0.5s, transform 0.5s, background-size 0.5s;
     // text-shadow: 2px 2px 0px black;
 
     .Title {
