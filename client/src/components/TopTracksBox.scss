@@ -2,7 +2,7 @@
     // STRONG
     // background-image: linear-gradient(#6a1cfa, #ff0080, #ff5e00);
     // REGULAR
-    background-image: linear-gradient(#8243f7, #e62786, #fc2d2d);
+    background-image: linear-gradient(#8243f7, #e62786, #fa6c41);
 
     // background-image: linear-gradient(#fd3021, #ce56c2, #89fffd);
     // background-image: url(../images/New3.png), linear-gradient(#d9f8f1, #1bf8c8);
@@ -28,7 +28,7 @@
     // STRONG
     // background-image: linear-gradient(#ffdf29, #fd1d1d, #833ab4);
     // REGULAR
-    background-image: url(../images/2.png), linear-gradient(#ffd359, #f53a3a, #994bce);
+    background-image: linear-gradient(#ffd359, #f53a3a, #994bce);
 
     // background-image: url(../images/New3.png), linear-gradient(#ffbed9, #EC307D);
 }
@@ -79,13 +79,13 @@
         }
 
         .MoodGraphHeader {
-            margin-top: 0;
-            margin-bottom: 0;
+            margin: 0.25em 0 0 0;
         }
 
         .MoodGraphTitle {
             display: block;
-            margin-bottom: 15px;
+            margin-left: 1em;
+            margin-bottom: 1em;
         }
     }
 }

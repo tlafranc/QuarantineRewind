@@ -48,7 +48,7 @@ class TopTracksBox extends React.Component {
                 <ShearedTitle className="ShadowContainer Title" fontSize={fontSize} shadow={true} title={`My ${title} Rewind`} />
                 <div className="TopTracksInfo" style={{margin: `0 ${sideMargin}px`}}>
                     <div className="ShadowContainer">
-                        <h3 className="ShadowBlank" style={{margin:`${fontSize / 2}px 0`}}>Top Artists</h3>
+                        <h3 className="ShadowBlank" style={{margin:`${fontSize * 3 / 4}px 0 ${fontSize / 2}px 0`}}>Top Artists</h3>
                         <h3 className="Shadow">Top Artists</h3>
                         <h3 className="ShadowMain">Top Artists</h3>
                     </div>
@@ -58,7 +58,7 @@ class TopTracksBox extends React.Component {
                         width={subContentWidth}
                     />
                     <div className="ShadowContainer">
-                        <h3 className="ShadowBlank" style={{margin:`${fontSize / 2}px 0`}}>Top Songs</h3>
+                        <h3 className="ShadowBlank" style={{margin:`${fontSize * 3 / 4}px 0 ${fontSize / 2}px 0`}}>Top Songs</h3>
                         <h3 className="Shadow">Top Songs</h3>
                         <h3 className="ShadowMain">Top Songs</h3>
                     </div>
@@ -78,7 +78,7 @@ class TopTracksBox extends React.Component {
                         songValencesData={songValencesData}
                         timeRange={timeRange}
                         width={subContentWidth}
-                        height={0.18 * height}
+                        height={0.19 * height}
                     />
                 </div>
             </div>

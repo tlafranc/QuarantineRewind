@@ -83,6 +83,7 @@ class UserScreen extends React.Component {
         this.state = {
             lastAction: null,
             helpModalOpen: true,
+            helpLogoutButton: false,
             shareModalOpen: false,
             shareImageRendered: false,
             timeRangeIndex: 1,
@@ -169,26 +170,27 @@ class UserScreen extends React.Component {
         }, async () => {
             const { fontSize } = this.props;
             const node = document.getElementById(`${userScreenId}-${timeRanges[timeRangeIndex]}`);
+            const height = node.offsetHeight * 0.9;
             const scale = 2;
             await domtoimage.toPng(node, {
-                height: node.offsetHeight * scale,
+                height: height * scale,
                 width: node.offsetWidth * scale,
                 style: {
                     transform: `scale(${scale})`,
                     transformOrigin: "top left",
                     width: `${node.offsetWidth}px`,
-                    height: `${node.offsetHeight}px`
+                    height: `${height}px`
                 }
             });
 
             domtoimage.toPng(node, {
-                height: node.offsetHeight * scale,
+                height: height * scale,
                 width: node.offsetWidth * scale,
                 style: {
                     transform: `scale(${scale})`,
                     transformOrigin: "top left",
                     width: `${node.offsetWidth}px`,
-                    height: `${node.offsetHeight}px`
+                    height: `${height}px`
                 }
             }).then((dataUrl) => {
                     let imageElement = document.createElement("img");  
@@ -228,7 +230,8 @@ class UserScreen extends React.Component {
 
     openHelpModal = () => {
         this.setState({
-            helpModalOpen: true
+            helpModalOpen: true,
+            helpLogoutButton: true
         });
     };
     closeHelpModal = () => {
@@ -250,7 +253,7 @@ class UserScreen extends React.Component {
 
     render() {
         const { height, combinedWidth, slideWidth, sizeReductionMultiplier, fontSize } = this.props;
-        const { lastAction, helpModalOpen, shareModalOpen, shareImageRendered, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
+        const { lastAction, helpModalOpen, helpLogoutButton, shareModalOpen, shareImageRendered, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         
         const activeTimeRange = timeRanges[timeRangeIndex];
         const topTracksBoxesShift = timeRangeToShift[activeTimeRange];
@@ -309,11 +312,13 @@ class UserScreen extends React.Component {
                         </div>
                         <p>Use the play buttons at the bottom to cycle through the cards and to download your results</p>
 
-                        <div style={{textAlign: 'center', marginBottom: `${fontSize}px`}}>
-                            <Button className="LogoutButton SpotifyButton" variant="contained" onClick={this.props.logout}>
-                                Log Out
-                            </Button>
-                        </div>
+                        {!helpLogoutButton ? null : 
+                            <div style={{textAlign: 'center', marginBottom: `${fontSize}px`}}>
+                                <Button className="LogoutButton SpotifyButton" variant="contained" onClick={this.props.logout}>
+                                    Log Out
+                                </Button>
+                            </div>
+                        }
                     </div>
                 </Modal>
                 <Modal 
@@ -338,36 +343,36 @@ class UserScreen extends React.Component {
                     </div>
 
                     {!songValencesData ? null :
-                        <div className="UserScreenButtons" style={{bottom: `${fontSize}px`, width: `${slideWidth - 2 * topTracksBoxSideMargin}px`}}>
+                        <div className="UserScreenButtons" style={{width: `${slideWidth - 2 * topTracksBoxSideMargin}px`}}>
                             <div className="RewindTimeRangeIcon"
                                 onClick={this.rewind}>
+                                <div style={{fontSize:`${fontSize * 2}px`}}>
+                                    <FastRewindIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                </div>
                                 <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>
                                     {timeRangeIndex === 0
                                         ? timeRangeToTitle[timeRanges[timeRanges.length - 1]]
                                         : timeRangeToTitle[timeRanges[timeRangeIndex - 1]]
                                     }
                                 </small>
-                                <div style={{fontSize:`${fontSize * 2}px`}}>
-                                    <FastRewindIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
-                                </div>
                             </div>
                             <div className="ShareIcon" onClick={this.share}>
-                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>Share</small>
                                 <div style={{fontSize:`${fontSize * 2}px`}}>
                                     <ShareIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
                                 </div>
+                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>Share</small>
                             </div>
                             <div className="ForwardTimeRangeIcon"
                                 onClick={this.forward}>
+                                <div style={{fontSize:`${fontSize * 2}px`}}>
+                                    <FastForwardIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                </div>
                                 <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>
                                     {timeRangeIndex === timeRanges.length - 1
                                         ? timeRangeToTitle[timeRanges[0]]
                                         : timeRangeToTitle[timeRanges[timeRangeIndex + 1]]
                                     }
                                 </small>
-                                <div style={{fontSize:`${fontSize * 2}px`}}>
-                                    <FastForwardIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
-                                </div>
                             </div>
                         </div>
                     }
