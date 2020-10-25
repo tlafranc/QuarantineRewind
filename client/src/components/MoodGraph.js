@@ -51,6 +51,10 @@ class MoodGraph extends React.Component {
 
             var graphArea = svg.append("g")
                .attr("transform", `translate(${sidePadding}, ${12.5})`);
+
+            const colors = d3.interpolateRdYlBu;
+            const colorInterpHigh = 0.8;
+            const colorInterpLow = 0.4;
     
             graphArea.selectAll(".bar")
                 .data(interpolatedFreq)
@@ -58,7 +62,7 @@ class MoodGraph extends React.Component {
                 .attr("class", "bar")
                 .attr("x", (d, i) => { return xScale(i); })
                 .attr("y", (d) => { return yScale(d); })
-                .attr("fill", (d, i) => { return d3.interpolateRdYlBu(1 - i / (numBins - 1)); })
+                .attr("fill", (d, i) => { return colors(colorInterpHigh - i * (1 - colorInterpLow) / (numBins - 1)); })
                 .attr("width", xScale.bandwidth())
                 .attr("height", (d) => { return height - yScale(d) + 1; });
 
@@ -70,8 +74,8 @@ class MoodGraph extends React.Component {
                 .attr("x1", xScale(medianValence) + xScale.bandwidth() / 2)
                 .attr("x2", xScale(medianValence) + xScale.bandwidth() / 2)
                 .attr("y1", -10)
-                .attr("y2", height + 10)
-                .style("stroke", d3.interpolateRdYlBu(1 - medianValence / (numBins - 1)))
+                .attr("y2", height + 5)
+                .style("stroke", "white")
                 .style("stroke-width", xScale.bandwidth() * .5);
 
             meanValance.append("text")
@@ -79,7 +83,7 @@ class MoodGraph extends React.Component {
                 .attr("x", xScale(medianValence) + xScale.bandwidth() / 2)
                 .attr("y", -12)
                 .text("Average Mood")
-                .attr("fill", d3.interpolateRdYlBu(1 - medianValence / (numBins - 1)))
+                .attr("fill", "white")
                 .attr("text-anchor", "middle");
 
             const axis = svg.append("g")
@@ -90,7 +94,7 @@ class MoodGraph extends React.Component {
                 .attr("x", 10)
                 .attr("y", height)
                 .text("Depressed")
-                .attr("fill", d3.interpolateRdYlBu(0.9))
+                .attr("fill", colors(colorInterpHigh - 0.1))
                 .attr("dominant-baseline", "text-before-edge");
 
             axis.append("text")
@@ -98,7 +102,7 @@ class MoodGraph extends React.Component {
                 .attr("x", width - 10)
                 .attr("y", height)
                 .text("Euphoric")
-                .attr("fill", d3.interpolateRdYlBu(0.1))
+                .attr("fill", colors(colorInterpLow + 0.1))
                 .attr("dominant-baseline", "text-before-edge")
                 .attr("text-anchor", "end");
         } catch(e) {
