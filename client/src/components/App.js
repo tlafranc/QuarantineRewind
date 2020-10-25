@@ -103,7 +103,7 @@ class App extends React.Component {
 
 	render() {
 		const { slideHeight, slideWidth, accessToken } = this.state;
-		const fontSize = 0.0229 * slideHeight;
+		const fontSize = 0.02286 * slideHeight;
 		const sizeReductionMultiplier = 0.9;
 		const combinedWidth = Math.min(window.innerWidth, slideWidth + 2 * sizeReductionMultiplier * slideWidth);
 

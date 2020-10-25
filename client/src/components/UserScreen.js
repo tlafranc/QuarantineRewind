@@ -87,13 +87,19 @@ class UserScreen extends React.Component {
             shareModalOpen: false,
             shareImageRendered: false,
             timeRangeIndex: 1,
+            touchStartPos: null,
             songValencesData: null,
             topArtists: null,
             topSongs: null
         };
+
+        this.userScreenRef = React.createRef();
     }
 
     async componentDidMount() {
+        this.userScreenRef.current.addEventListener('touchstart', this.touchStart);
+        this.userScreenRef.current.addEventListener('touchend', this.touchEnd);
+
         const topArtists = await Promise.all(_.map(timeRanges, async (timeRange) => {
             return (await this.spotifyRequest(`https://api.spotify.com/v1/me/top/artists?limit=3&time_range=${timeRange}`)).data.items;
         }));
@@ -251,6 +257,25 @@ class UserScreen extends React.Component {
         });
     };
 
+    touchStart = (event) => {
+        this.setState({
+            touchStartPos: [event.pageX, event.pageY]
+        })
+    };
+
+    touchEnd = (event) => {
+        const { touchStartPos } = this.state;
+        const currentPos = [event.pageX, event.pageY];
+        const xDiff = currentPos[0] - touchStartPos[0];
+        const yDiff = currentPos[1] - touchStartPos[1];
+
+        if (xDiff > 100 && Math.abs(yDiff) < 100) {
+            this.rewind();
+        } else if (xDiff < -100 && Math.abs(yDiff) < 100) {
+            this.forward();
+        }
+    };
+
     render() {
         const { height, combinedWidth, slideWidth, sizeReductionMultiplier, fontSize } = this.props;
         const { lastAction, helpModalOpen, helpLogoutButton, shareModalOpen, shareImageRendered, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
@@ -293,7 +318,7 @@ class UserScreen extends React.Component {
         const leftShift = (combinedWidth - slideWidth) / 2;
 
         return (
-            <div className="UserScreen">
+            <div className="UserScreen" ref={this.userScreenRef}>
                 {/* Subtracting by 24 since that's the elements size */}
                 <HelpOutlineIcon className="HelpIcon" style={{transform: `translateX(${slideWidth / 2 - topTracksBoxSideMargin - 24 - 10}px)`, paddingTop: `10px`}} onClick={this.openHelpModal}/>
                 <Modal 

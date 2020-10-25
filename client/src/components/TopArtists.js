@@ -32,9 +32,9 @@ class TopArtists extends React.Component {
     }, 250);
 
     render() {
-        const { artists, timeRange, width } = this.props;
+        const { artists, fontSize, timeRange, width } = this.props;
         const { textHeight } = this.state;
-        const sideMargin = 16;
+        const sideMargin = fontSize;
         const contentWidth = width - 2 * sideMargin;
 
         const artistItems = _(artists).map((artist) => {

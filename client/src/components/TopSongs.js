@@ -15,7 +15,7 @@ class TopSongs extends React.Component {
 
     render() {
         const { fontSize, songs, width } = this.props;
-        const sidePadding = 16;
+        const sidePadding = fontSize;
         const contentWidth = width - 2 * sidePadding;
         const imageSize = 2 * fontSize + 4;
 

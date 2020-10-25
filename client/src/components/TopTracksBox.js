@@ -54,6 +54,7 @@ class TopTracksBox extends React.Component {
                     </div>
                     <TopArtists
                         artists={topArtists}
+                        fontSize={fontSize}
                         timeRange={timeRange}
                         width={subContentWidth}
                     />
