@@ -68,7 +68,7 @@ class TopTracksBox extends React.Component {
                         songs={_.slice(topSongs, 0, 5)}
                         width={subContentWidth}
                     />
-                    <div className="ShadowContainer">
+                    <div className="ShadowContainer" style={{margin: `0 0 ${fontSize / 8}px 0`}}>
                         <h3 className="ShadowBlank MoodGraphHeader">{`${title} Mood`}</h3>
                         <h3 className="Shadow">{`${title} Mood`}</h3>
                         <h3 className="ShadowMain">{`${title} Mood`}</h3>
@@ -76,6 +76,7 @@ class TopTracksBox extends React.Component {
                     <small className="MoodGraphTitle">Mood of My Most Played Songs</small>
                     
                     <MoodGraph
+                        fontSize={fontSize}
                         songValencesData={songValencesData}
                         timeRange={timeRange}
                         width={subContentWidth}

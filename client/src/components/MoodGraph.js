@@ -24,7 +24,7 @@ class MoodGraph extends React.Component {
 
     drawGraph = _.debounce(() => {
         try {
-            const { songValencesData, timeRange } = this.props;
+            const { fontSize, songValencesData, timeRange } = this.props;
             const freqArray = songValencesData.freqArray;
             const medianValence = songValencesData.medianValence;
             const numBins = songValencesData.numBins;
@@ -36,10 +36,11 @@ class MoodGraph extends React.Component {
             // URL: https://www.tutorialsteacher.com/d3js/create-bar-chart-using-d3js
             // Accessed on: 2020-06-10
             const svg = d3.select(`#MoodGraph-${timeRange}`),
-                sidePadding = 16,
-                margin = 50,
-                width = svg.attr("width") - 2 * sidePadding,
-                height = svg.attr("height") - margin / 4 - 20;
+                leftSidePadding = fontSize * 2,
+                rightSidePadding = fontSize,
+                margin = 3 * fontSize,
+                width = svg.attr("width") - leftSidePadding - rightSidePadding,
+                height = svg.attr("height") - margin / 4 - (fontSize * 5 / 4);
 
             // Clear HTML
             svg.selectAll("*").remove();
@@ -50,7 +51,7 @@ class MoodGraph extends React.Component {
             yScale.domain([0, d3.max(interpolatedFreq, (d) => { return d; })]);
 
             var graphArea = svg.append("g")
-               .attr("transform", `translate(${sidePadding}, ${12.5})`);
+               .attr("transform", `translate(${leftSidePadding}, ${fontSize * 3 / 4})`);
 
             const colors = d3.interpolateRdYlBu;
             const colorInterpHigh = 0.8;
@@ -67,44 +68,57 @@ class MoodGraph extends React.Component {
                 .attr("height", (d) => { return height - yScale(d) + 1; });
 
             const meanValance = svg.append("g")
-                .attr("transform", `translate(${sidePadding}, ${12.5})`);
+                .attr("transform", `translate(${leftSidePadding}, ${fontSize * 3 / 4})`);
 
             meanValance.append("line")
                 .attr("class", "meanValenceLine")
                 .attr("x1", xScale(medianValence) + xScale.bandwidth() / 2)
                 .attr("x2", xScale(medianValence) + xScale.bandwidth() / 2)
-                .attr("y1", -10)
-                .attr("y2", height + 5)
-                .style("stroke", "white")
+                .attr("y1", -fontSize / 2 + 2)
+                .attr("y2", height + fontSize * 5 / 16)
+                .style("stroke", colors(colorInterpHigh - medianValence * (1 - colorInterpLow) / (numBins - 1)))
                 .style("stroke-width", xScale.bandwidth() * .5);
 
             meanValance.append("text")
                 .attr("class", "meanValenceText")
                 .attr("x", xScale(medianValence) + xScale.bandwidth() / 2)
-                .attr("y", -12)
+                .attr("y", -fontSize / 2)
                 .text("Average Mood")
-                .attr("fill", "white")
+                .attr("fill", colors(colorInterpHigh - medianValence * (1 - colorInterpLow) / (numBins - 1)))
                 .attr("text-anchor", "middle");
 
-            const axis = svg.append("g")
-                .attr("transform", `translate(${sidePadding}, ${12.5})`);
+            const xAxis = svg.append("g")
+                .attr("transform", `translate(${leftSidePadding}, ${fontSize * 3 / 4})`);
 
-            axis.append("text")
+            xAxis.append("text")
                 .attr("class", "axisText")
-                .attr("x", 10)
+                .attr("x", fontSize / 2)
                 .attr("y", height)
                 .text("Depressed")
                 .attr("fill", colors(colorInterpHigh - 0.1))
                 .attr("dominant-baseline", "text-before-edge");
 
-            axis.append("text")
+            xAxis.append("text")
                 .attr("class", "axisText")
-                .attr("x", width - 10)
+                .attr("x", width - fontSize / 2)
                 .attr("y", height)
                 .text("Euphoric")
                 .attr("fill", colors(colorInterpLow + 0.1))
                 .attr("dominant-baseline", "text-before-edge")
                 .attr("text-anchor", "end");
+
+            const yAxis = svg.append("g")
+                .attr("transform", `translate(${fontSize * 3 / 4}, ${fontSize * 3 / 4})`);
+
+            yAxis.append("text")
+                .attr("class", "axisText")
+                .attr("x", -height / 2)
+                .attr("y", 0)
+                .text("Prevalence")
+                .attr("fill", 'white')
+                .attr("transform", "rotate(-90)")
+                .attr("dominant-baseline", "text-before-edge")
+                .attr("text-anchor", "middle");
         } catch(e) {
             console.error(e);
         }
