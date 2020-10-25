@@ -25,7 +25,11 @@
         }
 
         .ContentInfo {
-            padding-top: 10em;
+            position: absolute;
+            bottom: 1em;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 100%;
             small {
                 display: block;
             }
