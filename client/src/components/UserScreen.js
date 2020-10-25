@@ -203,7 +203,8 @@ class UserScreen extends React.Component {
                     imageElement.src = dataUrl;
                     imageElement.alt = "Your Quarantine Rewind";
                     imageElement.width = node.offsetWidth - 4 * fontSize;
-                    let imageContainer = document.getElementsByClassName('ShareModal')[0];
+                    let imageContainer = document.getElementsByClassName('ShareModalImage')[0];
+                    imageContainer.innerHTML = "";
                     imageContainer.appendChild(imageElement);
 
                     this.setState({
@@ -325,7 +326,7 @@ class UserScreen extends React.Component {
                     open={helpModalOpen}
                     onClose={this.closeHelpModal}
                 >
-                    <div className="Modal HelpModal" style={{width: `${slideWidth - 20}px`}}>
+                    <div className="Modal HelpModal" style={{width: `${slideWidth - 20}px`, fontSize: `${fontSize}px`}}>
                         <p style={{textAlign: 'center'}}>Welcome to Quarantine Rewind!</p>
                         <div>
                             This app shows you your top songs and artists over different time periods:
@@ -350,8 +351,7 @@ class UserScreen extends React.Component {
                     open={shareModalOpen}
                     onClose={this.closeShareModal}
                 >
-
-                    <div className="Modal ShareModal" style={{width: `${slideWidth - 4 * fontSize}px`}}>
+                    <div className="Modal ShareModal" style={{width: `${slideWidth - 4 * fontSize}px`, fontSize: `${fontSize}px`}}>
                         <div className="ShareModalText">
                             {!shareImageRendered ? <div>Making image...</div> : 
                                 <div>
@@ -360,6 +360,7 @@ class UserScreen extends React.Component {
                                 </div>
                             }
                         </div>
+                        <div className="ShareModalImage" style={{paddingTop: `${shareImageRendered ? fontSize : 0}px`}}></div>
                     </div>
                 </Modal>
                 <div style={{position: 'relative'}}>
