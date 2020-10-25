@@ -1,6 +1,15 @@
 body {
     --gold-color: gold;
 
+    button.SpotifyButton {
+        font-size: 1.2em;
+        width: 175px;
+        border-radius: 25px;
+        background-color: rgb(27, 168, 76);
+        color: white;
+        font-weight: 700;
+    }
+
     .App {
         display: flex;
         background-color: #0d0d0d;
@@ -10,16 +19,6 @@ body {
     
         .Content {
             color: white;
-    
-            button.SpotifyButton {
-                font-size: 1.2em;
-                width: 175px;
-                border-radius: 25px;
-                background-color: rgb(27, 168, 76);
-                color: white;
-                font-weight: 700;
-            }
-
             .Smaller {
                 font-size: .85em;
             }

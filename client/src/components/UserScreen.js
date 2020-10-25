@@ -84,6 +84,7 @@ class UserScreen extends React.Component {
             lastAction: null,
             helpModalOpen: true,
             shareModalOpen: false,
+            shareImageRendered: false,
             timeRangeIndex: 1,
             songValencesData: null,
             topArtists: null,
@@ -159,25 +160,27 @@ class UserScreen extends React.Component {
         };
     }
 
-    share = async () => {
-        const { timeRangeIndex } = this.state;
-        const { fontSize } = this.props;
-        const node = document.getElementById(`${userScreenId}-${timeRanges[timeRangeIndex]}`);
-        const scale = 2;
-        await domtoimage.toPng(node, {
-            height: node.offsetHeight * scale,
-            width: node.offsetWidth * scale,
-            style: {
-                transform: `scale(${scale})`,
-                transformOrigin: "top left",
-                width: `${node.offsetWidth}px`,
-                height: `${node.offsetHeight}px`
-            }
-        });
+    share = _.debounce(async () => {
+        const { timeRangeIndex, shareModalOpen } = this.state;
+        if (shareModalOpen) return;
 
         this.setState({
             shareModalOpen: true
-        }, () => {
+        }, async () => {
+            const { fontSize } = this.props;
+            const node = document.getElementById(`${userScreenId}-${timeRanges[timeRangeIndex]}`);
+            const scale = 2;
+            await domtoimage.toPng(node, {
+                height: node.offsetHeight * scale,
+                width: node.offsetWidth * scale,
+                style: {
+                    transform: `scale(${scale})`,
+                    transformOrigin: "top left",
+                    width: `${node.offsetWidth}px`,
+                    height: `${node.offsetHeight}px`
+                }
+            });
+
             domtoimage.toPng(node, {
                 height: node.offsetHeight * scale,
                 width: node.offsetWidth * scale,
@@ -194,12 +197,16 @@ class UserScreen extends React.Component {
                     imageElement.width = node.offsetWidth - 4 * fontSize;
                     let imageContainer = document.getElementsByClassName('ShareModal')[0];
                     imageContainer.appendChild(imageElement);
+
+                    this.setState({
+                        shareImageRendered: true
+                    });
                 })
                 .catch(function (error) {
                     console.error('Dom To Image Error: ', error);
                 });
         });
-    }
+    }, 200);
 
     rewind = _.throttle(() => {
         const { timeRangeIndex } = this.state;
@@ -236,13 +243,14 @@ class UserScreen extends React.Component {
     };
     closeShareModal = () => {
         this.setState({
-            shareModalOpen: false
+            shareModalOpen: false,
+            shareImageRendered: false
         });
     };
 
     render() {
         const { height, combinedWidth, slideWidth, sizeReductionMultiplier, fontSize } = this.props;
-        const { lastAction, helpModalOpen, shareModalOpen, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
+        const { lastAction, helpModalOpen, shareModalOpen, shareImageRendered, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         
         const activeTimeRange = timeRanges[timeRangeIndex];
         const topTracksBoxesShift = timeRangeToShift[activeTimeRange];
@@ -289,7 +297,7 @@ class UserScreen extends React.Component {
                     open={helpModalOpen}
                     onClose={this.closeHelpModal}
                 >
-                    <div className="Modal HelpModal" style={{width: `${slideWidth - 20}px`, padding: `0 10px`}}>
+                    <div className="Modal HelpModal" style={{width: `${slideWidth - 20}px`}}>
                         <p style={{textAlign: 'center'}}>Welcome to Quarantine Rewind!</p>
                         <div>
                             This app shows you your top songs and artists over different time periods:
@@ -299,16 +307,29 @@ class UserScreen extends React.Component {
                                 <li>Lifetime: Past Couple Years</li>
                             </ul>
                         </div>
-                        <p>Use the play buttons at the bottom to cycle through the cards and the share button to export the card as an image.</p>
+                        <p>Use the play buttons at the bottom to cycle through the cards and to download your results</p>
+
+                        <div style={{textAlign: 'center', marginBottom: `${fontSize}px`}}>
+                            <Button className="LogoutButton SpotifyButton" variant="contained" onClick={this.props.logout}>
+                                Log Out
+                            </Button>
+                        </div>
                     </div>
                 </Modal>
                 <Modal 
                     open={shareModalOpen}
                     onClose={this.closeShareModal}
                 >
-                    <div className="Modal ShareModal" style={{width: `${slideWidth - 4 * fontSize}px`, padding: `0 10px`}}>
-                        <div><span className="DirectionsText">Tap + Hold</span> image to save on mobile devices</div>
-                        <div><span className="DirectionsText">Right click</span> image to save on desktop</div>
+
+                    <div className="Modal ShareModal" style={{width: `${slideWidth - 4 * fontSize}px`}}>
+                        <div className="ShareModalText">
+                            {!shareImageRendered ? <div>Making image...</div> : 
+                                <div>
+                                    <div><span className="DirectionsText">Tap + Hold</span> image to save on mobile device</div>
+                                    <div><span className="DirectionsText">Right click</span> image to save on desktop</div>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </Modal>
                 <div style={{position: 'relative'}}>
@@ -351,10 +372,6 @@ class UserScreen extends React.Component {
                         </div>
                     }
                 </div>
-
-                <Button className="LogoutButton SpotifyButton" variant="contained" onClick={this.props.logout}>
-                    Log Out
-                </Button>
             </div>
         );
     }

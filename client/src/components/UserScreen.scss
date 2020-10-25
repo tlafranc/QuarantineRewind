@@ -15,10 +15,6 @@
         height: 100%;
     }
 
-    .LogoutButton {
-        margin: 20px 0px;
-    }
-
     .UserScreenButtons {
         display: flex;
         justify-content: space-evenly;
@@ -65,10 +61,19 @@
 
     &.ShareModal {
         text-align: center;
+        padding: 0.5em;
 
-        .DirectionsText {
-            font-style: italic;
-            color: var(--gold-color);
+        .ShareModalText {
+            padding-bottom: 0.5em;
+            user-select: none;
+
+            .DirectionsText {
+                font-style: italic;
+                color: var(--gold-color);
+            }
         }
+    }
+    &.HelpModal {
+        padding: 0px 0.5em;
     }
 }
