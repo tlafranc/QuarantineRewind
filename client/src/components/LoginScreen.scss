@@ -7,45 +7,25 @@
     text-align: center;
     background-image: linear-gradient(#DA4453, #89216B);
 
-    .Header {
-        position: absolute;
-        right: 0;
-        text-align: right;
-        margin-right: 0.5em;
-        
-        .RewindText {
-            display: inline-block;
-            padding-right: 5px;
-        }
-
-        .RewindIcon {
-            font-size: 1.5em;
-            vertical-align: sub;
-        }
-    }
-
-    .Header2 {
-        transform: translate(-2px);
-    }
-
-    .Header3 {
-        transform: translate(-3px);
+    a {
+        color: var(--gold-color);
     }
 
     .LoginContent {
-        padding: 12em 1em 0px 1em;
+        padding: 10em 1em 0px 1em;
         flex: 0 1 auto;
 
-        h1, h3 {
-            margin-top: 0;
-        }
-
         h1 {
+            margin-top: 0;
             margin-bottom: 15px;
         }
 
+        .SubTitle {
+            margin-top: 1rem;
+        }
+
         .ContentInfo {
-            padding-top: 6em;
+            padding-top: 10em;
             small {
                 display: block;
             }
@@ -55,7 +35,10 @@
     .ButtonContainer {
         flex: 1 1 auto;
         margin: 0 auto;
-        height: 100%;
-        margin-top: 6em;
+        margin-top: 8em;
+
+        .Youtube {
+            margin-top: 3em;
+        }
     }
 }

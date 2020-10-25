@@ -1,16 +1,24 @@
-h2 {
-    &.HeaderBlank {
-        color: transparent;
-    }
-    &.Header1, &.Header2, &.Header3 {
-        position: absolute;
-        top: 0;
-        left: var(--h2-padding);
-    }
-    &.Header2 {
-        transform: translate(-2px);
-    }
-    &.Header3 {
-        transform: translate(-3px);
+.ShearedTitle {
+    color: white;
+    padding-top: 0 !important;
+    margin-top: 1rem !important;
+    display: inline-block;
+
+    h2 {
+        margin: 0;
+        &.HeaderBlank {
+            color: transparent;
+        }
+        &.Header1, &.Header2, &.Header3 {
+            position: absolute;
+            top: 0;
+            left: var(--h2-padding);
+        }
+        &.Header2 {
+            transform: translate(2px);
+        }
+        &.Header3 {
+            transform: translate(3.5px);
+        }
     }
 }

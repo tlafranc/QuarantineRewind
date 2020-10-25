@@ -5,12 +5,12 @@ import React from 'react';
 import './ShearedTitle.scss';
 
 const ShearedTitle = props => {
-    const { className, fontSize, title, style, shadow } = props;
+    const { className, fontSize, title, shadow } = props;
     return (
-        <div className={className} style={style}>
+        <div className={`${className} ShearedTitle`} style={{fontSize: `${fontSize}px`}}>
             { !shadow ? null :
                 <div className="Shadow">
-                    <h2 className="Header1" style={{clipPath: `inset(0px 0px ${fontSize * 3 / 4}px 0px)`}}>
+                    <h2 className="Header1" style={{clipPath: `inset(0px 0px ${fontSize * 13 / 16}px 0px)`}}>
                         {title}
                     </h2>
                     <h2 className="Header2" style={{clipPath: `inset(${fontSize * 15 / 16}px 0px ${fontSize / 2}px 0px)`}}>
