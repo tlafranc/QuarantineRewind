@@ -366,8 +366,8 @@ class UserScreen extends React.Component {
                         <div className="ShareModalText">
                             {!shareImageRendered ? <div>Making image...</div> : 
                                 <div>
-                                    <div>Mobile Device: <span className="DirectionsText">Tap + Hold</span> to save</div>
-                                    <div>Desktop: <span className="DirectionsText">Right Click</span>  to save</div>
+                                    <div>Mobile Device: <span className="DirectionsText">Tap + Hold</span> image to save</div>
+                                    <div>Desktop: <span className="DirectionsText">Right Click</span> image to save</div>
                                 </div>
                             }
                         </div>
