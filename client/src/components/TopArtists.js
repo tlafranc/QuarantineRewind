@@ -53,7 +53,7 @@ class TopArtists extends React.Component {
         }).value();
 
         const leftSideWidth = contentWidth * .45 - 1;
-        const imageSize = (contentWidth - leftSideWidth - 2) / 3; // Minus 2 from leftSideWidth for padding
+        const imageSize = Math.floor((contentWidth - leftSideWidth - 2) / 3); // Minus 2 from leftSideWidth for padding
         return (
             <div className="TopArtists" style={{ margin: `0 ${sideMargin}px` }}>
                 <div id={`ArtistNames-${timeRange}`}className="ArtistNames" 
