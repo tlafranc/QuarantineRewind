@@ -7,7 +7,7 @@ import './ShearedTitle.scss';
 const ShearedTitle = props => {
     const { className, fontSize, title, shadow } = props;
     return (
-        <div className={`${className} ShearedTitle`} style={{fontSize: `${fontSize}px`}}>
+        <div className={`${className} ShearedTitle`} style={{fontSize: `${fontSize}px`, marginTop: `${fontSize}px`}}>
             { !shadow ? null :
                 <div className="Shadow">
                     <h2 className="Header1" style={{clipPath: `inset(0px 0px ${fontSize * 13 / 16}px 0px)`}}>

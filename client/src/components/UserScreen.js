@@ -8,11 +8,11 @@ import _ from 'lodash';
 import TopTracksBox from './TopTracksBox.js'
 
 // Material UI
-import ShareIcon from '@material-ui/icons/Share';
+import SaveIcon from '@material-ui/icons/Save';
 import FastRewindIcon from '@material-ui/icons/FastRewind';
 import FastForwardIcon from '@material-ui/icons/FastForward';
 import Modal from '@material-ui/core/Modal';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Button from '@material-ui/core/Button';
 
 // Import CSS
@@ -321,7 +321,7 @@ class UserScreen extends React.Component {
         return (
             <div className="UserScreen" ref={this.userScreenRef}>
                 {/* Subtracting by 24 since that's the elements size */}
-                <HelpOutlineIcon 
+                <InfoOutlinedIcon 
                     className="HelpIcon" 
                     onClick={this.openHelpModal}
                     style={{
@@ -391,9 +391,9 @@ class UserScreen extends React.Component {
                             </div>
                             <div className="ShareIcon" onClick={this.share}>
                                 <div style={{fontSize:`${fontSize * 2}px`}}>
-                                    <ShareIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                    <SaveIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
                                 </div>
-                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>Share</small>
+                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>Save</small>
                             </div>
                             <div className="ForwardTimeRangeIcon"
                                 onClick={this.forward}>

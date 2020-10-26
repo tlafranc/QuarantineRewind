@@ -114,7 +114,7 @@ class MoodGraph extends React.Component {
                 .attr("class", "axisText")
                 .attr("x", -height / 2)
                 .attr("y", 0)
-                .text("Prevalence")
+                .text("Frequency")
                 .attr("fill", 'white')
                 .attr("transform", "rotate(-90)")
                 .attr("dominant-baseline", "text-before-edge")

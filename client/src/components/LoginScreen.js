@@ -35,7 +35,7 @@ class LoginScreen extends React.Component {
             <div className="LoginScreen" style={{ height: `${height}px`, width: `${width - 2 * fontSize}px`, margin: `0 auto`}}>
                 <div className="LoginContent">
                     <ShearedTitle className="ShadowContainer Title" fontSize={fontSize * 1.4} shadow={true} title={`Quarantine Rewind`} />
-                    <h3 className="SubTitle">Find out your top songs and artists</h3>
+                    <h3 className="SubTitle" style={{marginTop: `${fontSize}px`}}>Find out your top songs and artists</h3>
                     <div className="ButtonContainer">
                         <Button className="SpotifyButton LoginButton" variant="contained" onClick={this.login}>
                             Log In
