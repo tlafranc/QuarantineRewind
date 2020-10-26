@@ -321,7 +321,14 @@ class UserScreen extends React.Component {
         return (
             <div className="UserScreen" ref={this.userScreenRef}>
                 {/* Subtracting by 24 since that's the elements size */}
-                <HelpOutlineIcon className="HelpIcon" style={{transform: `translateX(${slideWidth / 2 - topTracksBoxSideMargin - 24 - 10}px)`, paddingTop: `10px`}} onClick={this.openHelpModal}/>
+                <HelpOutlineIcon 
+                    className="HelpIcon" 
+                    onClick={this.openHelpModal}
+                    style={{
+                        fontSize: `${fontSize * 3 / 2}px`,
+                        transform: `translateX(${slideWidth / 2 - topTracksBoxSideMargin - (2 * fontSize)}px)`, 
+                        paddingTop: `${fontSize * 5 / 4}px`}}
+                />
                 <Modal 
                     open={helpModalOpen}
                     onClose={this.closeHelpModal}
