@@ -189,6 +189,9 @@ class UserScreen extends React.Component {
                 }
             });
 
+            const url = document.getElementById(`${timeRanges[timeRangeIndex]}-url`);
+            url.style.opacity = 1;
+
             domtoimage.toPng(node, {
                 height: height * scale,
                 width: node.offsetWidth * scale,
@@ -199,6 +202,7 @@ class UserScreen extends React.Component {
                     height: `${height}px`
                 }
             }).then((dataUrl) => {
+                    url.style.opacity = 0;
                     let imageElement = document.createElement("img");  
                     imageElement.src = dataUrl;
                     imageElement.alt = "Your Quarantine Rewind";
