@@ -176,7 +176,7 @@ class UserScreen extends React.Component {
         }, async () => {
             const { fontSize } = this.props;
             const node = document.getElementById(`${userScreenId}-${timeRanges[timeRangeIndex]}`);
-            const height = node.offsetHeight * 0.9;
+            const height = node.offsetHeight * 0.92;
             const scale = 2;
             await domtoimage.toPng(node, {
                 height: height * scale,
