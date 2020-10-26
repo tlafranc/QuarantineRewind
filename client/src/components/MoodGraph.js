@@ -51,11 +51,12 @@ class MoodGraph extends React.Component {
             yScale.domain([0, d3.max(interpolatedFreq, (d) => { return d; })]);
 
             var graphArea = svg.append("g")
-               .attr("transform", `translate(${leftSidePadding}, ${fontSize * 3 / 4})`);
+               .attr("transform", `translate(${leftSidePadding}, ${fontSize * 7 / 8})`);
 
             const colors = d3.interpolateRdYlBu;
             const colorInterpHigh = 0.8;
             const colorInterpLow = 0.4;
+            const heightPadding = 2
     
             graphArea.selectAll(".bar")
                 .data(interpolatedFreq)
@@ -63,18 +64,19 @@ class MoodGraph extends React.Component {
                 .attr("class", "bar")
                 .attr("x", (d, i) => { return xScale(i); })
                 .attr("y", (d) => { return yScale(d); })
+                .attr("transform", `translate(0, -2)`)
                 .attr("fill", (d, i) => { return colors(colorInterpHigh - i * (1 - colorInterpLow) / (numBins - 1)); })
                 .attr("width", xScale.bandwidth())
-                .attr("height", (d) => { return height - yScale(d) + 1; });
+                .attr("height", (d) => { return height - yScale(d) + heightPadding; });
 
             const meanValance = svg.append("g")
-                .attr("transform", `translate(${leftSidePadding}, ${fontSize * 3 / 4})`);
+                .attr("transform", `translate(${leftSidePadding}, ${fontSize * 7 / 8})`);
 
             meanValance.append("line")
                 .attr("class", "meanValenceLine")
                 .attr("x1", xScale(medianValence) + xScale.bandwidth() / 2)
                 .attr("x2", xScale(medianValence) + xScale.bandwidth() / 2)
-                .attr("y1", -fontSize / 2 + 2)
+                .attr("y1", -fontSize / 2 - 1)
                 .attr("y2", height + fontSize * 5 / 16)
                 .style("stroke", colors(colorInterpHigh - medianValence * (1 - colorInterpLow) / (numBins - 1)))
                 .style("stroke-width", xScale.bandwidth() * .5);
@@ -82,13 +84,13 @@ class MoodGraph extends React.Component {
             meanValance.append("text")
                 .attr("class", "meanValenceText")
                 .attr("x", xScale(medianValence) + xScale.bandwidth() / 2)
-                .attr("y", -fontSize / 2)
+                .attr("y", -fontSize / 2 - 3)
                 .text("Average Mood")
                 .attr("fill", colors(colorInterpHigh - medianValence * (1 - colorInterpLow) / (numBins - 1)))
                 .attr("text-anchor", "middle");
 
             const xAxis = svg.append("g")
-                .attr("transform", `translate(${leftSidePadding}, ${fontSize * 3 / 4})`);
+                .attr("transform", `translate(${leftSidePadding}, ${fontSize * 7 / 8})`);
 
             xAxis.append("text")
                 .attr("class", "axisText")
@@ -107,11 +109,18 @@ class MoodGraph extends React.Component {
                 .attr("dominant-baseline", "text-before-edge")
                 .attr("text-anchor", "end");
 
-            const yAxis = svg.append("g")
-                .attr("transform", `translate(${fontSize * 3 / 4}, ${fontSize * 3 / 4})`);
+            xAxis.append("line")
+                .attr("x1", -1)
+                .attr("x2", width)
+                .attr("y1", height)
+                .attr("y2", height)
+                .style("stroke", 'white')
+                .style("stroke-width", 1);
 
-                yAxis.append("line")
-                .attr("class", "meanValenceLine")
+            const yAxis = svg.append("g")
+                .attr("transform", `translate(${fontSize * 3 / 4}, ${fontSize * 7 / 8})`);
+
+            yAxis.append("line")
                 .attr("x1", fontSize * 5 / 4)
                 .attr("x2", fontSize * 5 / 4)
                 .attr("y1", 0)
