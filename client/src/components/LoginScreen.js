@@ -12,7 +12,7 @@ import './LoginScreen.scss';
 // import SpotifyLogo from '../images/SpotifyLogo2.png';
 
 const loginUri = process.env.NODE_ENV === "production" 
-    ? 'https://quarantine-rewind.herokuapp.com/login'
+    ? 'https://qrewind.herokuapp.com/login'
     : 'http://localhost:8888/login';
 
 class LoginScreen extends React.Component {
