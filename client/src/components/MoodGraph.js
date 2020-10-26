@@ -110,6 +110,15 @@ class MoodGraph extends React.Component {
             const yAxis = svg.append("g")
                 .attr("transform", `translate(${fontSize * 3 / 4}, ${fontSize * 3 / 4})`);
 
+                yAxis.append("line")
+                .attr("class", "meanValenceLine")
+                .attr("x1", fontSize * 5 / 4)
+                .attr("x2", fontSize * 5 / 4)
+                .attr("y1", 0)
+                .attr("y2", height)
+                .style("stroke", 'white')
+                .style("stroke-width", 1);
+
             yAxis.append("text")
                 .attr("class", "axisText")
                 .attr("x", -height / 2)
