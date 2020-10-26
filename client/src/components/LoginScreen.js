@@ -40,7 +40,7 @@ class LoginScreen extends React.Component {
                         <Button className="SpotifyButton LoginButton" variant="contained" onClick={this.login}>
                             Log In
                         </Button>
-                        <div className="Smaller Youtube">Don't have Spotify? Watch the <a href="https://github.com/tlafranc/QuarantineRewind">YouTube</a> video</div>
+                        <div className="Smaller Youtube">Don't have Spotify? Watch the <a href="https://youtu.be/a8RKQG1MBb4">YouTube</a> video</div>
                     </div>
                     <div className="ContentInfo">
                         <div className="Smaller">Created by Thomas Lafrance</div>
