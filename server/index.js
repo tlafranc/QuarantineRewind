@@ -11,6 +11,7 @@
 
 require('dotenv').config();
 
+import sslRedirect from 'heroku-ssl-redirect';
 const express = require('express'); // Express web server framework
 const request = require('request'); // "Request" library
 const cors = require('cors');
@@ -64,6 +65,10 @@ if (!isDev && cluster.isMaster) {
     var stateKey = 'spotify_auth_state';
 
     var app = express();
+
+    // enable ssl redirect
+    app.use(sslRedirect());
+
     // Priority serve any static files.
     app.use(express.static(path.resolve(__dirname, '../client/build')));
 
