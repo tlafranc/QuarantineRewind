@@ -83,7 +83,7 @@ class TopTracksBox extends React.Component {
                         height={0.19 * height}
                     />
                 </div>
-                <div id={`${timeRange}-url`} className="Smaller QrewindUrl">qrewind.herokuapp.com</div>
+                <div id={`${timeRange}-url`} className="Smaller QrewindUrl">qrewind.com</div>
             </div>
         );
     }
