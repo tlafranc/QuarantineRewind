@@ -379,7 +379,7 @@ class UserScreen extends React.Component {
                         { topTracksBoxes }
                     </div>
 
-                    {!songValencesData ? null :
+                    {!songValencesData ? <h2 className="Loading">Loading data, please wait!</h2> :
                         <div className="UserScreenButtons" style={{width: `${slideWidth - 2 * topTracksBoxSideMargin}px`}}>
                             <div className="RewindTimeRangeIcon"
                                 onClick={this.rewind}>
