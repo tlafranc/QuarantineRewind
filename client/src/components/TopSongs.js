@@ -2,6 +2,8 @@
 import React from 'react';
 import _ from 'lodash';
 
+import SpotifyIcon from '../images/Spotify_Icon_RGB_Black.png';
+
 // CSS
 import './TopSongs.scss'
 
@@ -24,7 +26,7 @@ class TopSongs extends React.Component {
                 <div className="Song" key={song.name} style={{paddingBottom: `${fontSize / 2}px`}}>
                     <img 
                         className="SongImage" 
-                        src={song.album.images[0].url} 
+                        src={_.get(song.album.images[0],'url') || SpotifyIcon} 
                         alt={`${song.name}`} 
                         width={`${imageSize}px`} 
                         height={`${imageSize}px`} />
