@@ -88,6 +88,7 @@ class UserScreen extends React.Component {
             shareImageRendered: false,
             timeRangeIndex: 1,
             touchStartPos: null,
+            showExtraHelp: false,
             songValencesData: null,
             topArtists: null,
             topSongs: null
@@ -109,6 +110,13 @@ class UserScreen extends React.Component {
         const songValencesData = await Promise.all(_.map(topSongs, async (topSongsList) => {
             return await this.getSongValencesData(topSongsList); 
         }));
+
+        // Set 10 second timer for data to load
+        setTimeout(() => {
+            this.setState({
+                showExtraHelp: true
+            });
+        }, 5000);
 
         this.setState({
             songValencesData,
@@ -283,7 +291,7 @@ class UserScreen extends React.Component {
 
     render() {
         const { height, combinedWidth, slideWidth, sizeReductionMultiplier, fontSize } = this.props;
-        const { lastAction, helpModalOpen, helpLogoutButton, shareModalOpen, shareImageRendered, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
+        const { lastAction, helpModalOpen, helpLogoutButton, shareModalOpen, shareImageRendered, showExtraHelp, songValencesData, timeRangeIndex, topArtists, topSongs } = this.state;
         
         const activeTimeRange = timeRanges[timeRangeIndex];
         const topTracksBoxesShift = timeRangeToShift[activeTimeRange];
@@ -379,39 +387,50 @@ class UserScreen extends React.Component {
                         { topTracksBoxes }
                     </div>
 
-                    {!songValencesData ? <h2 className="Loading">Loading data, please wait!</h2> :
-                        <div className="UserScreenButtons" style={{width: `${slideWidth - 2 * topTracksBoxSideMargin}px`}}>
-                            <div className="RewindTimeRangeIcon"
-                                onClick={this.rewind}>
-                                <div style={{fontSize:`${fontSize * 2}px`}}>
-                                    <FastRewindIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
-                                </div>
-                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>
-                                    {timeRangeIndex === 0
-                                        ? timeRangeToTitle[timeRanges[timeRanges.length - 1]]
-                                        : timeRangeToTitle[timeRanges[timeRangeIndex - 1]]
-                                    }
-                                </small>
+                    {!songValencesData 
+                        ? 
+                            <div className="Loading" style={{width: `${slideWidth}px`}}>
+                                <h2>Loading data, please wait!</h2> 
+                                {!showExtraHelp ? null : 
+                                    <div className="Subtext">
+                                        Please wait a few more seconds. If data doesn't load, try logging out using the i icon and then logging back in
+                                    </div>
+                                }
                             </div>
-                            <div className="ShareIcon" onClick={this.share}>
-                                <div style={{fontSize:`${fontSize * 2}px`}}>
-                                    <SaveIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                            
+                        :
+                            <div className="UserScreenButtons" style={{width: `${slideWidth - 2 * topTracksBoxSideMargin}px`}}>
+                                <div className="RewindTimeRangeIcon"
+                                    onClick={this.rewind}>
+                                    <div style={{fontSize:`${fontSize * 2}px`}}>
+                                        <FastRewindIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                    </div>
+                                    <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>
+                                        {timeRangeIndex === 0
+                                            ? timeRangeToTitle[timeRanges[timeRanges.length - 1]]
+                                            : timeRangeToTitle[timeRanges[timeRangeIndex - 1]]
+                                        }
+                                    </small>
                                 </div>
-                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>Save</small>
-                            </div>
-                            <div className="ForwardTimeRangeIcon"
-                                onClick={this.forward}>
-                                <div style={{fontSize:`${fontSize * 2}px`}}>
-                                    <FastForwardIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                <div className="ShareIcon" onClick={this.share}>
+                                    <div style={{fontSize:`${fontSize * 2}px`}}>
+                                        <SaveIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                    </div>
+                                    <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>Save</small>
                                 </div>
-                                <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>
-                                    {timeRangeIndex === timeRanges.length - 1
-                                        ? timeRangeToTitle[timeRanges[0]]
-                                        : timeRangeToTitle[timeRanges[timeRangeIndex + 1]]
-                                    }
-                                </small>
+                                <div className="ForwardTimeRangeIcon"
+                                    onClick={this.forward}>
+                                    <div style={{fontSize:`${fontSize * 2}px`}}>
+                                        <FastForwardIcon className="IconButton CustomFont" style={{padding:`${fontSize / 2}px`}}/>
+                                    </div>
+                                    <small className="IconLabel" style={{marginBottom: `${fontSize / 2}px`}}>
+                                        {timeRangeIndex === timeRanges.length - 1
+                                            ? timeRangeToTitle[timeRanges[0]]
+                                            : timeRangeToTitle[timeRanges[timeRangeIndex + 1]]
+                                        }
+                                    </small>
+                                </div>
                             </div>
-                        </div>
                     }
                 </div>
             </div>
