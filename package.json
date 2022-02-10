@@ -28,7 +28,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "heroku-ssl-redirect": "^0.1.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "os": "^0.1.1",
     "querystring": "^0.2.0",
     "request": "^2.88.2"
