@@ -13,7 +13,7 @@
     "dom-to-image": "^2.6.0",
     "html2canvas": "^1.0.0-rc.5",
     "lodash": "^4.17.20",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.3"
